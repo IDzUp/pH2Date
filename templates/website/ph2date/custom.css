@@ -1,0 +1,60 @@
+
+/* make sidebar nav vertical */ 
+@media (min-width: 768px) {
+  .sidebar-nav .navbar .navbar-collapse {
+    padding: 0;
+    max-height: none;
+  }
+  .sidebar-nav .navbar ul {
+    float: none;
+  }
+  .sidebar-nav .navbar ul:not {
+    display: block;
+  }
+  .sidebar-nav .navbar li {
+    float: none;
+    display: block;
+  }
+  .sidebar-nav .navbar li a {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
+.imageClip{
+    width:100%;
+    height: 120px;
+    overflow:hidden;
+}
+.navbar-default {
+background-color: rgba(255, 255, 255, 0.09);
+border-color: rgba(255, 255, 255, 0.09);
+}
+
+.page-header {margin:20px 0 20px}
+
+select, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+height: 34px;
+}
+
+.middle {vertical-align:middle !important;}
+.top {position:absolute;top:0 !important;}
+.right {float:right !important;}
+.left {float:left !important;}
+.italic{font-style:italic}
+.small{font-size:x-small}
+.border{margin:2px;border:1px solid #999}
+.underline{text-decoration:underline}
+.hidden{display:none}
+.inline{display:inline}
+.center {
+    text-align:center;
+    margin-left:auto;
+    margin-right:auto;
+    width:80%;
+	margin-bottom:20px;
+}
+.icon-wrap i {
+    font-size:80px;
+	color: #428bca;
+	line-height: 100px;
+}

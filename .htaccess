@@ -1,0 +1,22 @@
+<IfModule mod_rewrite.c>
+RewriteEngine on
+
+## Uncomment "#RewriteBase /" line below (remove "#") if pH2Date is installed in a folder and so add the folder name after the slash "/"
+## Example: If pH2Date is installed in "/public_html/ph2date/", then it should be "RewriteBase /ph2date/", however it may depends of your Apache configuration.
+
+#RewriteBase /
+
+
+# Prevent CI index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule .* index.php/$0 [PT,L] 
+
+# Prevent user access to the CI system folder.
+RewriteCond %{REQUEST_URI} ^system.*
+RewriteRule ^(.*)$ /index.php?/$1 [L] 
+
+# Prevent user access to the CI application folder
+RewriteCond %{REQUEST_URI} ^application.*
+RewriteRule ^(.*)$ /index.php?/$1 [L]
+</IfModule>

@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta charset="UTF-8" />
+        <title>Admantium - Admin Control Panel</title>
+        
+        <!-- CSSs -->
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/960.css" />
+        <link rel="stylesheet" href="css/icons.css">
+        <link rel="stylesheet" href="css/tipsy.css">
+        <link rel="stylesheet" href="css/formalize.css">
+        <link rel="stylesheet" href="css/prettyPhoto.css">
+        <link rel="stylesheet" href="css/jquery-ui-1.8.18.custom.css">
+        <link rel="stylesheet" href="css/chosen.css">
+        <link rel="stylesheet" href="css/ui.spinner.css">
+        <link rel="stylesheet" href="css/jquery.jqplot.min.css" />
+        <link rel="stylesheet" href="css/fullcalendar.css" />
+        <link rel="stylesheet" href="css/jquery.miniColors.css" />
+        <link rel="stylesheet" href="css/elrte.min.css" />
+        <link rel="stylesheet" href="css/elfinder.css" />
+        <link rel="stylesheet" href="css/main.css" />
+
+        <!-- JAVASCRIPTs -->
+        <!--[if lt IE 9]>
+            <script language="javascript" type="text/javascript" src="js/jqPlot/excanvas.min.js"></script>
+            <script language="javascript" type="text/javascript" src="js/html5shiv.js"></script>
+        <![endif]-->
+        <script src="js/jquery.js"></script>
+        <script src="js/jquery-ui-1.8.18.custom.min.js"></script>
+        <script src="js/jquery.tipsy.js"></script>
+        <script src="js/jquery.formalize.min.js"></script>
+        <script src="js/jquery.modal.js"></script>
+        <script src="js/prefixfree.min.js"></script>
+        <script src="js/datables/js/jquery.dataTables.min.js"></script>
+        <script src="js/jquery.prettyPhoto.js"></script>
+        <script src="js/jquery.autogrowtextarea.js"></script>
+        <script src="js/jquery.easing.1.3.js"></script>
+        <script src="js/jquery.fileinput.js"></script>
+        <script src="js/chosen.jquery.min.js"></script>
+        <script src="js/ui.checkBox.js"></script>
+        <script src="js/ui.spinner.min.js"></script>
+        <script src="js/jquery.loading.js"></script>
+        <script src="js/jquery.path.js"></script>
+        <script src="js/jqPlot/jquery.jqplot.min.js"></script>
+        <script src="js/jqPlot/plugins/jqplot.pieRenderer.min.js"></script>
+        <script src="js/jqPlot/plugins/jqplot.cursor.min.js"></script>
+        <!-- # -->
+        <script src="js/jqPlot/plugins/jqplot.highlighter.min.js"></script>
+        <script src="js/jqPlot/plugins/jqplot.dragable.min.js"></script>
+        <script src="js/jqPlot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+        <script src="js/jqPlot/plugins/jqplot.ohlcRenderer.min.js"></script>
+        <script src="js/jqPlot/plugins/jqplot.trendline.min.js"></script>
+        <script src="js/jqPlot/plugins/jqplot.barRenderer.min.js"></script>
+        <script src="js/jqPlot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+        <script src="js/jqPlot/plugins/jqplot.pointLabels.min.js"></script>
+        <!-- /# -->
+        <script src="js/fullcalendar.min.js"></script>
+        <script src="js/jquery.miniColors.min.js"></script>
+        <script src="js/jquery.maskedinput-1.3.min.js"></script>
+        <script src="js/jquery-ui-timepicker-addon.js"></script>
+        <script src="js/elrte.min.js"></script>
+        <script src="js/elfinder.min.js"></script>
+        <script src="js/jquery.validate.min.js"></script>
+        <script src="js/jquery.metadata.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/demo.js"></script>
+    </head>
+    <body>
+        <!-- wrapper -->
+        <div id="wrapper">
+            <header>
+                <div class="container_12">
+                    <div class="grid_12">
+                        <!-- navigation menu -->
+                        <nav class="main-nav">
+                            <ul>
+                                <li class="active"><a href="dashboard.html" title="Dashboard"><span class="glyph cloud"></span> Dashboard</a></li>
+                                <li>
+                                    <a href="#" title="Elements"><span class="glyph archive"></span> Elements</a>
+                                    <ul class="submenu">
+                                        <li><a href="miscellaneous.html" title="Miscellaneous">Miscellaneous</a></li>
+                                        <li><a href="form.html" title="Form">Form</a></li>
+                                        <li><a href="notifications.html" title="Notifications">Notifications</a></li>
+                                        <li><a href="icons.html" title="Icons">Icons</a></li>
+                                        <li><a href="buttons.html" title="Buttons">Buttons</a></li>
+                                        <li><a href="file-manager.html" title="File Manager">File Manager</a></li>
+                                        <li><a href="calendar.html" title="Calendar">Calendar</a></li>
+                                        <li><a href="960.html" title="960 Grid System">960 Grid System</a></li>
+                                        <li><a href="boxes-and-typography.html" title="Boxes and Typography">Boxes and Typography</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="gallery.html" title="Charts"><span class="glyph movie"></span> Gallery</a></li>
+                                <li>
+                                    <a href="#" title="Tables"><span class="glyph list"></span> Tables</a>
+                                    <ul class="submenu">
+                                        <li><a href="regular-tables.html" title="Regular Tables">Regular Tables</a></li>
+                                        <li><a href="interactive-tables.html" title="Interactive Tables">Interactive Tables</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="charts.html" title="Charts"><span class="glyph rating"></span> Charts</a></li>
+                                <li><a href="login.html" title="Logout"><span class="glyph logout"></span> Logout</a></li>
+                            </ul>
+                        </nav>
+                        <!-- /navigation menu -->
+
+                        <!-- bar -->
+                        <ul class="bar">
+                            <li class="search">
+                                <div>
+                                    <form>
+                                        <!-- the "L" value represents the icon, don't change -->
+                                        <input type="submit" value="L" title="Click to search" class="tooltip glyph" />
+                                        <input type="text" placeholder="What you want to search?" name="s" />
+                                    </form>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="glyph opened-chat"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="glyph comment"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="glyph settings"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" title="edit profile" class="tooltip">
+                                    <span class="glyph user"></span>
+                                    <span class="text">admin</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>                
+                </div>
+            </header>
+
+            <section id="main">
+                <div class="container_12">
+                    <div class="grid_12" id="content-top">
+                        <div id="logo">
+                            <img src="img/logo.png" alt="logo" />
+                        </div>
+                        <nav>
+                            <ul>
+                                <li>
+                                    <a href="error-page.html">
+                                        <span class="glyph close"></span>
+                                        Error Page
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#myModal" class="modal">
+                                        <span class="glyph open-in-new-window"></span>
+                                        Modal
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="glyph zoom-in"></span>
+                                        Quick Post
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="glyph terminal"></span>
+                                        Quick Action
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <div id="content">
+                        <div class="extension top inleft breadcrumbs">
+                            <nav>
+                                <ul>
+                                    <li><a href="#">optional</a> <span class="divider"></span></li>
+                                    <li><a href="#">bread</a> <span class="divider"></span></li>
+                                    <li><a href="#">crumbs</a> <span class="divider"></span></li>
+                                    <li><a href="#">here</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+
+                    <!-- The modal -->
+                    <div class="box grid_8" id="myModal" hidden>
+                        <header>
+                            <div class="inner">
+                                <div class="left title">
+                                    <h1>Modal</h1>
+                                </div>
+                                <div class="right">
+                                    <a href="#" class="close">close</a>
+                                </div>
+                            </div>
+                        </header>
+                    
+                        <div class="box-content">
+                            <p>Lorem ipsum dolor sit amet, <a href="#">consectetuer</a> adipiscing elit, sed diam nonummy nibh euismod <em>tincidunt</em> ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation <strong>ullamcorper suscipit</strong> lobortis nisl ut aliquip ex ea commodo consequat.</p>
+                            <footer class="pane">
+                                <a href="#" class="close bt red">Close modal</a>
+                                <a href="#" class="bt blue">Custom button</a>
+                            </footer>
+                        </div>
+                    </div>
+
+                        <div class="main-box">
+
+                            <!-- # Dashboard -->
+                            <header class="grid_12 head">
+                                <h1>Dashboard</h1>
+                                <a href="#">check new orders</a>
+                                <a href="#">check new users</a>
+                                <span class="divider"></span>
+                            </header>
+
+                            <!-- Statistics -->
+                            <div class="grid_5 simple-box">
+                                <table class="statistics">
+                                    <tbody>
+                                        <tr>
+                                            <td class="amount"><a href="#">1.3k</a></td>
+                                            <td>new visitors</td>
+                                            <td class="changes">+36.36%</td>
+                                            <td class="bar">
+                                                <div class="progressbar green" data-value="36"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="amount"><a href="#">23</a></td>
+                                            <td>new sales</td>
+                                            <td class="changes red">-9.57%</td>
+                                            <td class="bar">
+                                                <div class="progressbar red" data-value="10"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="amount"><a href="#">216</a></td>
+                                            <td>new users</td>
+                                            <td class="changes">+80.58%</td>
+                                            <td class="bar">
+                                                <div class="progressbar green" data-value="80"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="amount"><a href="#">8</a></td>
+                                            <td>new comments</td>
+                                            <td class="changes red">-3.57%</td>
+                                            <td class="bar">
+                                                <div class="progressbar red" data-value="4"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="amount"><a href="#">6%</a></td>
+                                            <td>bounce rate</td>
+                                            <td class="changes">+8.35%</td>
+                                            <td class="bar">
+                                                <div class="progressbar green" data-value="94"></div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /Statistics -->
+
+                            <!-- Latests users -->
+                            <div class="box grid_7">
+                                <header>
+                                    <div class="inner">
+                                        <div class="left title">
+                                            <h1>Latests users</h1>
+                                            <a href="#">view all registered users »</a>
+                                        </div>
+                                        <div class="right">
+                                            <a href="#" class="close">close</a>
+                                        </div>
+                                    </div>
+                                </header>
+
+                                <div class="box-content no-inner-space">
+                                    <ul class="userlist">
+                                        <li>
+                                            <div class="avatar"><img src="img/thumbs/media4.jpg" width="40" height="40" alt="avatar" /></div>
+                                            <div class="info-l">
+                                                <a href="#" class="title">Kuruno kei</a>
+                                                <span>kuruno@kei.com</span>
+                                            </div>
+                                            <div class="info-r">
+                                                <span class="title">Telephone</span>
+                                                <span>444 3440000</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="avatar"><img src="img/thumbs/media6.jpg" width="40" height="40" alt="avatar" /></div>
+                                            <div class="info-l">
+                                                <a href="#" class="title">Dr. House</a>
+                                                <span>house@md.com</span>
+                                            </div>
+                                            <div class="info-r">
+                                                <span class="title">Telephone</span>
+                                                <span>444 3440002</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="avatar"><img src="img/thumbs/media7.jpg" width="40" height="40" alt="avatar" /></div>
+                                            <div class="info-l">
+                                                <a href="#" class="title">Moss</a>
+                                                <span>moss@itguy.com</span>
+                                            </div>
+                                            <div class="info-r">
+                                                <span class="title">Telephone</span>
+                                                <span>444 3440003</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- /Latests users -->
+
+                            <!-- DataTable -->
+                            <div class="grid_12">
+                                <div class="table">
+                                    <table class="datatable">
+                                        <thead>
+                                            <tr>
+                                                <th>Rendering engine</th>
+                                                <th>Browser</th>
+                                                <th>Platform(s)</th>
+                                                <th>Engine version</th>
+                                                <th>CSS grade</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Gecko</td>
+                                                <td>Mozilla 1.2</td>
+                                                <td>Win 95+ / OSX.1+</td>
+                                                <td>1.2</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Gecko</td>
+                                                <td>Mozilla 1.3</td>
+                                                <td>Win 95+ / OSX.1+</td>
+                                                <td>1.3</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Gecko</td>
+                                                <td>Mozilla 1.4</td>
+                                                <td>Win 95+ / OSX.1+</td>
+                                                <td>1.4</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Gecko</td>
+                                                <td>Mozilla 1.5</td>
+                                                <td>Win 95+ / OSX.1+</td>
+                                                <td>1.5</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Gecko</td>
+                                                <td>Mozilla 1.6</td>
+                                                <td>Win 95+ / OSX.1+</td>
+                                                <td>1.6</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Gecko</td>
+                                                <td>Mozilla 1.7</td>
+                                                <td>Win 98+ / OSX.1+</td>
+                                                <td>1.7</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Gecko</td>
+                                                <td>Mozilla 1.8</td>
+                                                <td>Win 98+ / OSX.1+</td>
+                                                <td>1.8</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Gecko</td>
+                                                <td>Seamonkey 1.1</td>
+                                                <td>Win 98+ / OSX.2+</td>
+                                                <td>1.8</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Gecko</td>
+                                                <td>Epiphany 2.20</td>
+                                                <td>Gnome</td>
+                                                <td>1.8</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Webkit</td>
+                                                <td>Safari 1.2</td>
+                                                <td>OSX.3</td>
+                                                <td>125.5</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Webkit</td>
+                                                <td>Safari 1.3</td>
+                                                <td>OSX.3</td>
+                                                <td>312.8</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Webkit</td>
+                                                <td>Safari 2.0</td>
+                                                <td>OSX.4+</td>
+                                                <td>419.3</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Webkit</td>
+                                                <td>Safari 3.0</td>
+                                                <td>OSX.4+</td>
+                                                <td>522.1</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Webkit</td>
+                                                <td>OmniWeb 5.5</td>
+                                                <td>OSX.4+</td>
+                                                <td>420</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Webkit</td>
+                                                <td>iPod Touch / iPhone</td>
+                                                <td>iPod</td>
+                                                <td>420.1</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Webkit</td>
+                                                <td>S60</td>
+                                                <td>S60</td>
+                                                <td>413</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Presto</td>
+                                                <td>Opera 7.0</td>
+                                                <td>Win 95+ / OSX.1+</td>
+                                                <td>-</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Presto</td>
+                                                <td>Opera 7.5</td>
+                                                <td>Win 95+ / OSX.2+</td>
+                                                <td>-</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Presto</td>
+                                                <td>Opera 8.0</td>
+                                                <td>Win 95+ / OSX.2+</td>
+                                                <td>-</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Presto</td>
+                                                <td>Opera 8.5</td>
+                                                <td>Win 95+ / OSX.2+</td>
+                                                <td>-</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Presto</td>
+                                                <td>Opera 9.0</td>
+                                                <td>Win 95+ / OSX.3+</td>
+                                                <td>-</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Presto</td>
+                                                <td>Opera 9.2</td>
+                                                <td>Win 88+ / OSX.3+</td>
+                                                <td>-</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Presto</td>
+                                                <td>Opera 9.5</td>
+                                                <td>Win 88+ / OSX.3+</td>
+                                                <td>-</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Presto</td>
+                                                <td>Opera for Wii</td>
+                                                <td>Wii</td>
+                                                <td>-</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Presto</td>
+                                                <td>Nokia N800</td>
+                                                <td>N800</td>
+                                                <td>-</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Presto</td>
+                                                <td>Nintendo DS browser</td>
+                                                <td>Nintendo DS</td>
+                                                <td>8.5</td>
+                                                <td>C/A<sup>1</sup></td>
+                                            </tr>
+                                            <tr>
+                                                <td>KHTML</td>
+                                                <td>Konqureror 3.1</td>
+                                                <td>KDE 3.1</td>
+                                                <td>3.1</td>
+                                                <td>C</td>
+                                            </tr>
+                                            <tr>
+                                                <td>KHTML</td>
+                                                <td>Konqureror 3.3</td>
+                                                <td>KDE 3.3</td>
+                                                <td>3.3</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>KHTML</td>
+                                                <td>Konqureror 3.5</td>
+                                                <td>KDE 3.5</td>
+                                                <td>3.5</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tasman</td>
+                                                <td>Internet Explorer 4.5</td>
+                                                <td>Mac OS 8-9</td>
+                                                <td>-</td>
+                                                <td>X</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tasman</td>
+                                                <td>Internet Explorer 5.1</td>
+                                                <td>Mac OS 7.6-9</td>
+                                                <td>1</td>
+                                                <td>C</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tasman</td>
+                                                <td>Internet Explorer 5.2</td>
+                                                <td>Mac OS 8-X</td>
+                                                <td>1</td>
+                                                <td>C</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Misc</td>
+                                                <td>NetFront 3.1</td>
+                                                <td>Embedded devices</td>
+                                                <td>-</td>
+                                                <td>C</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Misc</td>
+                                                <td>NetFront 3.4</td>
+                                                <td>Embedded devices</td>
+                                                <td>-</td>
+                                                <td>A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Misc</td>
+                                                <td>Dillo 0.8</td>
+                                                <td>Embedded devices</td>
+                                                <td>-</td>
+                                                <td>X</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Misc</td>
+                                                <td>Links</td>
+                                                <td>Text only</td>
+                                                <td>-</td>
+                                                <td>X</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Misc</td>
+                                                <td>Lynx</td>
+                                                <td>Text only</td>
+                                                <td>-</td>
+                                                <td>X</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Misc</td>
+                                                <td>IE Mobile</td>
+                                                <td>Windows Mobile 6</td>
+                                                <td>-</td>
+                                                <td>C</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Misc</td>
+                                                <td>PSP browser</td>
+                                                <td>PSP</td>
+                                                <td>-</td>
+                                                <td>C</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Other browsers</td>
+                                                <td>All others</td>
+                                                <td>-</td>
+                                                <td>-</td>
+                                                <td>U</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- /DataTable -->
+
+                            <!-- Quick post -->
+                            <div class="box grid_7">
+                                <header>
+                                    <div class="inner">
+                                        <div class="left title">
+                                            <h1>Quick post</h1>
+                                            <a href="#">create complete post »</a>
+                                        </div>
+                                        <div class="right">
+                                            <nav>
+                                                <ul>
+                                                    <li class="active"><a href="#tab-1">Quick post</a></li>
+                                                    <li><a href="#tab-2">Tab 2</a></li>
+                                                    <li><a href="#tab-3">Tab 3</a></li>
+                                                </ul>
+                                            </nav>
+                                            <a href="#" class="close">close</a>
+                                        </div>
+                                    </div>
+                                </header>
+
+                                <div class="box-content">
+                                    <div id="tab-1" class="tab">
+                                        <div class="field fullwidth">
+                                            <label for="post-title">Post title: </label>
+                                            <input type="text" id="post-title" placeholder="Use at most 100 characteres" />
+                                        </div>
+                                        <div class="field fullwidth">
+                                            <label for="post-categories">Post categories: </label>
+                                            <select class="chosen" id="post-categories" data-placeholder="Select categories" multiple>
+                                                <option selected>Metallica</option>
+                                                <option>System of a Down</option>
+                                                <option>The White Stripes</option>
+                                                <option>Queen</option>
+                                                <option selected>Dream Theater</option>
+                                            </select>
+                                        </div>
+                                        <div class="field fullwidth">
+                                            <label for="post-content">Post content: </label>
+                                            <textarea id="post-content" class="autogrow" placeholder="I can grow!"></textarea>
+                                        </div>
+
+                                        <footer class="pane">
+                                            <input type="submit" class="bt blue" value="Publish" />
+                                            <input type="submit" class="bt red" value="Cancel" />
+                                            <a href="#">Create complete post »</a>
+                                        </footer>
+                                    </div>
+                                    <div id="tab-2" class="tab">
+                                        <p>Lorem <a href="#">ipsum dolor</a> sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. <a href="#">Ut wisi enim</a> ad minim veniam, quis nostrud exerci tation <strong>ullamcorper</strong> suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla <strong>facilisis at vero eros et accumsan</strong> et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. <em>Nam liber tempor</em> cum soluta nobis eleifend option congue nihil <a href="#">imperdiet doming id</a> quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat. </p>
+                                    </div>
+                                    <div id="tab-3" class="tab">
+                                        <p>Tab 3</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /Quick post -->
+
+                            <!-- Chart -->
+                            <div class="box grid_5">
+                                <header>
+                                    <div class="inner">
+                                        <div class="left title">
+                                            <h1>Chart</h1>
+                                            <a href="charts.html">view more charts »</a>
+                                        </div>
+                                        <div class="right">
+                                            <a href="#" class="close">close</a>
+                                        </div>
+                                    </div>
+                                </header>
+
+                                <div class="box-content no-inner-space">
+                                    <div id="container1"></div>
+                                </div>
+                            </div>
+                            <!-- /Chart -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- /wrapper -->
+
+        <footer>
+            <div class="container_12">
+                <p>&copy; Copyright 2012 - Your Company | Lead Developer - <a href="#" target="_blank">Your name</a></p>
+            </div>
+        </footer>
+        <script>
+        // chart
+        if($('#container1')[0])
+        (function(){
+            var data = [
+                ['Heavy Industry', 12],['Retail', 9], ['Light Industry', 14],
+                ['Out of home', 16],['Commuting', 7], ['Orientation', 9]
+            ];
+            var plot1 = jQuery.jqplot ('container1', [data],
+                {
+                  seriesDefaults: {
+                    // Make this a pie chart.
+                    renderer: jQuery.jqplot.PieRenderer,
+                    rendererOptions: {
+                      // Put data labels on the pie slices.
+                      // By default, labels show the percentage of the slice.
+                      showDataLabels: true
+                    }
+                  },
+                  grid: { borderWidth: 0, shadow: false },
+                  legend: { show:true, location: 'e' }
+                }
+              );
+        })();
+        </script>
+    </body>
+</html>

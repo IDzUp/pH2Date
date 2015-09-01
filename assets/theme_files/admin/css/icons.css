@@ -1,0 +1,112 @@
+@font-face {
+    font-family: 'WebSymbolsRegular';
+    src: url('websymbols/websymbols-regular-webfont.eot');
+    src: url('websymbols/websymbols-regular-webfontd41d.eot?#iefix') format('embedded-opentype'),
+         url('websymbols/websymbols-regular-webfont.woff') format('woff'),
+         url('websymbols/websymbols-regular-webfont.ttf') format('truetype'),
+         url('websymbols/websymbols-regular-webfont.svg#WebSymbolsRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.glyph { font-family: 'WebSymbolsRegular'; }
+a.glyph:hover { text-decoration: none; }
+
+/** colors **/
+.glyph.white { color: #fff; }
+.glyph.black { color: #000; }
+.glyph.grey { color: #5c5c5c; }
+
+/** sizes **/
+.glyph.size10{ font-size: 10px !important; }
+.glyph.size11{ font-size: 11px !important; }
+.glyph.size12{ font-size: 12px !important; }
+.glyph.size13{ font-size: 13px !important; }
+.glyph.size14{ font-size: 14px !important; }
+.glyph.size16{ font-size: 16px !important; }
+.glyph.size18{ font-size: 18px !important; }
+.glyph.size20{ font-size: 20px !important; }
+.glyph.size24{ font-size: 24px !important; }
+.glyph.size30{ font-size: 30px !important; }
+.glyph.size36{ font-size: 36px !important; }
+.glyph.size48{ font-size: 48px !important; }
+.glyph.size60{ font-size: 60px !important; }
+.glyph.size72{ font-size: 72px !important; }
+.glyph.size90{ font-size: 90px !important; }
+
+/** names **/
+.glyph.image:before { content: "I" }
+.glyph.settings:before { content: "S" }
+.glyph.cloud:before { content: "C" }
+.glyph.archive:before { content: "Z" }
+.glyph.movie:before { content: "M" }
+.glyph.html-code:before { content: "H" }
+.glyph.text:before { content: "T" }
+.glyph.terminal:before { content: "_" }
+.glyph.attachment:before { content: "A" }
+.glyph.logout:before { content: "X" }
+.glyph.indent:before { content: "n" }
+.glyph.outdent:before { content: "o" }
+.glyph.list:before { content: "p" }
+.glyph.number-list:before { content: "q" }
+.glyph.move:before { content: "~" }
+.glyph.user:before { content: "U" }
+.glyph.opened-lock:before { content: "w" }
+.glyph.closed-lock:before { content: "x" }
+.glyph.portrait-view:before { content: "a" }
+.glyph.album-view:before { content: "b" }
+.glyph.center:before { content: "`" }
+.glyph.zoom-in:before { content: "+" }
+.glyph.zoom-out:before { content: "-" }
+.glyph.up:before { content: ":" }
+.glyph.down:before { content: ";" }
+.glyph.close:before { content: "×" }
+.glyph.scale:before { content: "&" }
+.glyph.back:before { content: "(" }
+.glyph.forward:before { content: ")" }
+.glyph.back-2:before { content: "<" }
+.glyph.forward-2:before { content: ">" }
+.glyph.rotate:before { content: "*" }
+.glyph.close-2:before { content: "'" }
+.glyph.twitter:before { content: "t" }
+.glyph.facebook:before { content: "f" }
+.glyph.vkontakte:before { content: "v" }
+.glyph.linked-in:before { content: "l" }
+.glyph.skype:before { content: "s" }
+.glyph.rss:before { content: "r" }
+.glyph.vimeo:before { content: "m" }
+.glyph.youtube:before { content: "y" }
+.glyph.tumblr:before { content: "k" }
+.glyph.lettery:before { content: "z" }
+.glyph.odnoklassniki:before { content: "Q" }
+.glyph.rss-2:before { content: "B" }
+.glyph.favorite:before { content: "R" }
+.glyph.tag:before { content: "," }
+.glyph.comment:before { content: "c" }
+.glyph.chat:before { content: "d" }
+.glyph.opened-chat:before { content: "e" }
+.glyph.rating:before { content: "u" }
+.glyph.map-pin:before { content: "?" }
+.glyph.like:before { content: "N" }
+.glyph.unlike:before { content: "O" }
+.glyph.search:before { content: "L" }
+.glyph.reblog:before { content: "J" }
+.glyph.open-in-new-window:before { content: "D" }
+.glyph.clock:before { content: "P" }
+.glyph.link:before { content: "K" }
+.glyph.mail:before { content: "@" }
+.glyph.sort:before { content: "{" }
+.glyph.sort-2:before { content: "}" }
+.glyph.unfold:before { content: "[" }
+.glyph.fold:before { content: "]" }
+.glyph.icon:before { content: "¹" }
+.glyph.list-2:before { content: "²" }
+.glyph.list-with-icons:before { content: "³" }
+.glyph.reply:before { content: "h" }
+.glyph.reply-all:before { content: "i" }
+.glyph.forward-3:before { content: "j" }
+.glyph.fullscreen:before { content: "%" }
+.glyph.done:before { content: "." }
+.glyph.approved:before { content: "/" }
+.glyph.attention:before { content: "W" }
+.glyph.synchronize:before { content: "V" }

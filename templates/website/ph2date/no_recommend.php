@@ -15,10 +15,10 @@ $this->load->view('loged_in_side');
 <?php endif ?>
 
 
-<h1><?=lang('recommended_users')?></h1>                                    
+<h1><?=lang('recommended_users')?></h1>
 <div class="clr"></div>
 </br>
-<?=lang('no_recommended_users')?>                                
+<?=lang('no_recommended_users')?>
 
 </div>
 </div>

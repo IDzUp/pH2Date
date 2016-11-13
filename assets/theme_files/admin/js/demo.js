@@ -21,7 +21,7 @@ jQuery(function ($) {
                 }
             }
         }
-        
+
         bg = getCookie('bg');
 
         if(!$('#changeBg')[0]){

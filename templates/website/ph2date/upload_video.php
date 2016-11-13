@@ -15,7 +15,7 @@ $this->load->view('loged_in_side');
 
 
 
-<h1><?=lang('upload_video')?></h1>                                    
+<h1><?=lang('upload_video')?></h1>
 <div class="clr"></div>
 </br>
 

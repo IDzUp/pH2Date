@@ -40,7 +40,7 @@
     $lang['delete_success_message'] = 'Az adat sikeresen törölve az adatbázisból.';
     $lang['delete_error_message']   = 'Az adatot nem sikerült törölni az adatbázisból';
 
-	/* Javascript messages */
+    /* Javascript messages */
     $lang['alert_add_form']         = 'A változásokat még nem mentette.\\nBiztos, hogy szeretne visszamenni a listához?';
     $lang['alert_edit_form']        = 'A változásokat még nem mentette.\\nBiztos, hogy szeretne visszamenni a listához?';
     $lang['alert_delete']           = 'Biztosan törölni szeretné ezt a bejegyzést?';
@@ -48,20 +48,20 @@
     $lang['insert_error']           = 'Hiba történt a beillesztés közben.';
     $lang['update_error']           = 'Hiba történt mentés közben.';
 
-	/* Added in version 1.2.1 */
+    /* Added in version 1.2.1 */
     $lang['set_relation_title']     = 'Kiválaszt {field_display_as}';
     $lang['list_record']            = '';
     $lang['form_inactive']          = 'Inaktív';
     $lang['form_active']            = 'Aktív';
 
-	/* Added in version 1.2.2 */
+    /* Added in version 1.2.2 */
     $lang['form_save_and_go_back']  = 'Mentés és vissza a listához';
     $lang['form_update_and_go_back']= 'Felülír és vissza a listához';
 
-	/* Added in version 1.2.2 */
+    /* Added in version 1.2.2 */
     $lang['form_save_and_go_back']  = 'Mentés és vissza a listához';
     $lang['form_update_and_go_back']= 'Felülír és vissza a listához';
-	/* Upload functionality */
+    /* Upload functionality */
     $lang['string_delete_file']     = "Fájl törlése";
     $lang['string_progress']        = "Állapot: ";
     $lang['error_on_uploading']     = "Feltöltés közben hiba történt";
@@ -72,10 +72,10 @@
     $lang['error_max_file_size']        = "A feltölteni kívánt file mérete meghaladja a maximális fájl méretet: {max_file_size}";
     $lang['error_min_file_size']        = "Üres fájlt nem tud feltölteni.";
 
-	/* Added in version 1.3.1 */
-	$lang['list_export'] 	= "Export";
-	$lang['list_print'] 	= "Print";
-	$lang['minimize_maximize'] = 'Minimize/Maximize';
+    /* Added in version 1.3.1 */
+    $lang['list_export']     = "Export";
+    $lang['list_print']     = "Print";
+    $lang['minimize_maximize'] = 'Minimize/Maximize';
 
-	/* Added in version 1.4 */
-	$lang['list_view'] = 'View';
+    /* Added in version 1.4 */
+    $lang['list_view'] = 'View';

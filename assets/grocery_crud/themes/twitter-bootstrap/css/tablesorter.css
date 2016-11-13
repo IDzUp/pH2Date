@@ -9,9 +9,9 @@ table.tablesorter thead .field-sorting.asc,
 table.tablesorter thead .field-sorting.desc,
 table.tablesorter thead .field-sorting.asc_disabled,
 table.tablesorter thead .field-sorting.desc_disabled {
-	cursor: pointer;
-	*cursor: hand;
-	padding-right: 20px;
+    cursor: pointer;
+    *cursor: hand;
+    padding-right: 20px;
 }
 
 table.tablesorter thead .field-sorting { background: url('images/sort_both.png') no-repeat center right; }
@@ -26,16 +26,16 @@ table.tablesorter thead .field-sorting.desc_disabled { background: url('images/s
  */
 .tablesorter tbody tr.active td,
 .tablesorter tbody tr.active th {
-	background-color: #08C;
-	color: #333;
+    background-color: #08C;
+    color: #333;
 }
 
 .tablesorter tbody tr.active:hover td,
 .tablesorter tbody tr.active:hover th {
-	background-color: #333333 !important;
+    background-color: #333333 !important;
 }
 
 .tablesorter-striped tbody tr.active:nth-child(odd) td,
 .tablesorter-striped tbody tr.active:nth-child(odd) th {
-	background-color: #017ebc;
+    background-color: #017ebc;
 }

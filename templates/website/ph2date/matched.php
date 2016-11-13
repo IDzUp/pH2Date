@@ -2,7 +2,7 @@
 $this->load->view('header');
 $this->load->view('loged_in_side');
 ?>
-	
+
 <div class="col-md-8">
 <div class="well">
 
@@ -14,7 +14,7 @@ $this->load->view('loged_in_side');
     <div class="alert alert-success"><?php echo $this->msg_success_right;?></div>
 <?php endif ?>
 
-<h1><?=lang('matched_users')?></h1>                                    
+<h1><?=lang('matched_users')?></h1>
 <div class="clr"></div>
 </br>
 

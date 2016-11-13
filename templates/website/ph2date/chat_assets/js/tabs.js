@@ -6,12 +6,12 @@
 * @url http://livepipe.net/control/tabs
 * @require prototype.js, livepipe.js
 */
- 
+
 if(typeof(Prototype) == "undefined")
   throw "Control.Tabs requires Prototype to be loaded.";
 if(typeof(Object.Event) == "undefined")
   throw "Control.Tabs requires Object.Event to be loaded.";
- 
+
 Control.Tabs = Class.create({
   initialize: function(tab_list_container,options){
     if(!$(tab_list_container))

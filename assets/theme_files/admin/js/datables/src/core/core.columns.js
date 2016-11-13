@@ -8,46 +8,46 @@
  */
 function _fnAddColumn( oSettings, nTh )
 {
-	var oDefaults = DataTable.defaults.columns;
-	var iCol = oSettings.aoColumns.length;
-	var oCol = $.extend( {}, DataTable.models.oColumn, oDefaults, {
-		"sSortingClass": oSettings.oClasses.sSortable,
-		"sSortingClassJUI": oSettings.oClasses.sSortJUI,
-		"nTh": nTh ? nTh : document.createElement('th'),
-		"sTitle":    oDefaults.sTitle    ? oDefaults.sTitle    : nTh ? nTh.innerHTML : '',
-		"aDataSort": oDefaults.aDataSort ? oDefaults.aDataSort : [iCol],
-		"mDataProp": oDefaults.mDataProp ? oDefaults.oDefaults : iCol
-	} );
-	oSettings.aoColumns.push( oCol );
-	
-	/* Add a column specific filter */
-	if ( oSettings.aoPreSearchCols[ iCol ] === undefined || oSettings.aoPreSearchCols[ iCol ] === null )
-	{
-		oSettings.aoPreSearchCols[ iCol ] = $.extend( {}, DataTable.models.oSearch );
-	}
-	else
-	{
-		var oPre = oSettings.aoPreSearchCols[ iCol ];
-		
-		/* Don't require that the user must specify bRegex, bSmart or bCaseInsensitive */
-		if ( oPre.bRegex === undefined )
-		{
-			oPre.bRegex = true;
-		}
-		
-		if ( oPre.bSmart === undefined )
-		{
-			oPre.bSmart = true;
-		}
-		
-		if ( oPre.bCaseInsensitive === undefined )
-		{
-			oPre.bCaseInsensitive = true;
-		}
-	}
-	
-	/* Use the column options function to initialise classes etc */
-	_fnColumnOptions( oSettings, iCol, null );
+    var oDefaults = DataTable.defaults.columns;
+    var iCol = oSettings.aoColumns.length;
+    var oCol = $.extend( {}, DataTable.models.oColumn, oDefaults, {
+        "sSortingClass": oSettings.oClasses.sSortable,
+        "sSortingClassJUI": oSettings.oClasses.sSortJUI,
+        "nTh": nTh ? nTh : document.createElement('th'),
+        "sTitle":    oDefaults.sTitle    ? oDefaults.sTitle    : nTh ? nTh.innerHTML : '',
+        "aDataSort": oDefaults.aDataSort ? oDefaults.aDataSort : [iCol],
+        "mDataProp": oDefaults.mDataProp ? oDefaults.oDefaults : iCol
+    } );
+    oSettings.aoColumns.push( oCol );
+
+    /* Add a column specific filter */
+    if ( oSettings.aoPreSearchCols[ iCol ] === undefined || oSettings.aoPreSearchCols[ iCol ] === null )
+    {
+        oSettings.aoPreSearchCols[ iCol ] = $.extend( {}, DataTable.models.oSearch );
+    }
+    else
+    {
+        var oPre = oSettings.aoPreSearchCols[ iCol ];
+
+        /* Don't require that the user must specify bRegex, bSmart or bCaseInsensitive */
+        if ( oPre.bRegex === undefined )
+        {
+            oPre.bRegex = true;
+        }
+
+        if ( oPre.bSmart === undefined )
+        {
+            oPre.bSmart = true;
+        }
+
+        if ( oPre.bCaseInsensitive === undefined )
+        {
+            oPre.bCaseInsensitive = true;
+        }
+    }
+
+    /* Use the column options function to initialise classes etc */
+    _fnColumnOptions( oSettings, iCol, null );
 }
 
 
@@ -60,85 +60,85 @@ function _fnAddColumn( oSettings, nTh )
  */
 function _fnColumnOptions( oSettings, iCol, oOptions )
 {
-	var oCol = oSettings.aoColumns[ iCol ];
-	
-	/* User specified column options */
-	if ( oOptions !== undefined && oOptions !== null )
-	{
-		if ( oOptions.sType !== undefined )
-		{
-			oCol.sType = oOptions.sType;
-			oCol._bAutoType = false;
-		}
-		
-		$.extend( oCol, oOptions );
-		_fnMap( oCol, oOptions, "sWidth", "sWidthOrig" );
+    var oCol = oSettings.aoColumns[ iCol ];
 
-		/* iDataSort to be applied (backwards compatibility), but aDataSort will take
-		 * priority if defined
-		 */
-		if ( oOptions.iDataSort !== undefined )
-		{
-			oCol.aDataSort = [ oOptions.iDataSort ];
-		}
-		_fnMap( oCol, oOptions, "aDataSort" );
-	}
+    /* User specified column options */
+    if ( oOptions !== undefined && oOptions !== null )
+    {
+        if ( oOptions.sType !== undefined )
+        {
+            oCol.sType = oOptions.sType;
+            oCol._bAutoType = false;
+        }
 
-	/* Cache the data get and set functions for speed */
-	oCol.fnGetData = _fnGetObjectDataFn( oCol.mDataProp );
-	oCol.fnSetData = _fnSetObjectDataFn( oCol.mDataProp );
-	
-	/* Feature sorting overrides column specific when off */
-	if ( !oSettings.oFeatures.bSort )
-	{
-		oCol.bSortable = false;
-	}
-	
-	/* Check that the class assignment is correct for sorting */
-	if ( !oCol.bSortable ||
-		 ($.inArray('asc', oCol.asSorting) == -1 && $.inArray('desc', oCol.asSorting) == -1) )
-	{
-		oCol.sSortingClass = oSettings.oClasses.sSortableNone;
-		oCol.sSortingClassJUI = "";
-	}
-	else if ( oCol.bSortable ||
-	          ($.inArray('asc', oCol.asSorting) == -1 && $.inArray('desc', oCol.asSorting) == -1) )
-	{
-	  oCol.sSortingClass = oSettings.oClasses.sSortable;
-	  oCol.sSortingClassJUI = oSettings.oClasses.sSortJUI;
-	}
-	else if ( $.inArray('asc', oCol.asSorting) != -1 && $.inArray('desc', oCol.asSorting) == -1 )
-	{
-		oCol.sSortingClass = oSettings.oClasses.sSortableAsc;
-		oCol.sSortingClassJUI = oSettings.oClasses.sSortJUIAscAllowed;
-	}
-	else if ( $.inArray('asc', oCol.asSorting) == -1 && $.inArray('desc', oCol.asSorting) != -1 )
-	{
-		oCol.sSortingClass = oSettings.oClasses.sSortableDesc;
-		oCol.sSortingClassJUI = oSettings.oClasses.sSortJUIDescAllowed;
-	}
+        $.extend( oCol, oOptions );
+        _fnMap( oCol, oOptions, "sWidth", "sWidthOrig" );
+
+        /* iDataSort to be applied (backwards compatibility), but aDataSort will take
+         * priority if defined
+         */
+        if ( oOptions.iDataSort !== undefined )
+        {
+            oCol.aDataSort = [ oOptions.iDataSort ];
+        }
+        _fnMap( oCol, oOptions, "aDataSort" );
+    }
+
+    /* Cache the data get and set functions for speed */
+    oCol.fnGetData = _fnGetObjectDataFn( oCol.mDataProp );
+    oCol.fnSetData = _fnSetObjectDataFn( oCol.mDataProp );
+
+    /* Feature sorting overrides column specific when off */
+    if ( !oSettings.oFeatures.bSort )
+    {
+        oCol.bSortable = false;
+    }
+
+    /* Check that the class assignment is correct for sorting */
+    if ( !oCol.bSortable ||
+         ($.inArray('asc', oCol.asSorting) == -1 && $.inArray('desc', oCol.asSorting) == -1) )
+    {
+        oCol.sSortingClass = oSettings.oClasses.sSortableNone;
+        oCol.sSortingClassJUI = "";
+    }
+    else if ( oCol.bSortable ||
+              ($.inArray('asc', oCol.asSorting) == -1 && $.inArray('desc', oCol.asSorting) == -1) )
+    {
+      oCol.sSortingClass = oSettings.oClasses.sSortable;
+      oCol.sSortingClassJUI = oSettings.oClasses.sSortJUI;
+    }
+    else if ( $.inArray('asc', oCol.asSorting) != -1 && $.inArray('desc', oCol.asSorting) == -1 )
+    {
+        oCol.sSortingClass = oSettings.oClasses.sSortableAsc;
+        oCol.sSortingClassJUI = oSettings.oClasses.sSortJUIAscAllowed;
+    }
+    else if ( $.inArray('asc', oCol.asSorting) == -1 && $.inArray('desc', oCol.asSorting) != -1 )
+    {
+        oCol.sSortingClass = oSettings.oClasses.sSortableDesc;
+        oCol.sSortingClassJUI = oSettings.oClasses.sSortJUIDescAllowed;
+    }
 }
 
 
 /**
- * Adjust the table column widths for new data. Note: you would probably want to 
+ * Adjust the table column widths for new data. Note: you would probably want to
  * do a redraw after calling this function!
  *  @param {object} oSettings dataTables settings object
  *  @memberof DataTable#oApi
  */
 function _fnAdjustColumnSizing ( oSettings )
 {
-	/* Not interested in doing column width calculation if autowidth is disabled */
-	if ( oSettings.oFeatures.bAutoWidth === false )
-	{
-		return false;
-	}
-	
-	_fnCalculateColumnWidths( oSettings );
-	for ( var i=0 , iLen=oSettings.aoColumns.length ; i<iLen ; i++ )
-	{
-		oSettings.aoColumns[i].nTh.style.width = oSettings.aoColumns[i].sWidth;
-	}
+    /* Not interested in doing column width calculation if autowidth is disabled */
+    if ( oSettings.oFeatures.bAutoWidth === false )
+    {
+        return false;
+    }
+
+    _fnCalculateColumnWidths( oSettings );
+    for ( var i=0 , iLen=oSettings.aoColumns.length ; i<iLen ; i++ )
+    {
+        oSettings.aoColumns[i].nTh.style.width = oSettings.aoColumns[i].sWidth;
+    }
 }
 
 
@@ -152,22 +152,22 @@ function _fnAdjustColumnSizing ( oSettings )
  */
 function _fnVisibleToColumnIndex( oSettings, iMatch )
 {
-	var iColumn = -1;
-	
-	for ( var i=0 ; i<oSettings.aoColumns.length ; i++ )
-	{
-		if ( oSettings.aoColumns[i].bVisible === true )
-		{
-			iColumn++;
-		}
-		
-		if ( iColumn == iMatch )
-		{
-			return i;
-		}
-	}
-	
-	return null;
+    var iColumn = -1;
+
+    for ( var i=0 ; i<oSettings.aoColumns.length ; i++ )
+    {
+        if ( oSettings.aoColumns[i].bVisible === true )
+        {
+            iColumn++;
+        }
+
+        if ( iColumn == iMatch )
+        {
+            return i;
+        }
+    }
+
+    return null;
 }
 
 
@@ -181,21 +181,21 @@ function _fnVisibleToColumnIndex( oSettings, iMatch )
  */
 function _fnColumnIndexToVisible( oSettings, iMatch )
 {
-	var iVisible = -1;
-	for ( var i=0 ; i<oSettings.aoColumns.length ; i++ )
-	{
-		if ( oSettings.aoColumns[i].bVisible === true )
-		{
-			iVisible++;
-		}
-		
-		if ( i == iMatch )
-		{
-			return oSettings.aoColumns[i].bVisible === true ? iVisible : null;
-		}
-	}
-	
-	return null;
+    var iVisible = -1;
+    for ( var i=0 ; i<oSettings.aoColumns.length ; i++ )
+    {
+        if ( oSettings.aoColumns[i].bVisible === true )
+        {
+            iVisible++;
+        }
+
+        if ( i == iMatch )
+        {
+            return oSettings.aoColumns[i].bVisible === true ? iVisible : null;
+        }
+    }
+
+    return null;
 }
 
 
@@ -207,15 +207,15 @@ function _fnColumnIndexToVisible( oSettings, iMatch )
  */
 function _fnVisbleColumns( oS )
 {
-	var iVis = 0;
-	for ( var i=0 ; i<oS.aoColumns.length ; i++ )
-	{
-		if ( oS.aoColumns[i].bVisible === true )
-		{
-			iVis++;
-		}
-	}
-	return iVis;
+    var iVis = 0;
+    for ( var i=0 ; i<oS.aoColumns.length ; i++ )
+    {
+        if ( oS.aoColumns[i].bVisible === true )
+        {
+            iVis++;
+        }
+    }
+    return iVis;
 }
 
 
@@ -227,19 +227,19 @@ function _fnVisbleColumns( oS )
  */
 function _fnDetectType( sData )
 {
-	var aTypes = DataTable.ext.aTypes;
-	var iLen = aTypes.length;
-	
-	for ( var i=0 ; i<iLen ; i++ )
-	{
-		var sType = aTypes[i]( sData );
-		if ( sType !== null )
-		{
-			return sType;
-		}
-	}
-	
-	return 'string';
+    var aTypes = DataTable.ext.aTypes;
+    var iLen = aTypes.length;
+
+    for ( var i=0 ; i<iLen ; i++ )
+    {
+        var sType = aTypes[i]( sData );
+        if ( sType !== null )
+        {
+            return sType;
+        }
+    }
+
+    return 'string';
 }
 
 
@@ -251,22 +251,22 @@ function _fnDetectType( sData )
  */
 function _fnReOrderIndex ( oSettings, sColumns )
 {
-	var aColumns = sColumns.split(',');
-	var aiReturn = [];
-	
-	for ( var i=0, iLen=oSettings.aoColumns.length ; i<iLen ; i++ )
-	{
-		for ( var j=0 ; j<iLen ; j++ )
-		{
-			if ( oSettings.aoColumns[i].sName == aColumns[j] )
-			{
-				aiReturn.push( j );
-				break;
-			}
-		}
-	}
-	
-	return aiReturn;
+    var aColumns = sColumns.split(',');
+    var aiReturn = [];
+
+    for ( var i=0, iLen=oSettings.aoColumns.length ; i<iLen ; i++ )
+    {
+        for ( var j=0 ; j<iLen ; j++ )
+        {
+            if ( oSettings.aoColumns[i].sName == aColumns[j] )
+            {
+                aiReturn.push( j );
+                break;
+            }
+        }
+    }
+
+    return aiReturn;
 }
 
 
@@ -278,16 +278,16 @@ function _fnReOrderIndex ( oSettings, sColumns )
  */
 function _fnColumnOrdering ( oSettings )
 {
-	var sNames = '';
-	for ( var i=0, iLen=oSettings.aoColumns.length ; i<iLen ; i++ )
-	{
-		sNames += oSettings.aoColumns[i].sName+',';
-	}
-	if ( sNames.length == iLen )
-	{
-		return "";
-	}
-	return sNames.slice(0, -1);
+    var sNames = '';
+    for ( var i=0, iLen=oSettings.aoColumns.length ; i<iLen ; i++ )
+    {
+        sNames += oSettings.aoColumns[i].sName+',';
+    }
+    if ( sNames.length == iLen )
+    {
+        return "";
+    }
+    return sNames.slice(0, -1);
 }
 
 
@@ -304,62 +304,62 @@ function _fnColumnOrdering ( oSettings )
  */
 function _fnApplyColumnDefs( oSettings, aoColDefs, aoCols, fn )
 {
-	var i, iLen, j, jLen, k, kLen;
+    var i, iLen, j, jLen, k, kLen;
 
-	// Column definitions with aTargets
-	if ( aoColDefs )
-	{
-		/* Loop over the definitions array - loop in reverse so first instance has priority */
-		for ( i=aoColDefs.length-1 ; i>=0 ; i-- )
-		{
-			/* Each definition can target multiple columns, as it is an array */
-			var aTargets = aoColDefs[i].aTargets;
-			if ( !$.isArray( aTargets ) )
-			{
-				_fnLog( oSettings, 1, 'aTargets must be an array of targets, not a '+(typeof aTargets) );
-			}
+    // Column definitions with aTargets
+    if ( aoColDefs )
+    {
+        /* Loop over the definitions array - loop in reverse so first instance has priority */
+        for ( i=aoColDefs.length-1 ; i>=0 ; i-- )
+        {
+            /* Each definition can target multiple columns, as it is an array */
+            var aTargets = aoColDefs[i].aTargets;
+            if ( !$.isArray( aTargets ) )
+            {
+                _fnLog( oSettings, 1, 'aTargets must be an array of targets, not a '+(typeof aTargets) );
+            }
 
-			for ( j=0, jLen=aTargets.length ; j<jLen ; j++ )
-			{
-				if ( typeof aTargets[j] === 'number' && aTargets[j] >= 0 )
-				{
-					/* Add columns that we don't yet know about */
-					while( oSettings.aoColumns.length <= aTargets[j] )
-					{
-						_fnAddColumn( oSettings );
-					}
+            for ( j=0, jLen=aTargets.length ; j<jLen ; j++ )
+            {
+                if ( typeof aTargets[j] === 'number' && aTargets[j] >= 0 )
+                {
+                    /* Add columns that we don't yet know about */
+                    while( oSettings.aoColumns.length <= aTargets[j] )
+                    {
+                        _fnAddColumn( oSettings );
+                    }
 
-					/* Integer, basic index */
-					fn( aTargets[j], aoColDefs[i] );
-				}
-				else if ( typeof aTargets[j] === 'number' && aTargets[j] < 0 )
-				{
-					/* Negative integer, right to left column counting */
-					fn( oSettings.aoColumns.length+aTargets[j], aoColDefs[i] );
-				}
-				else if ( typeof aTargets[j] === 'string' )
-				{
-					/* Class name matching on TH element */
-					for ( k=0, kLen=oSettings.aoColumns.length ; k<kLen ; k++ )
-					{
-						if ( aTargets[j] == "_all" ||
-						     $(oSettings.aoColumns[k].nTh).hasClass( aTargets[j] ) )
-						{
-							fn( k, aoColDefs[i] );
-						}
-					}
-				}
-			}
-		}
-	}
+                    /* Integer, basic index */
+                    fn( aTargets[j], aoColDefs[i] );
+                }
+                else if ( typeof aTargets[j] === 'number' && aTargets[j] < 0 )
+                {
+                    /* Negative integer, right to left column counting */
+                    fn( oSettings.aoColumns.length+aTargets[j], aoColDefs[i] );
+                }
+                else if ( typeof aTargets[j] === 'string' )
+                {
+                    /* Class name matching on TH element */
+                    for ( k=0, kLen=oSettings.aoColumns.length ; k<kLen ; k++ )
+                    {
+                        if ( aTargets[j] == "_all" ||
+                             $(oSettings.aoColumns[k].nTh).hasClass( aTargets[j] ) )
+                        {
+                            fn( k, aoColDefs[i] );
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-	// Statically defined columns array
-	if ( aoCols )
-	{
-		for ( i=0, iLen=aoCols.length ; i<iLen ; i++ )
-		{
-			fn( i, aoCols[i] );
-		}
-	}
+    // Statically defined columns array
+    if ( aoCols )
+    {
+        for ( i=0, iLen=aoCols.length ; i<iLen ; i++ )
+        {
+            fn( i, aoCols[i] );
+        }
+    }
 }
 

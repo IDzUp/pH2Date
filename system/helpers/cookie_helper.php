@@ -4,13 +4,13 @@
  *
  * An open source application development framework for PHP 5.1.6 or newer
  *
- * @package		CodeIgniter
- * @author		EllisLab Dev Team
- * @copyright		Copyright (c) 2008 - 2014, EllisLab, Inc.
- * @copyright		Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
- * @license		http://codeigniter.com/user_guide/license.html
- * @link		http://codeigniter.com
- * @since		Version 1.0
+ * @package        CodeIgniter
+ * @author        EllisLab Dev Team
+ * @copyright        Copyright (c) 2008 - 2014, EllisLab, Inc.
+ * @copyright        Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license        http://codeigniter.com/user_guide/license.html
+ * @link        http://codeigniter.com
+ * @since        Version 1.0
  * @filesource
  */
 
@@ -19,11 +19,11 @@
 /**
  * CodeIgniter Cookie Helpers
  *
- * @package		CodeIgniter
- * @subpackage	Helpers
- * @category	Helpers
- * @author		EllisLab Dev Team
- * @link		http://codeigniter.com/user_guide/helpers/cookie_helper.html
+ * @package        CodeIgniter
+ * @subpackage    Helpers
+ * @category    Helpers
+ * @author        EllisLab Dev Team
+ * @link        http://codeigniter.com/user_guide/helpers/cookie_helper.html
  */
 
 // ------------------------------------------------------------------------
@@ -34,23 +34,23 @@
  * Accepts six parameter, or you can submit an associative
  * array in the first parameter containing all the values.
  *
- * @access	public
- * @param	mixed
- * @param	string	the value of the cookie
- * @param	string	the number of seconds until expiration
- * @param	string	the cookie domain.  Usually:  .yourdomain.com
- * @param	string	the cookie path
- * @param	string	the cookie prefix
- * @return	void
+ * @access    public
+ * @param    mixed
+ * @param    string    the value of the cookie
+ * @param    string    the number of seconds until expiration
+ * @param    string    the cookie domain.  Usually:  .yourdomain.com
+ * @param    string    the cookie path
+ * @param    string    the cookie prefix
+ * @return    void
  */
 if ( ! function_exists('set_cookie'))
 {
-	function set_cookie($name = '', $value = '', $expire = '', $domain = '', $path = '/', $prefix = '', $secure = FALSE)
-	{
-		// Set the config file options
-		$CI =& get_instance();
-		$CI->input->set_cookie($name, $value, $expire, $domain, $path, $prefix, $secure);
-	}
+    function set_cookie($name = '', $value = '', $expire = '', $domain = '', $path = '/', $prefix = '', $secure = FALSE)
+    {
+        // Set the config file options
+        $CI =& get_instance();
+        $CI->input->set_cookie($name, $value, $expire, $domain, $path, $prefix, $secure);
+    }
 }
 
 // --------------------------------------------------------------------
@@ -58,26 +58,26 @@ if ( ! function_exists('set_cookie'))
 /**
  * Fetch an item from the COOKIE array
  *
- * @access	public
- * @param	string
- * @param	bool
- * @return	mixed
+ * @access    public
+ * @param    string
+ * @param    bool
+ * @return    mixed
  */
 if ( ! function_exists('get_cookie'))
 {
-	function get_cookie($index = '', $xss_clean = FALSE)
-	{
-		$CI =& get_instance();
+    function get_cookie($index = '', $xss_clean = FALSE)
+    {
+        $CI =& get_instance();
 
-		$prefix = '';
+        $prefix = '';
 
-		if ( ! isset($_COOKIE[$index]) && config_item('cookie_prefix') != '')
-		{
-			$prefix = config_item('cookie_prefix');
-		}
+        if ( ! isset($_COOKIE[$index]) && config_item('cookie_prefix') != '')
+        {
+            $prefix = config_item('cookie_prefix');
+        }
 
-		return $CI->input->cookie($prefix.$index, $xss_clean);
-	}
+        return $CI->input->cookie($prefix.$index, $xss_clean);
+    }
 }
 
 // --------------------------------------------------------------------
@@ -85,18 +85,18 @@ if ( ! function_exists('get_cookie'))
 /**
  * Delete a COOKIE
  *
- * @param	mixed
- * @param	string	the cookie domain.  Usually:  .yourdomain.com
- * @param	string	the cookie path
- * @param	string	the cookie prefix
- * @return	void
+ * @param    mixed
+ * @param    string    the cookie domain.  Usually:  .yourdomain.com
+ * @param    string    the cookie path
+ * @param    string    the cookie prefix
+ * @return    void
  */
 if ( ! function_exists('delete_cookie'))
 {
-	function delete_cookie($name = '', $domain = '', $path = '/', $prefix = '')
-	{
-		set_cookie($name, '', '', $domain, $path, $prefix);
-	}
+    function delete_cookie($name = '', $domain = '', $path = '/', $prefix = '')
+    {
+        set_cookie($name, '', '', $domain, $path, $prefix);
+    }
 }
 
 

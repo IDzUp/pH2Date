@@ -12,19 +12,19 @@ function testTypingEffect()
   type();
 }
 
-function type() 
+function type()
 {
-	$('p.caption').html(caption.substr(0, captionLength++));
-	if(captionLength < caption.length+1)
-	{
-		setTimeout("type()", 100);
-	}
-	else
-	{
-		captionLength = 0;
-		caption = "";
+    $('p.caption').html(caption.substr(0, captionLength++));
+    if(captionLength < caption.length+1)
+    {
+        setTimeout("type()", 100);
+    }
+    else
+    {
+        captionLength = 0;
+        caption = "";
                 testTypingEffect();
-	}	
+    }
 }
 
 function testErasingEffect()
@@ -44,18 +44,18 @@ function testErasingEffect()
 
 function erase()
 {
-	$('p.caption').html(caption.substr(0, captionLength--));
-	if(captionLength >= 0)
-	{
-		setTimeout("erase()", 100);
-	}
-	else {
-		captionLength = 0;
-		caption = "";
-	}	
+    $('p.caption').html(caption.substr(0, captionLength--));
+    if(captionLength >= 0)
+    {
+        setTimeout("erase()", 100);
+    }
+    else {
+        captionLength = 0;
+        caption = "";
+    }
 }
 
-function cursorAnimation() 
+function cursorAnimation()
 {
   $("p.cursor").animate(
   {

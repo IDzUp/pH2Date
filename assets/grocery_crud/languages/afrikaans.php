@@ -73,8 +73,8 @@ $lang['error_max_file_size'] = "Die opgelaaide lêer se grootte is meer as die ma
 $lang['error_min_file_size'] = "Jy kan nie 'n leë lêer oplaai nie.";
 
 /* Added in version 1.3.1 */
-$lang['list_export'] 	= "Laai af";
-$lang['list_print'] 	= "Druk";
+$lang['list_export']     = "Laai af";
+$lang['list_print']     = "Druk";
 $lang['minimize_maximize'] = 'Minimeer/Maksimeer';
 
 /* Added in version 1.4 */

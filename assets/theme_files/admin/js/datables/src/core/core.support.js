@@ -8,15 +8,15 @@
  */
 function _fnSettingsFromNode ( nTable )
 {
-	for ( var i=0 ; i<DataTable.settings.length ; i++ )
-	{
-		if ( DataTable.settings[i].nTable === nTable )
-		{
-			return DataTable.settings[i];
-		}
-	}
-	
-	return null;
+    for ( var i=0 ; i<DataTable.settings.length ; i++ )
+    {
+        if ( DataTable.settings[i].nTable === nTable )
+        {
+            return DataTable.settings[i];
+        }
+    }
+
+    return null;
 }
 
 
@@ -28,75 +28,75 @@ function _fnSettingsFromNode ( nTable )
  */
 function _fnGetTrNodes ( oSettings )
 {
-	var aNodes = [];
-	var aoData = oSettings.aoData;
-	for ( var i=0, iLen=aoData.length ; i<iLen ; i++ )
-	{
-		if ( aoData[i].nTr !== null )
-		{
-			aNodes.push( aoData[i].nTr );
-		}
-	}
-	return aNodes;
+    var aNodes = [];
+    var aoData = oSettings.aoData;
+    for ( var i=0, iLen=aoData.length ; i<iLen ; i++ )
+    {
+        if ( aoData[i].nTr !== null )
+        {
+            aNodes.push( aoData[i].nTr );
+        }
+    }
+    return aNodes;
 }
 
 
 /**
  * Return an flat array with all TD nodes for the table, or row
  *  @param {object} oSettings dataTables settings object
- *  @param {int} [iIndividualRow] aoData index to get the nodes for - optional 
+ *  @param {int} [iIndividualRow] aoData index to get the nodes for - optional
  *    if not given then the return array will contain all nodes for the table
  *  @returns {array} TD array
  *  @memberof DataTable#oApi
  */
 function _fnGetTdNodes ( oSettings, iIndividualRow )
 {
-	var anReturn = [];
-	var iCorrector;
-	var anTds;
-	var iRow, iRows=oSettings.aoData.length,
-		iColumn, iColumns, oData, sNodeName, iStart=0, iEnd=iRows;
-	
-	/* Allow the collection to be limited to just one row */
-	if ( iIndividualRow !== undefined )
-	{
-		iStart = iIndividualRow;
-		iEnd = iIndividualRow+1;
-	}
+    var anReturn = [];
+    var iCorrector;
+    var anTds;
+    var iRow, iRows=oSettings.aoData.length,
+        iColumn, iColumns, oData, sNodeName, iStart=0, iEnd=iRows;
 
-	for ( iRow=iStart ; iRow<iEnd ; iRow++ )
-	{
-		oData = oSettings.aoData[iRow];
-		if ( oData.nTr !== null )
-		{
-			/* get the TD child nodes - taking into account text etc nodes */
-			anTds = [];
-			for ( iColumn=0, iColumns=oData.nTr.childNodes.length ; iColumn<iColumns ; iColumn++ )
-			{
-				sNodeName = oData.nTr.childNodes[iColumn].nodeName.toLowerCase();
-				if ( sNodeName == 'td' || sNodeName == 'th' )
-				{
-					anTds.push( oData.nTr.childNodes[iColumn] );
-				}
-			}
+    /* Allow the collection to be limited to just one row */
+    if ( iIndividualRow !== undefined )
+    {
+        iStart = iIndividualRow;
+        iEnd = iIndividualRow+1;
+    }
 
-			iCorrector = 0;
-			for ( iColumn=0, iColumns=oSettings.aoColumns.length ; iColumn<iColumns ; iColumn++ )
-			{
-				if ( oSettings.aoColumns[iColumn].bVisible )
-				{
-					anReturn.push( anTds[iColumn-iCorrector] );
-				}
-				else
-				{
-					anReturn.push( oData._anHidden[iColumn] );
-					iCorrector++;
-				}
-			}
-		}
-	}
+    for ( iRow=iStart ; iRow<iEnd ; iRow++ )
+    {
+        oData = oSettings.aoData[iRow];
+        if ( oData.nTr !== null )
+        {
+            /* get the TD child nodes - taking into account text etc nodes */
+            anTds = [];
+            for ( iColumn=0, iColumns=oData.nTr.childNodes.length ; iColumn<iColumns ; iColumn++ )
+            {
+                sNodeName = oData.nTr.childNodes[iColumn].nodeName.toLowerCase();
+                if ( sNodeName == 'td' || sNodeName == 'th' )
+                {
+                    anTds.push( oData.nTr.childNodes[iColumn] );
+                }
+            }
 
-	return anReturn;
+            iCorrector = 0;
+            for ( iColumn=0, iColumns=oSettings.aoColumns.length ; iColumn<iColumns ; iColumn++ )
+            {
+                if ( oSettings.aoColumns[iColumn].bVisible )
+                {
+                    anReturn.push( anTds[iColumn-iCorrector] );
+                }
+                else
+                {
+                    anReturn.push( oData._anHidden[iColumn] );
+                    iCorrector++;
+                }
+            }
+        }
+    }
+
+    return anReturn;
 }
 
 
@@ -109,26 +109,26 @@ function _fnGetTdNodes ( oSettings, iIndividualRow )
  */
 function _fnLog( oSettings, iLevel, sMesg )
 {
-	var sAlert = (oSettings===null) ?
-		"DataTables warning: "+sMesg :
-		"DataTables warning (table id = '"+oSettings.sTableId+"'): "+sMesg;
-	
-	if ( iLevel === 0 )
-	{
-		if ( DataTable.ext.sErrMode == 'alert' )
-		{
-			alert( sAlert );
-		}
-		else
-		{
-			throw sAlert;
-		}
-		return;
-	}
-	else if ( console !== undefined && console.log )
-	{
-		console.log( sAlert );
-	}
+    var sAlert = (oSettings===null) ?
+        "DataTables warning: "+sMesg :
+        "DataTables warning (table id = '"+oSettings.sTableId+"'): "+sMesg;
+
+    if ( iLevel === 0 )
+    {
+        if ( DataTable.ext.sErrMode == 'alert' )
+        {
+            alert( sAlert );
+        }
+        else
+        {
+            throw sAlert;
+        }
+        return;
+    }
+    else if ( console !== undefined && console.log )
+    {
+        console.log( sAlert );
+    }
 }
 
 
@@ -142,14 +142,14 @@ function _fnLog( oSettings, iLevel, sMesg )
  */
 function _fnMap( oRet, oSrc, sName, sMappedName )
 {
-	if ( sMappedName === undefined )
-	{
-		sMappedName = sName;
-	}
-	if ( oSrc[sName] !== undefined )
-	{
-		oRet[sMappedName] = oSrc[sName];
-	}
+    if ( sMappedName === undefined )
+    {
+        sMappedName = sName;
+    }
+    if ( oSrc[sName] !== undefined )
+    {
+        oRet[sMappedName] = oSrc[sName];
+    }
 }
 
 
@@ -166,22 +166,22 @@ function _fnMap( oRet, oSrc, sName, sMappedName )
  */
 function _fnExtend( oOut, oExtender )
 {
-	for ( var prop in oOut )
-	{
-		if ( oOut.hasOwnProperty(prop) && oExtender[prop] !== undefined )
-		{
-			if ( typeof oInit[prop] === 'object' && $.isArray(oExtender[prop]) === false )
-			{
-				$.extend( true, oOut[prop], oExtender[prop] );
-			}
-			else
-			{
-				oOut[prop] = oExtender[prop];
-			}
-		}
-	}
+    for ( var prop in oOut )
+    {
+        if ( oOut.hasOwnProperty(prop) && oExtender[prop] !== undefined )
+        {
+            if ( typeof oInit[prop] === 'object' && $.isArray(oExtender[prop]) === false )
+            {
+                $.extend( true, oOut[prop], oExtender[prop] );
+            }
+            else
+            {
+                oOut[prop] = oExtender[prop];
+            }
+        }
+    }
 
-	return oOut;
+    return oOut;
 }
 
 
@@ -196,19 +196,19 @@ function _fnExtend( oOut, oExtender )
  */
 function _fnBindAction( n, oData, fn )
 {
-	$(n)
-		.bind( 'click.DT', oData, function (e) {
-				fn(e);
-				n.blur(); // Remove focus outline for mouse users
-			} )
-		.bind( 'keypress.DT', oData, function (e){
-			if ( e.which === 13 ) {
-				fn(e);
-			} } )
-		.bind( 'selectstart.DT', function () {
-			/* Take the brutal approach to cancelling text selection */
-			return false;
-			} );
+    $(n)
+        .bind( 'click.DT', oData, function (e) {
+                fn(e);
+                n.blur(); // Remove focus outline for mouse users
+            } )
+        .bind( 'keypress.DT', oData, function (e){
+            if ( e.which === 13 ) {
+                fn(e);
+            } } )
+        .bind( 'selectstart.DT', function () {
+            /* Take the brutal approach to cancelling text selection */
+            return false;
+            } );
 }
 
 
@@ -223,13 +223,13 @@ function _fnBindAction( n, oData, fn )
  */
 function _fnCallbackReg( oSettings, sStore, fn, sName )
 {
-	if ( fn )
-	{
-		oSettings[sStore].push( {
-			"fn": fn,
-			"sName": sName
-		} );
-	}
+    if ( fn )
+    {
+        oSettings[sStore].push( {
+            "fn": fn,
+            "sName": sName
+        } );
+    }
 }
 
 
@@ -246,26 +246,26 @@ function _fnCallbackReg( oSettings, sStore, fn, sName )
  */
 function _fnCallbackFire( oSettings, sStore, sTrigger, aArgs )
 {
-	var aoStore = oSettings[sStore];
-	var aRet =[];
+    var aoStore = oSettings[sStore];
+    var aRet =[];
 
-	for ( var i=aoStore.length-1 ; i>=0 ; i-- )
-	{
-		aRet.push( aoStore[i].fn.apply( oSettings.oInstance, aArgs ) );
-	}
+    for ( var i=aoStore.length-1 ; i>=0 ; i-- )
+    {
+        aRet.push( aoStore[i].fn.apply( oSettings.oInstance, aArgs ) );
+    }
 
-	if ( sTrigger !== null )
-	{
-		$(oSettings.oInstance).trigger(sTrigger, aArgs);
-	}
+    if ( sTrigger !== null )
+    {
+        $(oSettings.oInstance).trigger(sTrigger, aArgs);
+    }
 
-	return aRet;
+    return aRet;
 }
 
 
 /**
  * JSON stringify. If JSON.stringify it provided by the browser, json2.js or any other
- * library, then we use that as it is fast, safe and accurate. If the function isn't 
+ * library, then we use that as it is fast, safe and accurate. If the function isn't
  * available then we need to built it ourselves - the insperation for this function comes
  * from Craig Buckler ( http://www.sitepoint.com/javascript-json-serialization/ ). It is
  * not perfect and absolutely should not be used as a replacement to json2.js - but it does
@@ -276,41 +276,41 @@ function _fnCallbackFire( oSettings, sStore, sTrigger, aArgs )
  */
 var _fnJsonString = (window.JSON) ? JSON.stringify : function( o )
 {
-	/* Not an object or array */
-	var sType = typeof o;
-	if (sType !== "object" || o === null)
-	{
-		// simple data type
-		if (sType === "string")
-		{
-			o = '"'+o+'"';
-		}
-		return o+"";
-	}
+    /* Not an object or array */
+    var sType = typeof o;
+    if (sType !== "object" || o === null)
+    {
+        // simple data type
+        if (sType === "string")
+        {
+            o = '"'+o+'"';
+        }
+        return o+"";
+    }
 
-	/* If object or array, need to recurse over it */
-	var
-		sProp, mValue,
-		json = [],
-		bArr = $.isArray(o);
-	
-	for (sProp in o)
-	{
-		mValue = o[sProp];
-		sType = typeof mValue;
+    /* If object or array, need to recurse over it */
+    var
+        sProp, mValue,
+        json = [],
+        bArr = $.isArray(o);
 
-		if (sType === "string")
-		{
-			mValue = '"'+mValue+'"';
-		}
-		else if (sType === "object" && mValue !== null)
-		{
-			mValue = _fnJsonString(mValue);
-		}
+    for (sProp in o)
+    {
+        mValue = o[sProp];
+        sType = typeof mValue;
 
-		json.push((bArr ? "" : '"'+sProp+'":') + mValue);
-	}
+        if (sType === "string")
+        {
+            mValue = '"'+mValue+'"';
+        }
+        else if (sType === "object" && mValue !== null)
+        {
+            mValue = _fnJsonString(mValue);
+        }
 
-	return (bArr ? "[" : "{") + json + (bArr ? "]" : "}");
+        json.push((bArr ? "" : '"'+sProp+'":') + mValue);
+    }
+
+    return (bArr ? "[" : "{") + json + (bArr ? "]" : "}");
 };
 

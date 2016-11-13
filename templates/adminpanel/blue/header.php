@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <title>pH2Date - Admin Control Panel</title>
-        
+
         <!-- CSSs -->
         <link rel="stylesheet" href="<?=base_url();?>assets/theme_files/admin/css/reset.css">
         <link rel="stylesheet" href="<?=base_url();?>assets/theme_files/admin/css/960.css" />
@@ -26,8 +26,8 @@
         <script src="<?=base_url();?>assets/theme_files/admin/js/main.js"></script>
 
 
-        <?php 
-      
+        <?php
+
 foreach($css_files as $file): ?>
     <link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
 <?php endforeach ?>
@@ -75,7 +75,7 @@ foreach($css_files as $file): ?>
                                 </li>
 
 
-                                
+
                                 <li><a href="<?=base_url('admin/likes');?>" title="Likes"><span class="glyph logout"></span> Likes</a></li>
 
                                 <li><a href="<?=base_url('admin/matches');?>" title="Matches"><span class="glyph logout"></span> Matched </a></li>
@@ -94,7 +94,7 @@ foreach($css_files as $file): ?>
                                     <span class="text">My Website</span>
                                 </a>
                             </li>
-							
+
                             <li>
                                 <a href="<?=base_url('user/edit_account');?>" title="Edit my Account" class="tooltip">
                                     <span class="glyph user"></span>
@@ -102,7 +102,7 @@ foreach($css_files as $file): ?>
                                 </a>
                             </li>
                         </ul>
-                    </div>                
+                    </div>
                 </div>
             </header>
 
@@ -156,7 +156,7 @@ foreach($css_files as $file): ?>
                                 </div>
                             </div>
                         </header>
-                    
+
                         <div class="box-content">
                             <p>Lorem ipsum dolor sit amet, <a href="#">consectetuer</a> adipiscing elit, sed diam nonummy nibh euismod <em>tincidunt</em> ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation <strong>ullamcorper suscipit</strong> lobortis nisl ut aliquip ex ea commodo consequat.</p>
                             <footer class="pane">
@@ -176,7 +176,7 @@ foreach($css_files as $file): ?>
 
                             <!-- Statistics -->
                             <div class="grid_12 simple-box">
-                                
+
                             </div>
                             <!-- /Statistics -->
 
@@ -186,7 +186,7 @@ foreach($css_files as $file): ?>
                                     <div class="inner">
                                         <div class="left title">
                                             <h1>Admin </h1>
-                                            
+
                                         </div>
                                         <div class="right">
                                             <a href="#" class="close">close</a>
@@ -195,4 +195,4 @@ foreach($css_files as $file): ?>
                                 </header>
 
                                 <div class="box-content no-inner-space">
-                                   
+

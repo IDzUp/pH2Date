@@ -7,7 +7,7 @@ define('flvtool2Path', '/usr/bin/flvtool2');
 
 
 $submit=$_POST['submitted'];       //Get value form submitted Field
-$video_file=$_FILES['vfile'];       // Uploaded video file 
+$video_file=$_FILES['vfile'];       // Uploaded video file
 $videoTitle=$_REQUEST['vTitle'];      // upload file title
 
   if(isset($submit)){
@@ -20,8 +20,8 @@ $videoTitle=$_REQUEST['vTitle'];      // upload file title
    function getImageName($name){
    $occur=strrpos($name,'.');
     //echo $occur;
-   $name=substr($name,0,$occur); 
-    return($name); 
+   $name=substr($name,0,$occur);
+    return($name);
    }
 
 
@@ -111,7 +111,7 @@ echo '<div style="height:150px; display:block; border:#006600 solid 2px; height:
 Your Video Information<br>Uploaded Video Length:-'.($totTime/60).'</div><br>';
 }else{
 echo 'not uploaded';
-} 
+}
 }
 
 if ($_FILES['videoUpload']['error'] > 0) {
@@ -127,7 +127,7 @@ echo 'The file exceeds the MAX_FILE_SIZE setting in the HTML form.';
 break;
 case 3:
 
-echo 'The file was only partially uploaded.'; 
+echo 'The file was only partially uploaded.';
 break;
 
 case 4:
@@ -143,7 +143,7 @@ echo 'Unable to write to the disk.';
 break;
 
 case 8:
-echo 'File upload stopped.'; 
+echo 'File upload stopped.';
 break;
 
 default:
@@ -152,6 +152,6 @@ break;
 }
 echo '</strong></p>';
 }
-} 
+}
 
 ?>

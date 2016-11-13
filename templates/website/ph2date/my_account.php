@@ -2,7 +2,7 @@
 $this->load->view('header');
 $this->load->view('loged_in_side');
 ?>
-	
+
 <div class="col-md-8">
 <div class="well">
 <?php if($this->session->flashdata('message_success')): ?>
@@ -52,19 +52,19 @@ $this->load->view('loged_in_side');
 
 <?php if(!empty($videos)): ?>
 
-<h3><?=strip_tags(ucfirst($user->first_name)) .' '. lang('videos');?></h3>    
+<h3><?=strip_tags(ucfirst($user->first_name)) .' '. lang('videos');?></h3>
 <hr/>
   <div class="row">
 <?php foreach ($videos as $video): ?>
-	<div class="col-xs-4">
-        <h4><?=$video->video_name?></h4>        
-        <img src="<?=base_url('assets/uploads/files/video/thum/' . $video->converted_name.".jpg") ?>" class="img-responsive imageClip">   
-        <a class="btn btn-default" href="<?=site_url('user/video_watch/'.$video->id) ?>"><?=lang('watch')?></a>   
+    <div class="col-xs-4">
+        <h4><?=$video->video_name?></h4>
+        <img src="<?=base_url('assets/uploads/files/video/thum/' . $video->converted_name.".jpg") ?>" class="img-responsive imageClip">
+        <a class="btn btn-default" href="<?=site_url('user/video_watch/'.$video->id) ?>"><?=lang('watch')?></a>
     </div>
 <?php endforeach ?>
-  </div>    
+  </div>
 <?php endif ?>
-    
+
 </div>
 </div>
 

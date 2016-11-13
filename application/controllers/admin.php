@@ -3,7 +3,7 @@ class admin extends Admin_Controller {
 
     function __construct() {
         parent::__construct();
-        
+
     }
     function index(){
         $this->users();
@@ -46,7 +46,7 @@ $city_data = $this->_city();
 $additional_data['password'] = $post_array['password'];
 $additional_data['active'] = 1;
 
-	$this->ion_auth->update($primary_key, $additional_data);
+    $this->ion_auth->update($primary_key, $additional_data);
     return true;
 }
 
@@ -74,7 +74,7 @@ $additional_data['active'] = 1;
         $data['city'] = $data['city'];
         return $data;
     }
-    
+
     function groups(){
         $crud = new grocery_CRUD();
         $crud->set_table('groups');

@@ -33,26 +33,26 @@
       return [a[0]-b[0], a[1]-b[1]]
     }
   }
-   
-   $.path.bezier = function( params ) { 
-     	params.start = $.extend({angle: 0, length: 0.3333}, params.start )
-     	params.end   = $.extend({angle: 0, length: 0.3333}, params.end )
+
+   $.path.bezier = function( params ) {
+         params.start = $.extend({angle: 0, length: 0.3333}, params.start )
+         params.end   = $.extend({angle: 0, length: 0.3333}, params.end )
 
      this.p1 = [params.start.x, params.start.y];
      this.p4 = [params.end.x, params.end.y];
-     
+
      var v14 = V.minus(this.p4, this.p1)
      var v12 = V.scale(v14, params.start.length)
      v12 = V.rotate(v12, params.start.angle)
      this.p2 = V.add(this.p1, v12)
-      
+
      var v41 = V.scale(v14, -1)
-     var v43 = V.scale(v41, params.end.length)     
+     var v43 = V.scale(v41, params.end.length)
      v43 = V.rotate(v43, params.end.angle)
      this.p3 = V.add(this.p4, v43)
 
      this.f1 = function(t) { return (t*t*t); }
-     this.f2 = function(t) { return (3*t*t*(1-t)); } 
+     this.f2 = function(t) { return (3*t*t*(1-t)); }
      this.f3 = function(t) { return (3*t*(1-t)*(1-t)); }
      this.f4 = function(t) { return ((1-t)*(1-t)*(1-t)); }
 
@@ -79,20 +79,20 @@
 
 
      this.css = function(p) {
-       var a = this.start * (p ) + this.end * (1-(p ))  
+       var a = this.start * (p ) + this.end * (1-(p ))
        a = a * 3.1415927 / 180 // to radians
 
        var x = Math.sin(a) * this.radius + this.center[0]
        var y = Math.cos(a) * this.radius + this.center[1]
        return {top: y + "px", left: x + "px"}
-     } 
+     }
 
    };
-   
-       
+
+
   $.fx.step.path = function(fx){
     var css = fx.end.css(1 - fx.pos)
-    for(var i in css) 
+    for(var i in css)
       fx.elem.style[i] = css[i];
   }
 })(jQuery);

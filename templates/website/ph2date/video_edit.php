@@ -9,7 +9,7 @@ $this->load->view('loged_in_side');
 <div class="alert alert-success"><?php echo $message;?></div>
 <?php } ?>
 
-<h1><?=lang('edit').' '.$video->video_name?></h1>                                    
+<h1><?=lang('edit').' '.$video->video_name?></h1>
 <div class="clr"></div>
 </br>
 

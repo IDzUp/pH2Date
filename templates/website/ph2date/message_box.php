@@ -13,22 +13,22 @@ $this->load->view('loged_in_side');
     <div class="alert alert-success"><?php echo $this->msg_success_right;?></div>
 <?php endif ?>
 
-<h1><?=lang('my_messages')?></h1>                                    
+<h1><?=lang('my_messages')?></h1>
 <div class="clr"></div>
 </br>
 
   <?php if(!empty($messages)): ?>
-  	<?php foreach ($messages as $message): ?>
-  		<p><b><?=strip_tags(ucfirst($message->from).' '.$message->sent)?>: </b><?=$message->message?></p>
-  	<?php endforeach ?>
+      <?php foreach ($messages as $message): ?>
+          <p><b><?=strip_tags(ucfirst($message->from).' '.$message->sent)?>: </b><?=$message->message?></p>
+      <?php endforeach ?>
   <?php endif ?>
-  
-  	<form action="<?php echo site_url('user/message_box/'.strip_tags($other_user->username)) ?>"  method="post">
+
+      <form action="<?php echo site_url('user/message_box/'.strip_tags($other_user->username)) ?>"  method="post">
 <div class="col-md-10">
 <textarea class="form-control"  id="message" name="message"></textarea>
 </div>
-  	<button type="submit" class="btn btn-default" style="line-height:40px;margin-left:15px;margin-top:2px;"><?=lang('edit_user_submit_btn')?></button>
+      <button type="submit" class="btn btn-default" style="line-height:40px;margin-left:15px;margin-top:2px;"><?=lang('edit_user_submit_btn')?></button>
 
   </div>
-</div>	
+</div>
 <?php $this->load->view('footer') ?>

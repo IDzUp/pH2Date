@@ -5,13 +5,13 @@
  * Version: 1.0.0b2_r1012
  *
  * Copyright (c) 2009-2011 Chris Leonello
- * jqPlot is currently available for use in all personal or commercial projects 
- * under both the MIT (http://www.opensource.org/licenses/mit-license.php) and GPL 
- * version 2.0 (http://www.gnu.org/licenses/gpl-2.0.html) licenses. This means that you can 
- * choose the license that best suits your project and use it accordingly. 
+ * jqPlot is currently available for use in all personal or commercial projects
+ * under both the MIT (http://www.opensource.org/licenses/mit-license.php) and GPL
+ * version 2.0 (http://www.gnu.org/licenses/gpl-2.0.html) licenses. This means that you can
+ * choose the license that best suits your project and use it accordingly.
  *
- * Although not required, the author would appreciate an email letting him 
- * know of any substantial use of jqPlot.  You can reach the author at: 
+ * Although not required, the author would appreciate an email letting him
+ * know of any substantial use of jqPlot.  You can reach the author at:
  * chris at jqplot dot com or see http://www.jqplot.com/info.php .
  *
  * If you are feeling kind and generous, consider supporting the project by
@@ -25,7 +25,7 @@
  *     http://hexmen.com/js/sprintf.js
  *     The author (Ash Searle) has placed this code in the public domain:
  *     "This code is unrestricted: you are free to use it however you like."
- * 
+ *
  */
 (function($) {
     var objCounter = 0;
@@ -68,17 +68,17 @@
                         default:
                             break;
                     }
-                }   
+                }
             }
         }
         $.extend(true, this.options, options);
     };
-    
+
     // called with scope of a plot object
     $.jqplot.CanvasOverlay.postPlotInit = function (target, data, opts) {
         var options = opts || {};
         // add a canvasOverlay attribute to the plot
-        this.plugins.canvasOverlay = new $.jqplot.CanvasOverlay(options.canvasOverlay);     
+        this.plugins.canvasOverlay = new $.jqplot.CanvasOverlay(options.canvasOverlay);
     };
 
 
@@ -88,7 +88,7 @@
         this.gridStart = null;
         this.gridStop = null;
         this.tooltipWidthFactor = 0;
-        this.options = {           
+        this.options = {
             // prop: name
             // Optional name for the overlay object.
             // Can be later used to retrieve the object by name.
@@ -197,7 +197,7 @@
             // x value for the end of the line, null to scale to axis max.
             xmax: null,
             // prop xOffset
-            // offset ends of the line inside the grid.  Number 
+            // offset ends of the line inside the grid.  Number
             xOffset: '6px', // number or string.  Number interpreted as units, string as pixels.
             xminOffset: null,
             xmaxOffset: null
@@ -211,7 +211,7 @@
 
     HorizontalLine.prototype = new LineBase();
     HorizontalLine.prototype.constructor = HorizontalLine;
-    
+
 
     /**
      * Class: DashedHorizontalLine
@@ -242,7 +242,7 @@
 
     DashedHorizontalLine.prototype = new LineBase();
     DashedHorizontalLine.prototype.constructor = DashedHorizontalLine;
-    
+
 
     /**
      * Class: VerticalLine
@@ -268,7 +268,7 @@
 
     VerticalLine.prototype = new LineBase();
     VerticalLine.prototype.constructor = VerticalLine;
-    
+
 
     /**
      * Class: DashedVerticalLine
@@ -301,42 +301,42 @@
 
     DashedVerticalLine.prototype = new LineBase();
     DashedVerticalLine.prototype.constructor = DashedVerticalLine;
-    
+
     $.jqplot.CanvasOverlay.prototype.addLine = function(opts) {
         var line = new Line(opts);
         line.uid = objCounter++;
         this.objects.push(line);
         this.objectNames.push(line.options.name);
     };
-    
+
     $.jqplot.CanvasOverlay.prototype.addHorizontalLine = function(opts) {
         var line = new HorizontalLine(opts);
         line.uid = objCounter++;
         this.objects.push(line);
         this.objectNames.push(line.options.name);
     };
-    
+
     $.jqplot.CanvasOverlay.prototype.addDashedHorizontalLine = function(opts) {
         var line = new DashedHorizontalLine(opts);
         line.uid = objCounter++;
         this.objects.push(line);
         this.objectNames.push(line.options.name);
     };
-    
+
     $.jqplot.CanvasOverlay.prototype.addVerticalLine = function(opts) {
         var line = new VerticalLine(opts);
         line.uid = objCounter++;
         this.objects.push(line);
         this.objectNames.push(line.options.name);
     };
-    
+
     $.jqplot.CanvasOverlay.prototype.addDashedVerticalLine = function(opts) {
         var line = new DashedVerticalLine(opts);
         line.uid = objCounter++;
         this.objects.push(line);
         this.objectNames.push(line.options.name);
     };
-    
+
     $.jqplot.CanvasOverlay.prototype.removeObject = function(idx) {
         // check if integer, remove by index
         if ($.type(idx) == 'number') {
@@ -352,7 +352,7 @@
             }
         }
     };
-    
+
     $.jqplot.CanvasOverlay.prototype.getObject = function(idx) {
         // check if integer, remove by index
         if ($.type(idx) == 'number') {
@@ -366,16 +366,16 @@
             }
         }
     };
-    
+
     // Set get as alias for getObject.
     $.jqplot.CanvasOverlay.prototype.get = $.jqplot.CanvasOverlay.prototype.getObject;
-    
+
     $.jqplot.CanvasOverlay.prototype.clear = function(plot) {
         this.canvas._ctx.clearRect(0,0,this.canvas.getWidth(), this.canvas.getHeight());
     };
-    
+
     $.jqplot.CanvasOverlay.prototype.draw = function(plot) {
-        var obj, 
+        var obj,
             objs = this.objects,
             mr = this.markerRenderer,
             start,
@@ -403,7 +403,7 @@
                             mr.draw(start, stop, this.canvas._ctx, opts);
                             break;
                         case 'horizontalLine':
-                            
+
                             // style and shadow properties should be set before
                             // every draw of marker renderer.
                             if (obj.options.y != null) {
@@ -446,7 +446,7 @@
                             break;
 
                         case 'dashedHorizontalLine':
-                            
+
                             var dashPat = obj.options.dashPattern;
                             var dashPatLen = 0;
                             for (var i=0; i<dashPat.length; i++) {
@@ -506,7 +506,7 @@
                             break;
 
                         case 'verticalLine':
-                            
+
                             // style and shadow properties should be set before
                             // every draw of marker renderer.
                             if (obj.options.x != null) {
@@ -549,7 +549,7 @@
                             break;
 
                         case 'dashedVerticalLine':
-                            
+
                             var dashPat = obj.options.dashPattern;
                             var dashPatLen = 0;
                             for (var i=0; i<dashPat.length; i++) {
@@ -628,19 +628,19 @@
             }
         }
     };
-    
+
     // called within context of plot
     // create a canvas which we can draw on.
     // insert it before the eventCanvas, so eventCanvas will still capture events.
     $.jqplot.CanvasOverlay.postPlotDraw = function() {
         var co = this.plugins.canvasOverlay;
-        // Memory Leaks patch    
+        // Memory Leaks patch
         if (co && co.highlightCanvas) {
             co.highlightCanvas.resetCanvas();
             co.highlightCanvas = null;
         }
         co.canvas = new $.jqplot.GenericCanvas();
-        
+
         this.eventCanvas._elem.before(co.canvas.createElement(this._gridPadding, 'jqplot-overlayCanvas-canvas', this._plotDimensions, this));
         co.canvas.setContext();
         if (!co.deferDraw) {
@@ -652,7 +652,7 @@
         elem = null;
         co._tooltipElem.addClass('jqplot-canvasOverlay-tooltip');
         co._tooltipElem.css({position:'absolute', display:'none'});
-        
+
         this.eventCanvas._elem.before(co._tooltipElem);
         this.eventCanvas._elem.bind('mouseleave', { elem: co._tooltipElem }, function (ev) { ev.data.elem.hide(); });
 
@@ -667,7 +667,7 @@
         var opts = obj.options, x, y;
 
         elem.html($.jqplot.sprintf(opts.tooltipFormatString, datapos[0], datapos[1]));
-        
+
         switch (opts.tooltipLocation) {
             case 'nw':
                 x = gridpos[0] + plot._gridPadding.left - elem.outerWidth(true) - opts.tooltipOffset;
@@ -776,7 +776,7 @@
                             break;
                         default:
                             break;
-                    } 
+                    }
                     co.highlightObjectIndex = i;
                     haveHighlight = true;
                     break;
@@ -856,7 +856,7 @@
             co.highlightObjectIndex = null;
         }
     }
-    
+
     $.jqplot.postInitHooks.push($.jqplot.CanvasOverlay.postPlotInit);
     $.jqplot.postDrawHooks.push($.jqplot.CanvasOverlay.postPlotDraw);
     $.jqplot.eventListenerHooks.push(['jqplotMouseMove', handleMove]);

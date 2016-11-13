@@ -1,5 +1,5 @@
 
-/* make sidebar nav vertical */ 
+/* make sidebar nav vertical */
 @media (min-width: 768px) {
   .sidebar-nav .navbar .navbar-collapse {
     padding: 0;
@@ -51,10 +51,10 @@ height: 34px;
     margin-left:auto;
     margin-right:auto;
     width:80%;
-	margin-bottom:20px;
+    margin-bottom:20px;
 }
 .icon-wrap i {
     font-size:80px;
-	color: #428bca;
-	line-height: 100px;
+    color: #428bca;
+    line-height: 100px;
 }

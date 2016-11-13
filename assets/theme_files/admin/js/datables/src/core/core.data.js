@@ -1,7 +1,7 @@
 
 
 /**
- * Add a data array to the table, creating DOM node etc. This is the parallel to 
+ * Add a data array to the table, creating DOM node etc. This is the parallel to
  * _fnGatherData, but for adding rows from a Javascript source, rather than a
  * DOM source.
  *  @param {object} oSettings dataTables settings object
@@ -11,63 +11,63 @@
  */
 function _fnAddData ( oSettings, aDataSupplied )
 {
-	var oCol;
-	
-	/* Take an independent copy of the data source so we can bash it about as we wish */
-	var aDataIn = ($.isArray(aDataSupplied)) ?
-		aDataSupplied.slice() :
-		$.extend( true, {}, aDataSupplied );
-	
-	/* Create the object for storing information about this new row */
-	var iRow = oSettings.aoData.length;
-	var oData = $.extend( true, {}, DataTable.models.oRow, {
-		"_aData": aDataIn
-	} );
-	oSettings.aoData.push( oData );
+    var oCol;
 
-	/* Create the cells */
-	var nTd, sThisType;
-	for ( var i=0, iLen=oSettings.aoColumns.length ; i<iLen ; i++ )
-	{
-		oCol = oSettings.aoColumns[i];
+    /* Take an independent copy of the data source so we can bash it about as we wish */
+    var aDataIn = ($.isArray(aDataSupplied)) ?
+        aDataSupplied.slice() :
+        $.extend( true, {}, aDataSupplied );
 
-		/* Use rendered data for filtering/sorting */
-		if ( typeof oCol.fnRender === 'function' && oCol.bUseRendered && oCol.mDataProp !== null )
-		{
-			_fnSetCellData( oSettings, iRow, i, _fnRender(oSettings, iRow, i) );
-		}
-		
-		/* See if we should auto-detect the column type */
-		if ( oCol._bAutoType && oCol.sType != 'string' )
-		{
-			/* Attempt to auto detect the type - same as _fnGatherData() */
-			var sVarType = _fnGetCellData( oSettings, iRow, i, 'type' );
-			if ( sVarType !== null && sVarType !== '' )
-			{
-				sThisType = _fnDetectType( sVarType );
-				if ( oCol.sType === null )
-				{
-					oCol.sType = sThisType;
-				}
-				else if ( oCol.sType != sThisType && oCol.sType != "html" )
-				{
-					/* String is always the 'fallback' option */
-					oCol.sType = 'string';
-				}
-			}
-		}
-	}
-	
-	/* Add to the display array */
-	oSettings.aiDisplayMaster.push( iRow );
+    /* Create the object for storing information about this new row */
+    var iRow = oSettings.aoData.length;
+    var oData = $.extend( true, {}, DataTable.models.oRow, {
+        "_aData": aDataIn
+    } );
+    oSettings.aoData.push( oData );
 
-	/* Create the DOM imformation */
-	if ( !oSettings.oFeatures.bDeferRender )
-	{
-		_fnCreateTr( oSettings, iRow );
-	}
+    /* Create the cells */
+    var nTd, sThisType;
+    for ( var i=0, iLen=oSettings.aoColumns.length ; i<iLen ; i++ )
+    {
+        oCol = oSettings.aoColumns[i];
 
-	return iRow;
+        /* Use rendered data for filtering/sorting */
+        if ( typeof oCol.fnRender === 'function' && oCol.bUseRendered && oCol.mDataProp !== null )
+        {
+            _fnSetCellData( oSettings, iRow, i, _fnRender(oSettings, iRow, i) );
+        }
+
+        /* See if we should auto-detect the column type */
+        if ( oCol._bAutoType && oCol.sType != 'string' )
+        {
+            /* Attempt to auto detect the type - same as _fnGatherData() */
+            var sVarType = _fnGetCellData( oSettings, iRow, i, 'type' );
+            if ( sVarType !== null && sVarType !== '' )
+            {
+                sThisType = _fnDetectType( sVarType );
+                if ( oCol.sType === null )
+                {
+                    oCol.sType = sThisType;
+                }
+                else if ( oCol.sType != sThisType && oCol.sType != "html" )
+                {
+                    /* String is always the 'fallback' option */
+                    oCol.sType = 'string';
+                }
+            }
+        }
+    }
+
+    /* Add to the display array */
+    oSettings.aiDisplayMaster.push( iRow );
+
+    /* Create the DOM imformation */
+    if ( !oSettings.oFeatures.bDeferRender )
+    {
+        _fnCreateTr( oSettings, iRow );
+    }
+
+    return iRow;
 }
 
 
@@ -78,164 +78,164 @@ function _fnAddData ( oSettings, aDataSupplied )
  */
 function _fnGatherData( oSettings )
 {
-	var iLoop, i, iLen, j, jLen, jInner,
-	 	nTds, nTrs, nTd, aLocalData, iThisIndex,
-		iRow, iRows, iColumn, iColumns, sNodeName,
-		oCol, oData;
-	
-	/*
-	 * Process by row first
-	 * Add the data object for the whole table - storing the tr node. Note - no point in getting
-	 * DOM based data if we are going to go and replace it with Ajax source data.
-	 */
-	if ( oSettings.bDeferLoading || oSettings.sAjaxSource === null )
-	{
-		nTrs = oSettings.nTBody.childNodes;
-		for ( i=0, iLen=nTrs.length ; i<iLen ; i++ )
-		{
-			if ( nTrs[i].nodeName.toUpperCase() == "TR" )
-			{
-				iThisIndex = oSettings.aoData.length;
-				nTrs[i]._DT_RowIndex = iThisIndex;
-				oSettings.aoData.push( $.extend( true, {}, DataTable.models.oRow, {
-					"nTr": nTrs[i]
-				} ) );
-				
-				oSettings.aiDisplayMaster.push( iThisIndex );
-				nTds = nTrs[i].childNodes;
-				jInner = 0;
-				
-				for ( j=0, jLen=nTds.length ; j<jLen ; j++ )
-				{
-					sNodeName = nTds[j].nodeName.toUpperCase();
-					if ( sNodeName == "TD" || sNodeName == "TH" )
-					{
-						_fnSetCellData( oSettings, iThisIndex, jInner, $.trim(nTds[j].innerHTML) );
-						jInner++;
-					}
-				}
-			}
-		}
-	}
-	
-	/* Gather in the TD elements of the Table - note that this is basically the same as
-	 * fnGetTdNodes, but that function takes account of hidden columns, which we haven't yet
-	 * setup!
-	 */
-	nTrs = _fnGetTrNodes( oSettings );
-	nTds = [];
-	for ( i=0, iLen=nTrs.length ; i<iLen ; i++ )
-	{
-		for ( j=0, jLen=nTrs[i].childNodes.length ; j<jLen ; j++ )
-		{
-			nTd = nTrs[i].childNodes[j];
-			sNodeName = nTd.nodeName.toUpperCase();
-			if ( sNodeName == "TD" || sNodeName == "TH" )
-			{
-				nTds.push( nTd );
-			}
-		}
-	}
-	
-	/* Now process by column */
-	for ( iColumn=0, iColumns=oSettings.aoColumns.length ; iColumn<iColumns ; iColumn++ )
-	{
-		oCol = oSettings.aoColumns[iColumn];
+    var iLoop, i, iLen, j, jLen, jInner,
+         nTds, nTrs, nTd, aLocalData, iThisIndex,
+        iRow, iRows, iColumn, iColumns, sNodeName,
+        oCol, oData;
 
-		/* Get the title of the column - unless there is a user set one */
-		if ( oCol.sTitle === null )
-		{
-			oCol.sTitle = oCol.nTh.innerHTML;
-		}
-		
-		var
-			bAutoType = oCol._bAutoType,
-			bRender = typeof oCol.fnRender === 'function',
-			bClass = oCol.sClass !== null,
-			bVisible = oCol.bVisible,
-			nCell, sThisType, sRendered, sValType;
-		
-		/* A single loop to rule them all (and be more efficient) */
-		if ( bAutoType || bRender || bClass || !bVisible )
-		{
-			for ( iRow=0, iRows=oSettings.aoData.length ; iRow<iRows ; iRow++ )
-			{
-				oData = oSettings.aoData[iRow];
-				nCell = nTds[ (iRow*iColumns) + iColumn ];
-				
-				/* Type detection */
-				if ( bAutoType && oCol.sType != 'string' )
-				{
-					sValType = _fnGetCellData( oSettings, iRow, iColumn, 'type' );
-					if ( sValType !== '' )
-					{
-						sThisType = _fnDetectType( sValType );
-						if ( oCol.sType === null )
-						{
-							oCol.sType = sThisType;
-						}
-						else if ( oCol.sType != sThisType && 
-						          oCol.sType != "html" )
-						{
-							/* String is always the 'fallback' option */
-							oCol.sType = 'string';
-						}
-					}
-				}
+    /*
+     * Process by row first
+     * Add the data object for the whole table - storing the tr node. Note - no point in getting
+     * DOM based data if we are going to go and replace it with Ajax source data.
+     */
+    if ( oSettings.bDeferLoading || oSettings.sAjaxSource === null )
+    {
+        nTrs = oSettings.nTBody.childNodes;
+        for ( i=0, iLen=nTrs.length ; i<iLen ; i++ )
+        {
+            if ( nTrs[i].nodeName.toUpperCase() == "TR" )
+            {
+                iThisIndex = oSettings.aoData.length;
+                nTrs[i]._DT_RowIndex = iThisIndex;
+                oSettings.aoData.push( $.extend( true, {}, DataTable.models.oRow, {
+                    "nTr": nTrs[i]
+                } ) );
 
-				if ( typeof oCol.mDataProp === 'function' )
-				{
-					nCell.innerHTML = _fnGetCellData( oSettings, iRow, iColumn, 'display' );
-				}
-				
-				/* Rendering */
-				if ( bRender )
-				{
-					sRendered = _fnRender( oSettings, iRow, iColumn );
-					nCell.innerHTML = sRendered;
-					if ( oCol.bUseRendered )
-					{
-						/* Use the rendered data for filtering/sorting */
-						_fnSetCellData( oSettings, iRow, iColumn, sRendered );
-					}
-				}
-				
-				/* Classes */
-				if ( bClass )
-				{
-					nCell.className += ' '+oCol.sClass;
-				}
-				
-				/* Column visability */
-				if ( !bVisible )
-				{
-					oData._anHidden[iColumn] = nCell;
-					nCell.parentNode.removeChild( nCell );
-				}
-				else
-				{
-					oData._anHidden[iColumn] = null;
-				}
+                oSettings.aiDisplayMaster.push( iThisIndex );
+                nTds = nTrs[i].childNodes;
+                jInner = 0;
 
-				if ( oCol.fnCreatedCell )
-				{
-					oCol.fnCreatedCell.call( oSettings.oInstance,
-						nCell, _fnGetCellData( oSettings, iRow, iColumn, 'display' ), oData._aData, iRow, iColumn
-					);
-				}
-			}
-		}
-	}
+                for ( j=0, jLen=nTds.length ; j<jLen ; j++ )
+                {
+                    sNodeName = nTds[j].nodeName.toUpperCase();
+                    if ( sNodeName == "TD" || sNodeName == "TH" )
+                    {
+                        _fnSetCellData( oSettings, iThisIndex, jInner, $.trim(nTds[j].innerHTML) );
+                        jInner++;
+                    }
+                }
+            }
+        }
+    }
 
-	/* Row created callbacks */
-	if ( oSettings.aoRowCreatedCallback.length !== 0 )
-	{
-		for ( i=0, iLen=oSettings.aoData.length ; i<iLen ; i++ )
-		{
-			oData = oSettings.aoData[i];
-			_fnCallbackFire( oSettings, 'aoRowCreatedCallback', null, [oData.nTr, oData._aData, i] );
-		}
-	}
+    /* Gather in the TD elements of the Table - note that this is basically the same as
+     * fnGetTdNodes, but that function takes account of hidden columns, which we haven't yet
+     * setup!
+     */
+    nTrs = _fnGetTrNodes( oSettings );
+    nTds = [];
+    for ( i=0, iLen=nTrs.length ; i<iLen ; i++ )
+    {
+        for ( j=0, jLen=nTrs[i].childNodes.length ; j<jLen ; j++ )
+        {
+            nTd = nTrs[i].childNodes[j];
+            sNodeName = nTd.nodeName.toUpperCase();
+            if ( sNodeName == "TD" || sNodeName == "TH" )
+            {
+                nTds.push( nTd );
+            }
+        }
+    }
+
+    /* Now process by column */
+    for ( iColumn=0, iColumns=oSettings.aoColumns.length ; iColumn<iColumns ; iColumn++ )
+    {
+        oCol = oSettings.aoColumns[iColumn];
+
+        /* Get the title of the column - unless there is a user set one */
+        if ( oCol.sTitle === null )
+        {
+            oCol.sTitle = oCol.nTh.innerHTML;
+        }
+
+        var
+            bAutoType = oCol._bAutoType,
+            bRender = typeof oCol.fnRender === 'function',
+            bClass = oCol.sClass !== null,
+            bVisible = oCol.bVisible,
+            nCell, sThisType, sRendered, sValType;
+
+        /* A single loop to rule them all (and be more efficient) */
+        if ( bAutoType || bRender || bClass || !bVisible )
+        {
+            for ( iRow=0, iRows=oSettings.aoData.length ; iRow<iRows ; iRow++ )
+            {
+                oData = oSettings.aoData[iRow];
+                nCell = nTds[ (iRow*iColumns) + iColumn ];
+
+                /* Type detection */
+                if ( bAutoType && oCol.sType != 'string' )
+                {
+                    sValType = _fnGetCellData( oSettings, iRow, iColumn, 'type' );
+                    if ( sValType !== '' )
+                    {
+                        sThisType = _fnDetectType( sValType );
+                        if ( oCol.sType === null )
+                        {
+                            oCol.sType = sThisType;
+                        }
+                        else if ( oCol.sType != sThisType &&
+                                  oCol.sType != "html" )
+                        {
+                            /* String is always the 'fallback' option */
+                            oCol.sType = 'string';
+                        }
+                    }
+                }
+
+                if ( typeof oCol.mDataProp === 'function' )
+                {
+                    nCell.innerHTML = _fnGetCellData( oSettings, iRow, iColumn, 'display' );
+                }
+
+                /* Rendering */
+                if ( bRender )
+                {
+                    sRendered = _fnRender( oSettings, iRow, iColumn );
+                    nCell.innerHTML = sRendered;
+                    if ( oCol.bUseRendered )
+                    {
+                        /* Use the rendered data for filtering/sorting */
+                        _fnSetCellData( oSettings, iRow, iColumn, sRendered );
+                    }
+                }
+
+                /* Classes */
+                if ( bClass )
+                {
+                    nCell.className += ' '+oCol.sClass;
+                }
+
+                /* Column visability */
+                if ( !bVisible )
+                {
+                    oData._anHidden[iColumn] = nCell;
+                    nCell.parentNode.removeChild( nCell );
+                }
+                else
+                {
+                    oData._anHidden[iColumn] = null;
+                }
+
+                if ( oCol.fnCreatedCell )
+                {
+                    oCol.fnCreatedCell.call( oSettings.oInstance,
+                        nCell, _fnGetCellData( oSettings, iRow, iColumn, 'display' ), oData._aData, iRow, iColumn
+                    );
+                }
+            }
+        }
+    }
+
+    /* Row created callbacks */
+    if ( oSettings.aoRowCreatedCallback.length !== 0 )
+    {
+        for ( i=0, iLen=oSettings.aoData.length ; i<iLen ; i++ )
+        {
+            oData = oSettings.aoData[i];
+            _fnCallbackFire( oSettings, 'aoRowCreatedCallback', null, [oData.nTr, oData._aData, i] );
+        }
+    }
 }
 
 
@@ -248,7 +248,7 @@ function _fnGatherData( oSettings )
  */
 function _fnNodeToDataIndex( oSettings, n )
 {
-	return (n._DT_RowIndex!==undefined) ? n._DT_RowIndex : null;
+    return (n._DT_RowIndex!==undefined) ? n._DT_RowIndex : null;
 }
 
 
@@ -262,16 +262,16 @@ function _fnNodeToDataIndex( oSettings, n )
  */
 function _fnNodeToColumnIndex( oSettings, iRow, n )
 {
-	var anCells = _fnGetTdNodes( oSettings, iRow );
+    var anCells = _fnGetTdNodes( oSettings, iRow );
 
-	for ( var i=0, iLen=oSettings.aoColumns.length ; i<iLen ; i++ )
-	{
-		if ( anCells[i] === n )
-		{
-			return i;
-		}
-	}
-	return -1;
+    for ( var i=0, iLen=oSettings.aoColumns.length ; i<iLen ; i++ )
+    {
+        if ( anCells[i] === n )
+        {
+            return i;
+        }
+    }
+    return -1;
 }
 
 
@@ -285,12 +285,12 @@ function _fnNodeToColumnIndex( oSettings, iRow, n )
  */
 function _fnGetRowData( oSettings, iRow, sSpecific )
 {
-	var out = [];
-	for ( var i=0, iLen=oSettings.aoColumns.length ; i<iLen ; i++ )
-	{
-		out.push( _fnGetCellData( oSettings, iRow, i, sSpecific ) );
-	}
-	return out;
+    var out = [];
+    for ( var i=0, iLen=oSettings.aoColumns.length ; i<iLen ; i++ )
+    {
+        out.push( _fnGetCellData( oSettings, iRow, i, sSpecific ) );
+    }
+    return out;
 }
 
 
@@ -305,37 +305,37 @@ function _fnGetRowData( oSettings, iRow, sSpecific )
  */
 function _fnGetCellData( oSettings, iRow, iCol, sSpecific )
 {
-	var sData;
-	var oCol = oSettings.aoColumns[iCol];
-	var oData = oSettings.aoData[iRow]._aData;
+    var sData;
+    var oCol = oSettings.aoColumns[iCol];
+    var oData = oSettings.aoData[iRow]._aData;
 
-	if ( (sData=oCol.fnGetData( oData, sSpecific )) === undefined )
-	{
-		if ( oSettings.iDrawError != oSettings.iDraw && oCol.sDefaultContent === null )
-		{
-			_fnLog( oSettings, 0, "Requested unknown parameter '"+oCol.mDataProp+
-				"' from the data source for row "+iRow );
-			oSettings.iDrawError = oSettings.iDraw;
-		}
-		return oCol.sDefaultContent;
-	}
+    if ( (sData=oCol.fnGetData( oData, sSpecific )) === undefined )
+    {
+        if ( oSettings.iDrawError != oSettings.iDraw && oCol.sDefaultContent === null )
+        {
+            _fnLog( oSettings, 0, "Requested unknown parameter '"+oCol.mDataProp+
+                "' from the data source for row "+iRow );
+            oSettings.iDrawError = oSettings.iDraw;
+        }
+        return oCol.sDefaultContent;
+    }
 
-	/* When the data source is null, we can use default column data */
-	if ( sData === null && oCol.sDefaultContent !== null )
-	{
-		sData = oCol.sDefaultContent;
-	}
-	else if ( typeof sData === 'function' )
-	{
-		/* If the data source is a function, then we run it and use the return */
-		return sData();
-	}
+    /* When the data source is null, we can use default column data */
+    if ( sData === null && oCol.sDefaultContent !== null )
+    {
+        sData = oCol.sDefaultContent;
+    }
+    else if ( typeof sData === 'function' )
+    {
+        /* If the data source is a function, then we run it and use the return */
+        return sData();
+    }
 
-	if ( sSpecific == 'display' && sData === null )
-	{
-		return '';
-	}
-	return sData;
+    if ( sSpecific == 'display' && sData === null )
+    {
+        return '';
+    }
+    return sData;
 }
 
 
@@ -349,10 +349,10 @@ function _fnGetCellData( oSettings, iRow, iCol, sSpecific )
  */
 function _fnSetCellData( oSettings, iRow, iCol, val )
 {
-	var oCol = oSettings.aoColumns[iCol];
-	var oData = oSettings.aoData[iRow]._aData;
+    var oCol = oSettings.aoColumns[iCol];
+    var oData = oSettings.aoData[iRow]._aData;
 
-	oCol.fnSetData( oData, val );
+    oCol.fnSetData( oData, val );
 }
 
 
@@ -365,47 +365,47 @@ function _fnSetCellData( oSettings, iRow, iCol, val )
  */
 function _fnGetObjectDataFn( mSource )
 {
-	if ( mSource === null )
-	{
-		/* Give an empty string for rendering / sorting etc */
-		return function (data, type) {
-			return null;
-		};
-	}
-	else if ( typeof mSource === 'function' )
-	{
-		return function (data, type) {
-			return mSource( data, type );
-		};
-	}
-	else if ( typeof mSource === 'string' && mSource.indexOf('.') != -1 )
-	{
-		/* If there is a . in the source string then the data source is in a 
-		 * nested object so we loop over the data for each level to get the next
-		 * level down. On each loop we test for undefined, and if found immediatly
-		 * return. This allows entire objects to be missing and sDefaultContent to
-		 * be used if defined, rather than throwing an error
-		 */
-		var a = mSource.split('.');
-		return function (data, type) {
-			for ( var i=0, iLen=a.length ; i<iLen ; i++ )
-			{
-				data = data[ a[i] ];
-				if ( data === undefined )
-				{
-					return undefined;
-				}
-			}
-			return data;
-		};
-	}
-	else
-	{
-		/* Array or flat object mapping */
-		return function (data, type) {
-			return data[mSource];	
-		};
-	}
+    if ( mSource === null )
+    {
+        /* Give an empty string for rendering / sorting etc */
+        return function (data, type) {
+            return null;
+        };
+    }
+    else if ( typeof mSource === 'function' )
+    {
+        return function (data, type) {
+            return mSource( data, type );
+        };
+    }
+    else if ( typeof mSource === 'string' && mSource.indexOf('.') != -1 )
+    {
+        /* If there is a . in the source string then the data source is in a
+         * nested object so we loop over the data for each level to get the next
+         * level down. On each loop we test for undefined, and if found immediatly
+         * return. This allows entire objects to be missing and sDefaultContent to
+         * be used if defined, rather than throwing an error
+         */
+        var a = mSource.split('.');
+        return function (data, type) {
+            for ( var i=0, iLen=a.length ; i<iLen ; i++ )
+            {
+                data = data[ a[i] ];
+                if ( data === undefined )
+                {
+                    return undefined;
+                }
+            }
+            return data;
+        };
+    }
+    else
+    {
+        /* Array or flat object mapping */
+        return function (data, type) {
+            return data[mSource];
+        };
+    }
 }
 
 
@@ -418,36 +418,36 @@ function _fnGetObjectDataFn( mSource )
  */
 function _fnSetObjectDataFn( mSource )
 {
-	if ( mSource === null )
-	{
-		/* Nothing to do when the data source is null */
-		return function (data, val) {};
-	}
-	else if ( typeof mSource === 'function' )
-	{
-		return function (data, val) {
-			mSource( data, 'set', val );
-		};
-	}
-	else if ( typeof mSource === 'string' && mSource.indexOf('.') != -1 )
-	{
-		/* Like the get, we need to get data from a nested object.  */
-		var a = mSource.split('.');
-		return function (data, val) {
-			for ( var i=0, iLen=a.length-1 ; i<iLen ; i++ )
-			{
-				data = data[ a[i] ];
-			}
-			data[ a[a.length-1] ] = val;
-		};
-	}
-	else
-	{
-		/* Array or flat object mapping */
-		return function (data, val) {
-			data[mSource] = val;	
-		};
-	}
+    if ( mSource === null )
+    {
+        /* Nothing to do when the data source is null */
+        return function (data, val) {};
+    }
+    else if ( typeof mSource === 'function' )
+    {
+        return function (data, val) {
+            mSource( data, 'set', val );
+        };
+    }
+    else if ( typeof mSource === 'string' && mSource.indexOf('.') != -1 )
+    {
+        /* Like the get, we need to get data from a nested object.  */
+        var a = mSource.split('.');
+        return function (data, val) {
+            for ( var i=0, iLen=a.length-1 ; i<iLen ; i++ )
+            {
+                data = data[ a[i] ];
+            }
+            data[ a[a.length-1] ] = val;
+        };
+    }
+    else
+    {
+        /* Array or flat object mapping */
+        return function (data, val) {
+            data[mSource] = val;
+        };
+    }
 }
 
 
@@ -459,13 +459,13 @@ function _fnSetObjectDataFn( mSource )
  */
 function _fnGetDataMaster ( oSettings )
 {
-	var aData = [];
-	var iLen = oSettings.aoData.length;
-	for ( var i=0 ; i<iLen; i++ )
-	{
-		aData.push( oSettings.aoData[i]._aData );
-	}
-	return aData;
+    var aData = [];
+    var iLen = oSettings.aoData.length;
+    for ( var i=0 ; i<iLen; i++ )
+    {
+        aData.push( oSettings.aoData[i]._aData );
+    }
+    return aData;
 }
 
 
@@ -476,15 +476,15 @@ function _fnGetDataMaster ( oSettings )
  */
 function _fnClearTable( oSettings )
 {
-	oSettings.aoData.splice( 0, oSettings.aoData.length );
-	oSettings.aiDisplayMaster.splice( 0, oSettings.aiDisplayMaster.length );
-	oSettings.aiDisplay.splice( 0, oSettings.aiDisplay.length );
-	_fnCalculateEnd( oSettings );
+    oSettings.aoData.splice( 0, oSettings.aoData.length );
+    oSettings.aiDisplayMaster.splice( 0, oSettings.aiDisplayMaster.length );
+    oSettings.aiDisplay.splice( 0, oSettings.aiDisplay.length );
+    _fnCalculateEnd( oSettings );
 }
 
 
  /**
- * Take an array of integers (index array) and remove a target integer (value - not 
+ * Take an array of integers (index array) and remove a target integer (value - not
  * the key!)
  *  @param {array} a Index array to target
  *  @param {int} iTarget value to find
@@ -492,24 +492,24 @@ function _fnClearTable( oSettings )
  */
 function _fnDeleteIndex( a, iTarget )
 {
-	var iTargetIndex = -1;
-	
-	for ( var i=0, iLen=a.length ; i<iLen ; i++ )
-	{
-		if ( a[i] == iTarget )
-		{
-			iTargetIndex = i;
-		}
-		else if ( a[i] > iTarget )
-		{
-			a[i]--;
-		}
-	}
-	
-	if ( iTargetIndex != -1 )
-	{
-		a.splice( iTargetIndex, 1 );
-	}
+    var iTargetIndex = -1;
+
+    for ( var i=0, iLen=a.length ; i<iLen ; i++ )
+    {
+        if ( a[i] == iTarget )
+        {
+            iTargetIndex = i;
+        }
+        else if ( a[i] > iTarget )
+        {
+            a[i]--;
+        }
+    }
+
+    if ( iTargetIndex != -1 )
+    {
+        a.splice( iTargetIndex, 1 );
+    }
 }
 
 
@@ -524,13 +524,13 @@ function _fnDeleteIndex( a, iTarget )
  */
 function _fnRender( oSettings, iRow, iCol )
 {
-	var oCol = oSettings.aoColumns[iCol];
+    var oCol = oSettings.aoColumns[iCol];
 
-	return oCol.fnRender( {
-		"iDataRow":    iRow,
-		"iDataColumn": iCol,
-		"oSettings":   oSettings,
-		"aData":       oSettings.aoData[iRow]._aData,
-		"mDataProp":   oCol.mDataProp
-	}, _fnGetCellData(oSettings, iRow, iCol, 'display') );
+    return oCol.fnRender( {
+        "iDataRow":    iRow,
+        "iDataColumn": iCol,
+        "oSettings":   oSettings,
+        "aData":       oSettings.aoData[iRow]._aData,
+        "mDataProp":   oCol.mDataProp
+    }, _fnGetCellData(oSettings, iRow, iCol, 'display') );
 }

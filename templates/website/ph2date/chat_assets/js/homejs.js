@@ -1,6 +1,6 @@
 function formSubmit1()
 {
-	document.myform.action='<?php echo site_url("project/create"); ?>';
+    document.myform.action='<?php echo site_url("project/create"); ?>';
 }
 function formSubmit2()
 {
@@ -16,18 +16,18 @@ new Ajax.Request('<?php echo site_url("home/listProjects/latest"); ?>',
     },
     onFailure: function(){ alert('Something went wrong...') }
   });
-  
+
 function checkFind(type){
-	
-	if(type == 'work'){
-		document.getElementById("work").setAttribute("class", "selected");
-		document.getElementById("prof").setAttribute("class", "");
-	}
-	else{
-		document.getElementById("work").setAttribute("class", "");
-		document.getElementById("prof").setAttribute("class", "selected");
-	}
-	new Ajax.Request('<?php echo base_url()."home/checkFind/"; ?>'+type,
+
+    if(type == 'work'){
+        document.getElementById("work").setAttribute("class", "selected");
+        document.getElementById("prof").setAttribute("class", "");
+    }
+    else{
+        document.getElementById("work").setAttribute("class", "");
+        document.getElementById("prof").setAttribute("class", "selected");
+    }
+    new Ajax.Request('<?php echo base_url()."home/checkFind/"; ?>'+type,
   {
     method:'get',
     onSuccess: function(transport){
@@ -40,7 +40,7 @@ function checkFind(type){
 
 function getCat(catid){
 
-	new Ajax.Request('<?php echo base_url()."home/getCate/"; ?>'+catid,
+    new Ajax.Request('<?php echo base_url()."home/getCate/"; ?>'+catid,
   {
     method:'get',
     onSuccess: function(transport){
@@ -53,11 +53,11 @@ function getCat(catid){
 
  function getProjects(type){
 
- 	new Ajax.Request('<?php echo base_url()."home/listProjects/"; ?>'+type,
+     new Ajax.Request('<?php echo base_url()."home/listProjects/"; ?>'+type,
   {
     method:'get',
     onSuccess: function(transport){
-	 
+
       var response = transport.responseText || "no response text";
       document.getElementById('test').innerHTML = response
     },

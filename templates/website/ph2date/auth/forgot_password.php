@@ -15,8 +15,8 @@
 <?php echo form_open("user/forgot_password");?>
 
       <p>
-      	<label for="email"><?php echo sprintf(lang('forgot_password_email_label'), $identity_label);?></label> <br />
-      	<?php echo form_input($email);?>
+          <label for="email"><?php echo sprintf(lang('forgot_password_email_label'), $identity_label);?></label> <br />
+          <?php echo form_input($email);?>
       </p>
 
       <p><?php echo form_submit('submit', lang('forgot_password_submit_btn'),'class="btn btn-default"');?></p>

@@ -2,11 +2,11 @@
 set_time_limit(0);
 class smiles extends Website_Controller {
 
-	public function index()
-	{
-		$this->emotions();
-	}
-	public function emotions(){
+    public function index()
+    {
+        $this->emotions();
+    }
+    public function emotions(){
 
 /* space == separator */
 
@@ -124,19 +124,19 @@ $aliases[]=':-! bad.gif';
 $aliases[]='(F) give_rose.gif';
 
 foreach ($emoticons AS $emotion){
-	$s = explode(" ", $emotion);
-	 $data["word"] = $s[0];
-	 $data["img"] = $s[1];
-	$this->db->insert('emoticons', $data);
+    $s = explode(" ", $emotion);
+     $data["word"] = $s[0];
+     $data["img"] = $s[1];
+    $this->db->insert('emoticons', $data);
 }
 foreach ($aliases AS $emotion){
-	$s = explode(" ", $emotion);
-	 $data["word"] = $s[0];
-	 $data["img"] = $s[1];
-	$this->db->insert('emoticons', $data);
+    $s = explode(" ", $emotion);
+     $data["word"] = $s[0];
+     $data["img"] = $s[1];
+    $this->db->insert('emoticons', $data);
 }
-		
-	}
+
+    }
 }
 
 /* End of file welcome.php */

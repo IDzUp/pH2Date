@@ -1,5 +1,5 @@
 #!/bin/sh
 for i in *.php
-do 
+do
    echo -e "\n\t\$lang['list_view'] = 'View';" >> $i
 done

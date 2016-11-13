@@ -4,13 +4,13 @@
  *
  * An open source application development framework for PHP 5.1.6 or newer
  *
- * @package		CodeIgniter
- * @author		EllisLab Dev Team
- * @copyright		Copyright (c) 2008 - 2014, EllisLab, Inc.
- * @copyright		Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
- * @license		http://codeigniter.com/user_guide/license.html
- * @link		http://codeigniter.com
- * @since		Version 1.0
+ * @package        CodeIgniter
+ * @author        EllisLab Dev Team
+ * @copyright        Copyright (c) 2008 - 2014, EllisLab, Inc.
+ * @copyright        Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license        http://codeigniter.com/user_guide/license.html
+ * @link        http://codeigniter.com
+ * @since        Version 1.0
  * @filesource
  */
 
@@ -19,11 +19,11 @@
 /**
  * CodeIgniter Security Helpers
  *
- * @package		CodeIgniter
- * @subpackage	Helpers
- * @category	Helpers
- * @author		EllisLab Dev Team
- * @link		http://codeigniter.com/user_guide/helpers/security_helper.html
+ * @package        CodeIgniter
+ * @subpackage    Helpers
+ * @category    Helpers
+ * @author        EllisLab Dev Team
+ * @link        http://codeigniter.com/user_guide/helpers/security_helper.html
  */
 
 // ------------------------------------------------------------------------
@@ -31,18 +31,18 @@
 /**
  * XSS Filtering
  *
- * @access	public
- * @param	string
- * @param	bool	whether or not the content is an image file
- * @return	string
+ * @access    public
+ * @param    string
+ * @param    bool    whether or not the content is an image file
+ * @return    string
  */
 if ( ! function_exists('xss_clean'))
 {
-	function xss_clean($str, $is_image = FALSE)
-	{
-		$CI =& get_instance();
-		return $CI->security->xss_clean($str, $is_image);
-	}
+    function xss_clean($str, $is_image = FALSE)
+    {
+        $CI =& get_instance();
+        return $CI->security->xss_clean($str, $is_image);
+    }
 }
 
 // ------------------------------------------------------------------------
@@ -50,17 +50,17 @@ if ( ! function_exists('xss_clean'))
 /**
  * Sanitize Filename
  *
- * @access	public
- * @param	string
- * @return	string
+ * @access    public
+ * @param    string
+ * @return    string
  */
 if ( ! function_exists('sanitize_filename'))
 {
-	function sanitize_filename($filename)
-	{
-		$CI =& get_instance();
-		return $CI->security->sanitize_filename($filename);
-	}
+    function sanitize_filename($filename)
+    {
+        $CI =& get_instance();
+        return $CI->security->sanitize_filename($filename);
+    }
 }
 
 // --------------------------------------------------------------------
@@ -68,23 +68,23 @@ if ( ! function_exists('sanitize_filename'))
 /**
  * Hash encode a string
  *
- * @access	public
- * @param	string
- * @return	string
+ * @access    public
+ * @param    string
+ * @return    string
  */
 if ( ! function_exists('do_hash'))
 {
-	function do_hash($str, $type = 'sha1')
-	{
-		if ($type == 'sha1')
-		{
-			return sha1($str);
-		}
-		else
-		{
-			return md5($str);
-		}
-	}
+    function do_hash($str, $type = 'sha1')
+    {
+        if ($type == 'sha1')
+        {
+            return sha1($str);
+        }
+        else
+        {
+            return md5($str);
+        }
+    }
 }
 
 // ------------------------------------------------------------------------
@@ -92,19 +92,19 @@ if ( ! function_exists('do_hash'))
 /**
  * Strip Image Tags
  *
- * @access	public
- * @param	string
- * @return	string
+ * @access    public
+ * @param    string
+ * @return    string
  */
 if ( ! function_exists('strip_image_tags'))
 {
-	function strip_image_tags($str)
-	{
-		$str = preg_replace("#<img\s+.*?src\s*=\s*[\"'](.+?)[\"'].*?\>#", "\\1", $str);
-		$str = preg_replace("#<img\s+.*?src\s*=\s*(.+?).*?\>#", "\\1", $str);
+    function strip_image_tags($str)
+    {
+        $str = preg_replace("#<img\s+.*?src\s*=\s*[\"'](.+?)[\"'].*?\>#", "\\1", $str);
+        $str = preg_replace("#<img\s+.*?src\s*=\s*(.+?).*?\>#", "\\1", $str);
 
-		return $str;
-	}
+        return $str;
+    }
 }
 
 // ------------------------------------------------------------------------
@@ -112,16 +112,16 @@ if ( ! function_exists('strip_image_tags'))
 /**
  * Convert PHP tags to entities
  *
- * @access	public
- * @param	string
- * @return	string
+ * @access    public
+ * @param    string
+ * @return    string
  */
 if ( ! function_exists('encode_php_tags'))
 {
-	function encode_php_tags($str)
-	{
-		return str_replace(array('<?php', '<?PHP', '<?', '?>'),  array('&lt;?php', '&lt;?PHP', '&lt;?', '?&gt;'), $str);
-	}
+    function encode_php_tags($str)
+    {
+        return str_replace(array('<?php', '<?PHP', '<?', '?>'),  array('&lt;?php', '&lt;?PHP', '&lt;?', '?&gt;'), $str);
+    }
 }
 
 

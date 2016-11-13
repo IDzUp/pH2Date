@@ -15,11 +15,11 @@ $this->load->view('loged_in_side');
 
 
 <?php if($page_content){ ?>
-<h1><?php echo $page_content->page_name;?></h1>  
+<h1><?php echo $page_content->page_name;?></h1>
 <?php echo $page_content->page_content;?>
 <?php
 }else {
-	echo lang('not_found');
+    echo lang('not_found');
 }
 ?>
 </div>

@@ -5,7 +5,7 @@ $this->load->view('loged_in_side');
 <div class="col-md-8">
 <div class="well">
 
-<h1><?=lang('search_form')?></h1>                                    
+<h1><?=lang('search_form')?></h1>
 <div class="clr"></div>
 </br>
 

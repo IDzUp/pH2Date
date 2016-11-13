@@ -60,7 +60,7 @@ jQuery(function($){
         $('input[data-icon]').each(function(){
             var $this = $(this);
             var icon = $this.attr('data-icon');
-            
+
             $this.before('<label class="glyph ' + icon + '" for="' + $this.attr('id') + '"></label>').parent().addClass('iconized').end().prev().css({top: $this.position().top+7, left: $this.position().left+8})
         });
 
@@ -89,7 +89,7 @@ jQuery(function($){
         });
 
         // filemanger
-	    $('.filemanager').elfinder({
+        $('.filemanager').elfinder({
             url : 'connectors/php/connector.php',
             toolbar : [
                 ['back', 'reload'],
@@ -98,10 +98,10 @@ jQuery(function($){
                 ['resize', 'icons', 'list']
             ],
             contextmenu : {
-                cwd : ['reload', 'delim', 'info'], 
-                file : ['select', 'open', 'rename'], 
+                cwd : ['reload', 'delim', 'info'],
+                file : ['select', 'open', 'rename'],
             }
-	    });
+        });
 
         // masks
         $.mask.definitions['~']='[+-]';
@@ -125,11 +125,11 @@ jQuery(function($){
         // full calendar
         $('.fullcalendar').fullCalendar({
             editable: true,
-		    header: {
-			    left: 'prev,next',
-			    center: 'title',
-			    right: 'month,basicWeek,basicDay'
-	        }
+            header: {
+                left: 'prev,next',
+                center: 'title',
+                right: 'month,basicWeek,basicDay'
+            }
         });
 
         // textarea
@@ -210,7 +210,7 @@ jQuery(function($){
                 ajaxOptions.success = function(data){
                     var body = data.split('<body>')[1].split('</body>')[0];
                     var $body = $('<div>').html(body);
-                    
+
                     var $oldContent = $('#content');
 
                     if($body.find('.compact-page')[0]){
@@ -220,7 +220,7 @@ jQuery(function($){
                             opacity: 1
                         });
                         eventHistory.rebindAll();
-                    }                  
+                    }
                 }
 
                 $.ajax($(this).attr('href'), ajaxOptions);
@@ -246,7 +246,7 @@ jQuery(function($){
                     // if is the page we are wating for
                     if($nav[0]){
                         var $ul = $newNav.html('<ul></ul>').find('ul');
-                        
+
                         // format the menu
                         $nav.find('> ul > li').each(function(i, el){
                             var $li = $(el),
@@ -283,7 +283,7 @@ jQuery(function($){
                         $wrapper.append($logo).append($newNav);
 
                         var o = 0, top = 0, isLastLine = false;
-                        
+
                         // animate each one of the itens
                         $newNav.find('> ul > li').each(function(i, el){
                             var $li = $(el), mLeft, mTop;
@@ -306,18 +306,18 @@ jQuery(function($){
 
                             var offset = $li.offset(), n = i % 2 == 0 ? -1 : 1;
                             $li.data('n', n);
-                              
+
                             $li.animate({
                                 opacity: 1,
                                 path : new $.path.bezier({
-                                    start: { 
+                                    start: {
                                         x: Math.floor(Math.random()*$(window).width()),
-                                        y: Math.floor(Math.random()*$(window).height()), 
+                                        y: Math.floor(Math.random()*$(window).height()),
                                         angle: 100
                                     },
-                                    end: { 
+                                    end: {
                                         x: offset.left+(mLeft)*-1,
-                                        y: offset.top+(mTop)*-1, 
+                                        y: offset.top+(mTop)*-1,
                                         angle: -100
                                     }
                                 })}, {
@@ -365,7 +365,7 @@ jQuery(function($){
                                     e.preventDefault();
                                 }
                             });
-                            
+
                             o++;
                         });
                         $('#content').animate({opacity: 1});
@@ -385,7 +385,7 @@ jQuery(function($){
         $('.slider').each(function(){
             var options = {},
                 $this = $(this);
-            
+
             if($this.is('.vertical'))
                 options.orientation = 'vertical';
 
@@ -569,7 +569,7 @@ jQuery(function($){
                         // moves length input in box header
                         $boxedTable.find('header .inner .right').prepend($('<div class="per-page">').html('<label><span class="textnode">itens per page</span></label>').find('label').append($boxedTable.find('.dataTables_length select')).end());
                         // moves search input
-                       $table.prev().find('.dataTables_filter input').addClass('right').attr('placeholder', 'Search').appendTo($boxedTable.find('.box .box-content .pane'));  
+                       $table.prev().find('.dataTables_filter input').addClass('right').attr('placeholder', 'Search').appendTo($boxedTable.find('.box .box-content .pane'));
 
                         // remove original div
                         $table.prev().remove();
@@ -577,7 +577,7 @@ jQuery(function($){
                         // moves pagination to the right place
                         $boxedTable.find('.box').after($table.next());
                         $('th.checkbox, th.sorting_disabled').removeClass('sorting sorting_asc').unbind('click').removeAttr('role').find('.sorticon').remove();
-                        
+
                     }else{
                         $table.prev().append('<div class="clear">');
                     }

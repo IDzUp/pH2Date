@@ -5,7 +5,7 @@
 * Version: 2.5.2
 *
 * Author: Ben Edmunds
-*		  ben.edmunds@gmail.com
+*          ben.edmunds@gmail.com
 *         @benedmunds
 *
 * Added Awesomeness: Phil Sturgeon
@@ -65,8 +65,8 @@ $config['join']['groups'] = 'group_id';
  | salt_prefix: Used for bcrypt. Versions of PHP before 5.3.7 only support "$2a$" as the salt prefix
  | Versions 5.3.7 or greater should use the default of "$2y$".
  */
-$config['hash_method']    = 'bcrypt';	// sha1 or bcrypt, bcrypt is STRONGLY recommended
-$config['default_rounds'] = 6;		// This does not apply if random_rounds is set to true
+$config['hash_method']    = 'bcrypt';    // sha1 or bcrypt, bcrypt is STRONGLY recommended
+$config['default_rounds'] = 6;        // This does not apply if random_rounds is set to true
 $config['random_rounds']  = FALSE;
 $config['min_rounds']     = 5;
 $config['max_rounds']     = 9;
@@ -114,12 +114,12 @@ $config['identity_cookie_name'] = 'identity';
  | Email options.
  | -------------------------------------------------------------------------
  | email_config:
- | 	  'file' = Use the default CI config or use from a config file
- | 	  array  = Manually set your email config settings
+ |       'file' = Use the default CI config or use from a config file
+ |       array  = Manually set your email config settings
  */
 $config['use_ci_email'] = FALSE; // Send Email using the builtin CI email class, if false it will return the code and the identity
 $config['email_config'] = array(
-	'mailtype' => 'html',
+    'mailtype' => 'html',
 );
 
 /*
@@ -174,11 +174,11 @@ $config['store_salt']  = FALSE;
  | Message Delimiters.
  | -------------------------------------------------------------------------
  */
-$config['delimiters_source']       = 'config'; 	// "config" = use the settings defined here, "form_validation" = use the settings defined in CI's form validation library
-$config['message_start_delimiter'] = '<p>'; 	// Message start delimiter
-$config['message_end_delimiter']   = '</p>'; 	// Message end delimiter
-$config['error_start_delimiter']   = '<p>';		// Error mesage start delimiter
-$config['error_end_delimiter']     = '</p>';	// Error mesage end delimiter
+$config['delimiters_source']       = 'config';     // "config" = use the settings defined here, "form_validation" = use the settings defined in CI's form validation library
+$config['message_start_delimiter'] = '<p>';     // Message start delimiter
+$config['message_end_delimiter']   = '</p>';     // Message end delimiter
+$config['error_start_delimiter']   = '<p>';        // Error mesage start delimiter
+$config['error_end_delimiter']     = '</p>';    // Error mesage end delimiter
 
 /* End of file ion_auth.php */
 /* Location: ./application/config/ion_auth.php */

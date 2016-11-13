@@ -29,12 +29,12 @@ axo = new ActiveXObject("ShockwaveFlash.ShockwaveFlash.6");
 
 // installed player is some revision of 6.0
 // GetVariable("$version") crashes for versions 6.0.22 through 6.0.29,
-// so we have to be careful. 
+// so we have to be careful.
 
 // default to the first public version
 version = "WIN 6,0,21,0";
 
-// throws if AllowScripAccess does not exist (introduced in 6.0r47)		
+// throws if AllowScripAccess does not exist (introduced in 6.0r47)
 axo.AllowScriptAccess = "always";
 
 // safe to call for 6.0r47 or greater
@@ -88,7 +88,7 @@ if (navigator.plugins["Shockwave Flash 2.0"] || navigator.plugins["Shockwave Fla
 var swVer2 = navigator.plugins["Shockwave Flash 2.0"] ? " 2.0" : "";
 var flashDescription = navigator.plugins["Shockwave Flash" + swVer2].description;
 var descArray = flashDescription.split(" ");
-var tempArrayMajor = descArray[2].split(".");			
+var tempArrayMajor = descArray[2].split(".");
 var versionMajor = tempArrayMajor[0];
 var versionMinor = tempArrayMajor[1];
 var versionRevision = descArray[3];
@@ -100,7 +100,7 @@ versionRevision = versionRevision.substring(1);
 } else if (versionRevision[0] == "r") {
 versionRevision = versionRevision.substring(1);
 if (versionRevision.indexOf("d") > 0) {
-	versionRevision = versionRevision.substring(0, versionRevision.indexOf("d"));
+    versionRevision = versionRevision.substring(0, versionRevision.indexOf("d"));
 }
 }
 var flashVer = versionMajor + "." + versionMinor + "." + versionRevision;
@@ -114,7 +114,7 @@ else if (navigator.userAgent.toLowerCase().indexOf("webtv/2.5") != -1) flashVer 
 else if (navigator.userAgent.toLowerCase().indexOf("webtv") != -1) flashVer = 2;
 else if ( isIE && isWin && !isOpera ) {
 flashVer = ControlVersion();
-}	
+}
 return flashVer;
 }
 
@@ -127,9 +127,9 @@ return false;
 } else if (versionStr != 0) {
 if(isIE && isWin && !isOpera) {
 // Given "WIN 2,0,0,11"
-tempArray         = versionStr.split(" "); 	// ["WIN", "2,0,0,11"]
-tempString        = tempArray[1];			// "2,0,0,11"
-versionArray      = tempString.split(",");	// ['2', '0', '0', '11']
+tempArray         = versionStr.split(" ");     // ["WIN", "2,0,0,11"]
+tempString        = tempArray[1];            // "2,0,0,11"
+versionArray      = tempString.split(",");    // ['2', '0', '0', '11']
 } else {
 versionArray      = versionStr.split(".");
 }
@@ -145,7 +145,7 @@ if (versionMinor > parseFloat(reqMinorVer))
 return true;
 else if (versionMinor == parseFloat(reqMinorVer)) {
 if (versionRevision >= parseFloat(reqRevision))
-	return true;
+    return true;
 }
 }
 return false;
@@ -155,13 +155,13 @@ return false;
 function AC_AddExtension(src, ext)
 {
 if (src.indexOf('?') != -1)
-return src.replace(/\?/, ext+'?'); 
+return src.replace(/\?/, ext+'?');
 else
 return src + ext;
 }
 
-function AC_Generateobj(objAttrs, params, embedAttrs) 
-{ 
+function AC_Generateobj(objAttrs, params, embedAttrs)
+{
 var str = '';
 if (isIE && isWin && !isOpera)
 {
@@ -191,7 +191,7 @@ document.write(str);
 }
 
 function AC_FL_RunContent(){
-var ret = 
+var ret =
 AC_GetArgs
 (  arguments, ".swf", "movie", "clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
 , "application/x-shockwave-flash"
@@ -200,7 +200,7 @@ AC_Generateobj(ret.objAttrs, ret.params, ret.embedAttrs);
 }
 
 function AC_SW_RunContent(){
-var ret = 
+var ret =
 AC_GetArgs
 (  arguments, ".dcr", "src", "clsid:166B1BCA-3F9C-11CF-8075-444553540000"
 , null
@@ -214,16 +214,16 @@ ret.embedAttrs = new Object();
 ret.params = new Object();
 ret.objAttrs = new Object();
 for (var i=0; i < args.length; i=i+2){
-var currArg = args[i].toLowerCase();    
+var currArg = args[i].toLowerCase();
 
-switch (currArg){	
+switch (currArg){
 case "classid":
 break;
 case "pluginspage":
 ret.embedAttrs[args[i]] = args[i+1];
 break;
 case "src":
-case "movie":	
+case "movie":
 args[i+1] = AC_AddExtension(args[i+1], ext);
 ret.embedAttrs["src"] = args[i+1];
 ret.params[srcParamName] = args[i+1];
@@ -273,7 +273,7 @@ break;
 case "width":
 case "height":
 case "align":
-case "vspace": 
+case "vspace":
 case "hspace":
 case "class":
 case "title":

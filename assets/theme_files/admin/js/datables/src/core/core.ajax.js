@@ -8,24 +8,24 @@
  */
 function _fnAjaxUpdate( oSettings )
 {
-	if ( oSettings.bAjaxDataGet )
-	{
-		oSettings.iDraw++;
-		_fnProcessingDisplay( oSettings, true );
-		var iColumns = oSettings.aoColumns.length;
-		var aoData = _fnAjaxParameters( oSettings );
-		_fnServerParams( oSettings, aoData );
-		
-		oSettings.fnServerData.call( oSettings.oInstance, oSettings.sAjaxSource, aoData,
-			function(json) {
-				_fnAjaxUpdateDraw( oSettings, json );
-			}, oSettings );
-		return false;
-	}
-	else
-	{
-		return true;
-	}
+    if ( oSettings.bAjaxDataGet )
+    {
+        oSettings.iDraw++;
+        _fnProcessingDisplay( oSettings, true );
+        var iColumns = oSettings.aoColumns.length;
+        var aoData = _fnAjaxParameters( oSettings );
+        _fnServerParams( oSettings, aoData );
+
+        oSettings.fnServerData.call( oSettings.oInstance, oSettings.sAjaxSource, aoData,
+            function(json) {
+                _fnAjaxUpdateDraw( oSettings, json );
+            }, oSettings );
+        return false;
+    }
+    else
+    {
+        return true;
+    }
 }
 
 
@@ -37,61 +37,61 @@ function _fnAjaxUpdate( oSettings )
  */
 function _fnAjaxParameters( oSettings )
 {
-	var iColumns = oSettings.aoColumns.length;
-	var aoData = [], mDataProp;
-	var i;
-	
-	aoData.push( { "name": "sEcho",          "value": oSettings.iDraw } );
-	aoData.push( { "name": "iColumns",       "value": iColumns } );
-	aoData.push( { "name": "sColumns",       "value": _fnColumnOrdering(oSettings) } );
-	aoData.push( { "name": "iDisplayStart",  "value": oSettings._iDisplayStart } );
-	aoData.push( { "name": "iDisplayLength", "value": oSettings.oFeatures.bPaginate !== false ?
-		oSettings._iDisplayLength : -1 } );
-		
-	for ( i=0 ; i<iColumns ; i++ )
-	{
-	  mDataProp = oSettings.aoColumns[i].mDataProp;
-		aoData.push( { "name": "mDataProp_"+i, "value": typeof(mDataProp)==="function" ? 'function' : mDataProp } );
-	}
-	
-	/* Filtering */
-	if ( oSettings.oFeatures.bFilter !== false )
-	{
-		aoData.push( { "name": "sSearch", "value": oSettings.oPreviousSearch.sSearch } );
-		aoData.push( { "name": "bRegex",  "value": oSettings.oPreviousSearch.bRegex } );
-		for ( i=0 ; i<iColumns ; i++ )
-		{
-			aoData.push( { "name": "sSearch_"+i,     "value": oSettings.aoPreSearchCols[i].sSearch } );
-			aoData.push( { "name": "bRegex_"+i,      "value": oSettings.aoPreSearchCols[i].bRegex } );
-			aoData.push( { "name": "bSearchable_"+i, "value": oSettings.aoColumns[i].bSearchable } );
-		}
-	}
-	
-	/* Sorting */
-	if ( oSettings.oFeatures.bSort !== false )
-	{
-		var iFixed = oSettings.aaSortingFixed !== null ? oSettings.aaSortingFixed.length : 0;
-		var iUser = oSettings.aaSorting.length;
-		aoData.push( { "name": "iSortingCols",   "value": iFixed+iUser } );
-		for ( i=0 ; i<iFixed ; i++ )
-		{
-			aoData.push( { "name": "iSortCol_"+i,  "value": oSettings.aaSortingFixed[i][0] } );
-			aoData.push( { "name": "sSortDir_"+i,  "value": oSettings.aaSortingFixed[i][1] } );
-		}
-		
-		for ( i=0 ; i<iUser ; i++ )
-		{
-			aoData.push( { "name": "iSortCol_"+(i+iFixed),  "value": oSettings.aaSorting[i][0] } );
-			aoData.push( { "name": "sSortDir_"+(i+iFixed),  "value": oSettings.aaSorting[i][1] } );
-		}
-		
-		for ( i=0 ; i<iColumns ; i++ )
-		{
-			aoData.push( { "name": "bSortable_"+i,  "value": oSettings.aoColumns[i].bSortable } );
-		}
-	}
-	
-	return aoData;
+    var iColumns = oSettings.aoColumns.length;
+    var aoData = [], mDataProp;
+    var i;
+
+    aoData.push( { "name": "sEcho",          "value": oSettings.iDraw } );
+    aoData.push( { "name": "iColumns",       "value": iColumns } );
+    aoData.push( { "name": "sColumns",       "value": _fnColumnOrdering(oSettings) } );
+    aoData.push( { "name": "iDisplayStart",  "value": oSettings._iDisplayStart } );
+    aoData.push( { "name": "iDisplayLength", "value": oSettings.oFeatures.bPaginate !== false ?
+        oSettings._iDisplayLength : -1 } );
+
+    for ( i=0 ; i<iColumns ; i++ )
+    {
+      mDataProp = oSettings.aoColumns[i].mDataProp;
+        aoData.push( { "name": "mDataProp_"+i, "value": typeof(mDataProp)==="function" ? 'function' : mDataProp } );
+    }
+
+    /* Filtering */
+    if ( oSettings.oFeatures.bFilter !== false )
+    {
+        aoData.push( { "name": "sSearch", "value": oSettings.oPreviousSearch.sSearch } );
+        aoData.push( { "name": "bRegex",  "value": oSettings.oPreviousSearch.bRegex } );
+        for ( i=0 ; i<iColumns ; i++ )
+        {
+            aoData.push( { "name": "sSearch_"+i,     "value": oSettings.aoPreSearchCols[i].sSearch } );
+            aoData.push( { "name": "bRegex_"+i,      "value": oSettings.aoPreSearchCols[i].bRegex } );
+            aoData.push( { "name": "bSearchable_"+i, "value": oSettings.aoColumns[i].bSearchable } );
+        }
+    }
+
+    /* Sorting */
+    if ( oSettings.oFeatures.bSort !== false )
+    {
+        var iFixed = oSettings.aaSortingFixed !== null ? oSettings.aaSortingFixed.length : 0;
+        var iUser = oSettings.aaSorting.length;
+        aoData.push( { "name": "iSortingCols",   "value": iFixed+iUser } );
+        for ( i=0 ; i<iFixed ; i++ )
+        {
+            aoData.push( { "name": "iSortCol_"+i,  "value": oSettings.aaSortingFixed[i][0] } );
+            aoData.push( { "name": "sSortDir_"+i,  "value": oSettings.aaSortingFixed[i][1] } );
+        }
+
+        for ( i=0 ; i<iUser ; i++ )
+        {
+            aoData.push( { "name": "iSortCol_"+(i+iFixed),  "value": oSettings.aaSorting[i][0] } );
+            aoData.push( { "name": "sSortDir_"+(i+iFixed),  "value": oSettings.aaSorting[i][1] } );
+        }
+
+        for ( i=0 ; i<iColumns ; i++ )
+        {
+            aoData.push( { "name": "bSortable_"+i,  "value": oSettings.aoColumns[i].bSortable } );
+        }
+    }
+
+    return aoData;
 }
 
 
@@ -103,7 +103,7 @@ function _fnAjaxParameters( oSettings )
  */
 function _fnServerParams( oSettings, aoData )
 {
-	_fnCallbackFire( oSettings, 'aoServerParams', 'serverParams', [aoData] );
+    _fnCallbackFire( oSettings, 'aoServerParams', 'serverParams', [aoData] );
 }
 
 
@@ -120,62 +120,62 @@ function _fnServerParams( oSettings, aoData )
  */
 function _fnAjaxUpdateDraw ( oSettings, json )
 {
-	if ( json.sEcho !== undefined )
-	{
-		/* Protect against old returns over-writing a new one. Possible when you get
-		 * very fast interaction, and later queires are completed much faster
-		 */
-		if ( json.sEcho*1 < oSettings.iDraw )
-		{
-			return;
-		}
-		else
-		{
-			oSettings.iDraw = json.sEcho * 1;
-		}
-	}
-	
-	if ( !oSettings.oScroll.bInfinite ||
-		   (oSettings.oScroll.bInfinite && (oSettings.bSorted || oSettings.bFiltered)) )
-	{
-		_fnClearTable( oSettings );
-	}
-	oSettings._iRecordsTotal = parseInt(json.iTotalRecords, 10);
-	oSettings._iRecordsDisplay = parseInt(json.iTotalDisplayRecords, 10);
-	
-	/* Determine if reordering is required */
-	var sOrdering = _fnColumnOrdering(oSettings);
-	var bReOrder = (json.sColumns !== undefined && sOrdering !== "" && json.sColumns != sOrdering );
-	var aiIndex;
-	if ( bReOrder )
-	{
-		aiIndex = _fnReOrderIndex( oSettings, json.sColumns );
-	}
-	
-	var aData = _fnGetObjectDataFn( oSettings.sAjaxDataProp )( json );
-	for ( var i=0, iLen=aData.length ; i<iLen ; i++ )
-	{
-		if ( bReOrder )
-		{
-			/* If we need to re-order, then create a new array with the correct order and add it */
-			var aDataSorted = [];
-			for ( var j=0, jLen=oSettings.aoColumns.length ; j<jLen ; j++ )
-			{
-				aDataSorted.push( aData[i][ aiIndex[j] ] );
-			}
-			_fnAddData( oSettings, aDataSorted );
-		}
-		else
-		{
-			/* No re-order required, sever got it "right" - just straight add */
-			_fnAddData( oSettings, aData[i] );
-		}
-	}
-	oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
-	
-	oSettings.bAjaxDataGet = false;
-	_fnDraw( oSettings );
-	oSettings.bAjaxDataGet = true;
-	_fnProcessingDisplay( oSettings, false );
+    if ( json.sEcho !== undefined )
+    {
+        /* Protect against old returns over-writing a new one. Possible when you get
+         * very fast interaction, and later queires are completed much faster
+         */
+        if ( json.sEcho*1 < oSettings.iDraw )
+        {
+            return;
+        }
+        else
+        {
+            oSettings.iDraw = json.sEcho * 1;
+        }
+    }
+
+    if ( !oSettings.oScroll.bInfinite ||
+           (oSettings.oScroll.bInfinite && (oSettings.bSorted || oSettings.bFiltered)) )
+    {
+        _fnClearTable( oSettings );
+    }
+    oSettings._iRecordsTotal = parseInt(json.iTotalRecords, 10);
+    oSettings._iRecordsDisplay = parseInt(json.iTotalDisplayRecords, 10);
+
+    /* Determine if reordering is required */
+    var sOrdering = _fnColumnOrdering(oSettings);
+    var bReOrder = (json.sColumns !== undefined && sOrdering !== "" && json.sColumns != sOrdering );
+    var aiIndex;
+    if ( bReOrder )
+    {
+        aiIndex = _fnReOrderIndex( oSettings, json.sColumns );
+    }
+
+    var aData = _fnGetObjectDataFn( oSettings.sAjaxDataProp )( json );
+    for ( var i=0, iLen=aData.length ; i<iLen ; i++ )
+    {
+        if ( bReOrder )
+        {
+            /* If we need to re-order, then create a new array with the correct order and add it */
+            var aDataSorted = [];
+            for ( var j=0, jLen=oSettings.aoColumns.length ; j<jLen ; j++ )
+            {
+                aDataSorted.push( aData[i][ aiIndex[j] ] );
+            }
+            _fnAddData( oSettings, aDataSorted );
+        }
+        else
+        {
+            /* No re-order required, sever got it "right" - just straight add */
+            _fnAddData( oSettings, aData[i] );
+        }
+    }
+    oSettings.aiDisplay = oSettings.aiDisplayMaster.slice();
+
+    oSettings.bAjaxDataGet = false;
+    _fnDraw( oSettings );
+    oSettings.bAjaxDataGet = true;
+    _fnProcessingDisplay( oSettings, false );
 }
 

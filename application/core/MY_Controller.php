@@ -2,11 +2,11 @@
 
 class MY_Controller extends CI_Controller {
 
-	/**
-	 * @var array $data
-	 */
-	protected $data;
-   
+    /**
+     * @var array $data
+     */
+    protected $data;
+
     public function __construct() {
 
         parent::__construct();
@@ -18,8 +18,8 @@ class MY_Controller extends CI_Controller {
         $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
         $this->load->helper('language');
         $this->data['setting'] = $this->db->get('setting')->row();
-        
-        
+
+
     }
 
 }
@@ -28,20 +28,20 @@ class Admin_Controller extends MY_Controller {
 
     public function __construct() {
 
-        parent::__construct();  
+        parent::__construct();
         $this->load->library('grocery_CRUD');
         if (!$this->ion_auth->is_admin() AND $this->uri->segment(2) != "login") {
             redirect('admin/login', 'refresh');
-        } 
-        
-        $this->load->admin_theme('blue'); 
+        }
+
+        $this->load->admin_theme('blue');
     }
 
 }
 
 class Website_Controller extends MY_Controller {
 
-   
+
 
     public function __construct() {
         parent::__construct();
@@ -65,7 +65,7 @@ class Website_Controller extends MY_Controller {
 
         $this->load->site_theme($current_template);
         $this->current_template_url = base_url("templates/website/".$current_template).'/';
-        
+
         $this->data['pages'] = $this->db->get('page')->result();
         $this->msg_error_left = $this->session->flashdata('msg_error_left');
         $this->msg_error_right = $this->session->flashdata('msg_error_right');

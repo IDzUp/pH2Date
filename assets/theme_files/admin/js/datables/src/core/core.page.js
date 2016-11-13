@@ -1,7 +1,7 @@
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Note that most of the paging logic is done in 
+ * Note that most of the paging logic is done in
  * DataTable.ext.oPagination
  */
 
@@ -13,35 +13,35 @@
  */
 function _fnFeatureHtmlPaginate ( oSettings )
 {
-	if ( oSettings.oScroll.bInfinite )
-	{
-		return null;
-	}
-	
-	var nPaginate = document.createElement( 'div' );
-	nPaginate.className = oSettings.oClasses.sPaging+oSettings.sPaginationType;
-	
-	DataTable.ext.oPagination[ oSettings.sPaginationType ].fnInit( oSettings, nPaginate, 
-		function( oSettings ) {
-			_fnCalculateEnd( oSettings );
-			_fnDraw( oSettings );
-		}
-	);
-	
-	/* Add a draw callback for the pagination on first instance, to update the paging display */
-	if ( !oSettings.aanFeatures.p )
-	{
-		oSettings.aoDrawCallback.push( {
-			"fn": function( oSettings ) {
-				DataTable.ext.oPagination[ oSettings.sPaginationType ].fnUpdate( oSettings, function( oSettings ) {
-					_fnCalculateEnd( oSettings );
-					_fnDraw( oSettings );
-				} );
-			},
-			"sName": "pagination"
-		} );
-	}
-	return nPaginate;
+    if ( oSettings.oScroll.bInfinite )
+    {
+        return null;
+    }
+
+    var nPaginate = document.createElement( 'div' );
+    nPaginate.className = oSettings.oClasses.sPaging+oSettings.sPaginationType;
+
+    DataTable.ext.oPagination[ oSettings.sPaginationType ].fnInit( oSettings, nPaginate,
+        function( oSettings ) {
+            _fnCalculateEnd( oSettings );
+            _fnDraw( oSettings );
+        }
+    );
+
+    /* Add a draw callback for the pagination on first instance, to update the paging display */
+    if ( !oSettings.aanFeatures.p )
+    {
+        oSettings.aoDrawCallback.push( {
+            "fn": function( oSettings ) {
+                DataTable.ext.oPagination[ oSettings.sPaginationType ].fnUpdate( oSettings, function( oSettings ) {
+                    _fnCalculateEnd( oSettings );
+                    _fnDraw( oSettings );
+                } );
+            },
+            "sName": "pagination"
+        } );
+    }
+    return nPaginate;
 }
 
 
@@ -55,65 +55,65 @@ function _fnFeatureHtmlPaginate ( oSettings )
  */
 function _fnPageChange ( oSettings, mAction )
 {
-	var iOldStart = oSettings._iDisplayStart;
-	
-	if ( typeof mAction === "number" )
-	{
-		oSettings._iDisplayStart = mAction * oSettings._iDisplayLength;
-		if ( oSettings._iDisplayStart > oSettings.fnRecordsDisplay() )
-		{
-			oSettings._iDisplayStart = 0;
-		}
-	}
-	else if ( mAction == "first" )
-	{
-		oSettings._iDisplayStart = 0;
-	}
-	else if ( mAction == "previous" )
-	{
-		oSettings._iDisplayStart = oSettings._iDisplayLength>=0 ?
-			oSettings._iDisplayStart - oSettings._iDisplayLength :
-			0;
-		
-		/* Correct for underrun */
-		if ( oSettings._iDisplayStart < 0 )
-		{
-		  oSettings._iDisplayStart = 0;
-		}
-	}
-	else if ( mAction == "next" )
-	{
-		if ( oSettings._iDisplayLength >= 0 )
-		{
-			/* Make sure we are not over running the display array */
-			if ( oSettings._iDisplayStart + oSettings._iDisplayLength < oSettings.fnRecordsDisplay() )
-			{
-				oSettings._iDisplayStart += oSettings._iDisplayLength;
-			}
-		}
-		else
-		{
-			oSettings._iDisplayStart = 0;
-		}
-	}
-	else if ( mAction == "last" )
-	{
-		if ( oSettings._iDisplayLength >= 0 )
-		{
-			var iPages = parseInt( (oSettings.fnRecordsDisplay()-1) / oSettings._iDisplayLength, 10 ) + 1;
-			oSettings._iDisplayStart = (iPages-1) * oSettings._iDisplayLength;
-		}
-		else
-		{
-			oSettings._iDisplayStart = 0;
-		}
-	}
-	else
-	{
-		_fnLog( oSettings, 0, "Unknown paging action: "+mAction );
-	}
-	$(oSettings.oInstance).trigger('page', oSettings);
-	
-	return iOldStart != oSettings._iDisplayStart;
+    var iOldStart = oSettings._iDisplayStart;
+
+    if ( typeof mAction === "number" )
+    {
+        oSettings._iDisplayStart = mAction * oSettings._iDisplayLength;
+        if ( oSettings._iDisplayStart > oSettings.fnRecordsDisplay() )
+        {
+            oSettings._iDisplayStart = 0;
+        }
+    }
+    else if ( mAction == "first" )
+    {
+        oSettings._iDisplayStart = 0;
+    }
+    else if ( mAction == "previous" )
+    {
+        oSettings._iDisplayStart = oSettings._iDisplayLength>=0 ?
+            oSettings._iDisplayStart - oSettings._iDisplayLength :
+            0;
+
+        /* Correct for underrun */
+        if ( oSettings._iDisplayStart < 0 )
+        {
+          oSettings._iDisplayStart = 0;
+        }
+    }
+    else if ( mAction == "next" )
+    {
+        if ( oSettings._iDisplayLength >= 0 )
+        {
+            /* Make sure we are not over running the display array */
+            if ( oSettings._iDisplayStart + oSettings._iDisplayLength < oSettings.fnRecordsDisplay() )
+            {
+                oSettings._iDisplayStart += oSettings._iDisplayLength;
+            }
+        }
+        else
+        {
+            oSettings._iDisplayStart = 0;
+        }
+    }
+    else if ( mAction == "last" )
+    {
+        if ( oSettings._iDisplayLength >= 0 )
+        {
+            var iPages = parseInt( (oSettings.fnRecordsDisplay()-1) / oSettings._iDisplayLength, 10 ) + 1;
+            oSettings._iDisplayStart = (iPages-1) * oSettings._iDisplayLength;
+        }
+        else
+        {
+            oSettings._iDisplayStart = 0;
+        }
+    }
+    else
+    {
+        _fnLog( oSettings, 0, "Unknown paging action: "+mAction );
+    }
+    $(oSettings.oInstance).trigger('page', oSettings);
+
+    return iOldStart != oSettings._iDisplayStart;
 }
 

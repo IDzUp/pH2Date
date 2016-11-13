@@ -13,7 +13,7 @@ $this->load->view('loged_in_side');
     <div class="alert alert-success"><?php echo $this->msg_success_right;?></div>
 <?php endif ?>
 
-<h1><?=lang('edit_user_heading')?></h1>                                    
+<h1><?=lang('edit_user_heading')?></h1>
 <div class="clr"></div>
 
 <form enctype="multipart/form-data" action="<?php echo site_url('user/edit_account');?>"  method="post">
@@ -74,8 +74,8 @@ $this->load->view('loged_in_side');
 <?php endif ?>
 
     <input type="file" class="form-control" id="profile_photo" name="profile_photo" value="<?php echo $user->profile_photo;?>">
-  </div> 
-  
+  </div>
+
   <button type="submit" class="btn btn-default"><?=lang('edit_user_submit_btn')?></button>
 </form>
 

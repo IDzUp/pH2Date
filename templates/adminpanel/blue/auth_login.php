@@ -1,10 +1,10 @@
 <!DOCTYPE xhtml>
 <html>
-    
+
     <head>
         <meta charset="UTF-8" />
         <title>pH2Date - Login to the Admin Panel</title>
-        
+
         <!-- CSSs -->
         <link rel="stylesheet" href="<?=base_url();?>assets/theme_files/admin/css/reset.css">
         <link rel="stylesheet" href="<?=base_url();?>assets/theme_files/admin/css/960.css" />
@@ -65,7 +65,7 @@
         <script src="<?=base_url();?>assets/theme_files/admin/js/jquery.validate.min.js"></script>
         <script src="<?=base_url();?>assets/theme_files/admin/js/jquery.metadata.js"></script>
         <script src="<?=base_url();?>assets/theme_files/admin/js/main.js"></script>
-       
+
     </head>
     <body>
         <!-- show loading until the all page scripts are fully loaded and cached (use this only on login page) -->
@@ -96,7 +96,7 @@
                                 <form action="<?=base_url();?>admin/login" method="post">
                                     <header class="head">
                                         <h1>Login</h1>
-                                        
+
                                         <div class="alignleft">
                                             <div class="note small">
                                                 <input id="ck" type="checkbox" /> <label for="ck">Remember Me</label>

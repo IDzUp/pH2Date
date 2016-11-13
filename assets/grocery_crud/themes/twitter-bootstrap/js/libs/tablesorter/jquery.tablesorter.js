@@ -392,10 +392,10 @@
                     this.order = formatSortingOrder(table.config.sortInitialOrder);
 
 
-					this.count = this.order;
+                    this.count = this.order;
 
                     if (checkHeaderMetadata(this, table.config.noSorterClass) || checkHeaderOptions(table, index)) this.sortDisabled = true;
-					if (checkHeaderOptionsSortingLocked(table, index)) this.order = this.lockedOrder = checkHeaderOptionsSortingLocked(table, index);
+                    if (checkHeaderOptionsSortingLocked(table, index)) this.order = this.lockedOrder = checkHeaderOptionsSortingLocked(table, index);
 
                     if (!this.sortDisabled) {
                         var $th = $(this).addClass(table.config.cssHeader);
@@ -495,7 +495,7 @@
                 return false;
             }
 
-			 function checkHeaderOptionsSortingLocked(table, i) {
+             function checkHeaderOptionsSortingLocked(table, i) {
                 if ((table.config.headers[i]) && (table.config.headers[i].lockedOrder)) return table.config.headers[i].lockedOrder;
                 return false;
             }
@@ -726,10 +726,10 @@
                             var i = this.column;
                             // get current column sort order
                             this.order = this.count++ % 2;
-							// always sort on the locked order.
-							if(this.lockedOrder) this.order = this.lockedOrder;
+                            // always sort on the locked order.
+                            if(this.lockedOrder) this.order = this.lockedOrder;
 
-							// user only whants to sort on one
+                            // user only whants to sort on one
                             // column
                             if (!e[config.sortMultiSortKey]) {
                                 // flush the sort list
@@ -769,9 +769,9 @@
                                 // set css for headers
                                 setHeadersCss($this[0], $headers, config.sortList, sortCSS);
                                 appendToTable(
-	                                $this[0], multisort(
-	                                $this[0], config.sortList, cache)
-								);
+                                    $this[0], multisort(
+                                    $this[0], config.sortList, cache)
+                                );
                             }, 1);
                             // stop normal event by returning false
                             return false;

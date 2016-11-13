@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="<?php echo $this->current_template_url ;?>color.css" />
   <link rel="stylesheet" href="<?php echo $this->current_template_url ;?>custom.css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
-  
+
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <meta name="author" content="pH2Date.com, IDzUp's Lab" />
   <meta name="creator" content="pH2Date.com, IDzUp's Lab" />
@@ -36,11 +36,11 @@
   <script>var base_template = "<?php echo $this->current_template_url ?>";</script>
   <link type="text/css" rel="stylesheet" media="all" href="<?php echo $this->current_template_url ;?>/chat_assets/css/chat.css" />
   <link type="text/css" rel="stylesheet" media="all" href="<?php echo $this->current_template_url ;?>/chat_assets/css/screen.css" />
-    
+
     <!--[if lte IE 7]>
     <link type="text/css" rel="stylesheet" media="all" href="<?php echo $this->current_template_url ;?>/chat_assets/css/screen_ie.css" />
-    <![endif]--> 
-  
+    <![endif]-->
+
   <?php echo $setting->header_html_code_injection ?>
 </head>
 <body >

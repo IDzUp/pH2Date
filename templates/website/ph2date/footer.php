@@ -4,9 +4,9 @@
 <div class="footer">
     <div class="container">
       <p class="text-muted">
-         Direct <a href="http://flirtme.biz">Date and Flirt</a> Right Now! &nbsp;&bull;&nbsp; 
+         Direct <a href="http://flirtme.biz">Date and Flirt</a> Right Now! &nbsp;&bull;&nbsp;
       <?php foreach($pages AS $page): ?>
-          <a href="<?php echo site_url('main/page/'.$page->page_url) ?>"><?php echo $page->page_name ?></a> &nbsp;&bull;&nbsp; 
+          <a href="<?php echo site_url('main/page/'.$page->page_url) ?>"><?php echo $page->page_name ?></a> &nbsp;&bull;&nbsp;
       <?php endforeach ?>
         <?php if($this->session->userdata('site_lang') != 'french' ): ?>
         <a href='<?php echo site_url('main/switchLanguage/french') ?>'>French</a>

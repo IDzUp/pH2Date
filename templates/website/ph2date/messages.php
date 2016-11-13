@@ -7,7 +7,7 @@ $this->load->view('loged_in_side');
 
 <?php $this->load->view('right_msg') ?>
 
-<h1><?=lang('my_messages')?></h1>                                    
+<h1><?=lang('my_messages')?></h1>
 <div class="clr"></div>
 </br>
 <?php foreach($users AS $user): ?>

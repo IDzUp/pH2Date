@@ -5,13 +5,13 @@
  * Version: 1.0.0b2_r1012
  *
  * Copyright (c) 2009-2011 Chris Leonello
- * jqPlot is currently available for use in all personal or commercial projects 
- * under both the MIT (http://www.opensource.org/licenses/mit-license.php) and GPL 
- * version 2.0 (http://www.gnu.org/licenses/gpl-2.0.html) licenses. This means that you can 
- * choose the license that best suits your project and use it accordingly. 
+ * jqPlot is currently available for use in all personal or commercial projects
+ * under both the MIT (http://www.opensource.org/licenses/mit-license.php) and GPL
+ * version 2.0 (http://www.gnu.org/licenses/gpl-2.0.html) licenses. This means that you can
+ * choose the license that best suits your project and use it accordingly.
  *
- * Although not required, the author would appreciate an email letting him 
- * know of any substantial use of jqPlot.  You can reach the author at: 
+ * Although not required, the author would appreciate an email letting him
+ * know of any substantial use of jqPlot.  You can reach the author at:
  * chris at jqplot dot com or see http://www.jqplot.com/info.php .
  *
  * If you are feeling kind and generous, consider supporting the project by
@@ -25,17 +25,17 @@
  *     http://hexmen.com/js/sprintf.js
  *     The author (Ash Searle) has placed this code in the public domain:
  *     "This code is unrestricted: you are free to use it however you like."
- * 
+ *
  */
 (function($) {
-    
+
     /**
      * Class: $.jqplot.Trendline
      * Plugin which will automatically compute and draw trendlines for plotted data.
      */
     $.jqplot.Trendline = function() {
         // Group: Properties
-        
+
         // prop: show
         // Wether or not to show the trend line.
         this.show = $.jqplot.config.enablePlugins;
@@ -81,13 +81,13 @@
         // number of strokes to make of the shadow.
         this.shadowDepth = 3;
         this.isTrendline = true;
-        
+
     };
-    
+
     $.jqplot.postSeriesInitHooks.push(parseTrendLineOptions);
     $.jqplot.postDrawSeriesHooks.push(drawTrendline);
     $.jqplot.addLegendRowHooks.push(addTrendlineLegend);
-    
+
     // called witin scope of the legend object
     // current series passed in
     // must return null or an object {label:label, color:color}
@@ -111,7 +111,7 @@
             this.trendline.renderer.init.call(this.trendline, null);
         }
     }
-    
+
     // called within scope of series object
     function drawTrendline(sctx, options) {
         // if we have options, merge trendline options in with precedence
@@ -126,12 +126,12 @@
             this.trendline.renderer.draw.call(this.trendline, sctx, gridData, {showLine:true, shadow:this.trendline.shadow});
         }
     }
-    
+
     function regression(x, y, typ)  {
         var type = (typ == null) ? 'linear' : typ;
         var N = x.length;
         var slope;
-        var intercept;  
+        var intercept;
         var SX = 0;
         var SY = 0;
         var SXX = 0;
@@ -139,7 +139,7 @@
         var SYY = 0;
         var Y = [];
         var X = [];
-    
+
         if (type == 'linear') {
             X = x;
             Y = y;
@@ -194,14 +194,14 @@
         var x = [];
         var y = [];
         var ypred = [];
-        
+
         for (i=0; i<data.length; i++){
             if (data[i] != null && data[i][0] != null && data[i][1] != null) {
                 x.push(data[i][0]);
                 y.push(data[i][1]);
             }
         }
-        
+
         if (type == 'linear') {
             ret = linearRegression(x,y);
             for ( var i=0; i<x.length; i++){
@@ -217,6 +217,6 @@
             }
         }
         return {data: ypred, slope: ret[0], intercept: ret[1]};
-    } 
+    }
 
 })(jQuery);

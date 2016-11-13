@@ -12,7 +12,7 @@ $this->load->view('loged_in_side');
 <div class="alert alert-success"><?php echo $this->msg_success_right;?></div>
 <?php } ?>
 
-<h1><?=lang('delete_account')?></h1>                                    
+<h1><?=lang('delete_account')?></h1>
 <div class="clr"></div>
 </br>
 <p><?=lang('delete_account_desc')?></p>

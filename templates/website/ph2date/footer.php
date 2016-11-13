@@ -4,7 +4,7 @@
 <div class="footer">
     <div class="container">
       <p class="text-muted">
-         Direct <a href="http://flirtme.biz">Date and Flirt</a> Right Now! &nbsp;&bull;&nbsp;
+         <a href="http://dating-app.co">London Dating App</a> &nbsp;&bull;&nbsp;
       <?php foreach($pages AS $page): ?>
           <a href="<?php echo site_url('main/page/'.$page->page_url) ?>"><?php echo $page->page_name ?></a> &nbsp;&bull;&nbsp;
       <?php endforeach ?>

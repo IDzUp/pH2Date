@@ -15,6 +15,13 @@ Also, we you want to learn and have a professional marketing service specializin
 5- Enjoy your new Dating Website!!
 
 
+-- Admin Login --
+
+URL: http://your-site.com/admin/
+Email: demo@demo.com
+Password: password
+
+
 P.S. When your site is live, for security and copyright reason, please remove this file and the "install.sql" file.
 
-Finally, if you have any questions, please create a ticket through your client area -> http://hizup.net/clients
+Finally, if you have any questions, please create a ticket through your client area -> http://clients.hizup.com

@@ -1,4 +1,4 @@
-<div class="col-md-8">
+<div class="col-md-8 animated fadeInRight">
 <div class="well">
 
 <?php if(!empty($this->msg_error_right) ): ?>

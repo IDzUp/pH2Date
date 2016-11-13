@@ -2,7 +2,7 @@
 
 <?=$setting->promo_text ?>
 
-<div class="col-md-4">
+<div class="col-md-4 animated fadeInLeft">
 <div class="well">
 
 <?php if(!empty($this->msg_error_left) ): ?>

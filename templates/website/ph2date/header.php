@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="<?php echo $this->current_template_url ;?>ph2fun.css" />
   <link rel="stylesheet" href="<?php echo $this->current_template_url ;?>color.css" />
   <link rel="stylesheet" href="<?php echo $this->current_template_url ;?>custom.css" />
+  <link rel="stylesheet" href="<?php echo $this->current_template_url ;?>animate.css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />

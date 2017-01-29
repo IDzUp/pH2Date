@@ -1,0 +1,22 @@
+*.log
+*.tmp
+
+## Gettext ##
+*.mo
+
+## OS ##
+
+# Linux
+*~
+*.swp
+# KDE
+.directory
+
+# Windows
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# Mac OS
+.DS_Store*
+._*

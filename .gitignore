@@ -1,5 +1,11 @@
 *.log
 *.tmp
+*/config/development
+*/logs/log-*.php
+!*/logs/index.html
+*/cache/*
+!*/cache/index.html
+!*/cache/.htaccess
 
 ## Gettext ##
 *.mo

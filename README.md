@@ -1,6 +1,6 @@
 # pH2Date
 
-PHP Dating Script built with CodeIgniter 2.X and Bootstrap + jQuery
+Powerful & lightweight PHP Dating Script built with CodeIgniter 2.X and Bootstrap + jQuery
 
 
 ## Server Requirements

@@ -16,7 +16,7 @@ Need more features and more scalability..?
 No prob! Have a look to [pH7CMS Dating](https://ph7cms.com/get/), **THE PRO Web App Builder**
 
 
-## How pH2Date Looks like ..?
+## How pH2Date Looks Like?
 
 ![dating-web-app-builder](https://user-images.githubusercontent.com/1325411/28043209-c26bb4d8-65c8-11e7-935d-585aad48293f.png)
 

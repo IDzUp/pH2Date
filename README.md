@@ -5,7 +5,7 @@ Powerful & lightweight PHP Dating Script built with CodeIgniter 2.X and Bootstra
 
 ## Server Requirements
 
-* PHP >= 5.3
+* PHP >= 5.1.6
 * A Database is required for most web application programming. Current supported databases are MySQL (4.1+), MySQLi, MS SQL, Postgres, Oracle, SQLite, and ODBC.
 
 

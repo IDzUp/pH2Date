@@ -1,5 +1,5 @@
 <?php
-$this->load->view('header');
+    $this->load->view('header');
 ?>
     <div class="col-md-4">
         <div class="well">
@@ -44,5 +44,5 @@ $this->load->view('header');
         </div>
     </div>
 <?php
-$this->load->view('footer');
+    $this->load->view('footer');
 ?>

@@ -1,25 +1,25 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
-* Name:  Ion Auth
-*
-* Version: 2.5.2
-*
-* Author: Ben Edmunds
-*          ben.edmunds@gmail.com
-*         @benedmunds
-*
-* Added Awesomeness: Phil Sturgeon
-*
-* Location: http://github.com/benedmunds/CodeIgniter-Ion-Auth
-*
-* Created:  10.01.2009
-*
-* Description:  Modified auth system based on redux_auth with extensive customization.  This is basically what Redux Auth 2 should be.
-* Original Author name has been kept but that does not mean that the method has not been modified.
-*
-* Requirements: PHP5 or above
-*
-*/
+ * Name:  Ion Auth
+ *
+ * Version: 2.5.2
+ *
+ * Author: Ben Edmunds
+ *          ben.edmunds@gmail.com
+ * @benedmunds
+ *
+ * Added Awesomeness: Phil Sturgeon
+ *
+ * Location: http://github.com/benedmunds/CodeIgniter-Ion-Auth
+ *
+ * Created:  10.01.2009
+ *
+ * Description:  Modified auth system based on redux_auth with extensive customization.  This is basically what Redux Auth 2 should be.
+ * Original Author name has been kept but that does not mean that the method has not been modified.
+ *
+ * Requirements: PHP5 or above
+ *
+ */
 
 /*
 | -------------------------------------------------------------------------
@@ -27,10 +27,10 @@
 | -------------------------------------------------------------------------
 | Database table names.
 */
-$config['tables']['users']           = 'users';
-$config['tables']['groups']          = 'groups';
-$config['tables']['users_groups']    = 'users_groups';
-$config['tables']['login_attempts']  = 'login_attempts';
+$config['tables']['users'] = 'users';
+$config['tables']['groups'] = 'groups';
+$config['tables']['users_groups'] = 'users_groups';
+$config['tables']['login_attempts'] = 'login_attempts';
 
 /*
  | Users table column and Group table column you want to join WITH.
@@ -38,7 +38,7 @@ $config['tables']['login_attempts']  = 'login_attempts';
  | Joins from users.id
  | Joins from groups.id
  */
-$config['join']['users']  = 'user_id';
+$config['join']['users'] = 'user_id';
 $config['join']['groups'] = 'group_id';
 
 /*
@@ -65,12 +65,12 @@ $config['join']['groups'] = 'group_id';
  | salt_prefix: Used for bcrypt. Versions of PHP before 5.3.7 only support "$2a$" as the salt prefix
  | Versions 5.3.7 or greater should use the default of "$2y$".
  */
-$config['hash_method']    = 'bcrypt';    // sha1 or bcrypt, bcrypt is STRONGLY recommended
+$config['hash_method'] = 'bcrypt';    // sha1 or bcrypt, bcrypt is STRONGLY recommended
 $config['default_rounds'] = 6;        // This does not apply if random_rounds is set to true
-$config['random_rounds']  = FALSE;
-$config['min_rounds']     = 5;
-$config['max_rounds']     = 9;
-$config['salt_prefix']    = '$2y$';
+$config['random_rounds'] = FALSE;
+$config['min_rounds'] = 5;
+$config['max_rounds'] = 9;
+$config['salt_prefix'] = '$2y$';
 
 /*
  | -------------------------------------------------------------------------
@@ -81,22 +81,22 @@ $config['salt_prefix']    = '$2y$';
  | The controller should check this function and act
  | appropriately. If this variable set to 0, there is no maximum.
  */
-$config['site_title']                 = "Example.com";       // Site Title, example.com
-$config['admin_email']                = "admin@example.com"; // Admin Email, admin@example.com
-$config['default_group']              = 'members';           // Default group, use name
-$config['admin_group']                = 'admin';             // Default administrators group, use name
-$config['identity']                   = 'email';             // A database column which is used to login with
-$config['min_password_length']        = 6;                   // Minimum Required Length of Password
-$config['max_password_length']        = 20;                  // Maximum Allowed Length of Password
-$config['email_activation']           = FALSE;               // Email Activation for registration
-$config['manual_activation']          = FALSE;               // Manual Activation for registration
-$config['remember_users']             = TRUE;                // Allow users to be remembered and enable auto-login
-$config['user_expire']                = 86500;               // How long to remember the user (seconds). Set to zero for no expiration
-$config['user_extend_on_login']       = FALSE;               // Extend the users cookies every time they auto-login
-$config['track_login_attempts']       = FALSE;               // Track the number of failed login attempts for each user or ip.
-$config['track_login_ip_address']     = TRUE;                // Track login attempts by IP Address, if FALSE will track based on identity. (Default: TRUE)
-$config['maximum_login_attempts']     = 3;                   // The maximum number of failed login attempts.
-$config['lockout_time']               = 600;                 // The number of seconds to lockout an account due to exceeded attempts
+$config['site_title'] = "Example.com";       // Site Title, example.com
+$config['admin_email'] = "admin@example.com"; // Admin Email, admin@example.com
+$config['default_group'] = 'members';           // Default group, use name
+$config['admin_group'] = 'admin';             // Default administrators group, use name
+$config['identity'] = 'email';             // A database column which is used to login with
+$config['min_password_length'] = 6;                   // Minimum Required Length of Password
+$config['max_password_length'] = 20;                  // Maximum Allowed Length of Password
+$config['email_activation'] = FALSE;               // Email Activation for registration
+$config['manual_activation'] = FALSE;               // Manual Activation for registration
+$config['remember_users'] = TRUE;                // Allow users to be remembered and enable auto-login
+$config['user_expire'] = 86500;               // How long to remember the user (seconds). Set to zero for no expiration
+$config['user_extend_on_login'] = FALSE;               // Extend the users cookies every time they auto-login
+$config['track_login_attempts'] = FALSE;               // Track the number of failed login attempts for each user or ip.
+$config['track_login_ip_address'] = TRUE;                // Track login attempts by IP Address, if FALSE will track based on identity. (Default: TRUE)
+$config['maximum_login_attempts'] = 3;                   // The maximum number of failed login attempts.
+$config['lockout_time'] = 600;                 // The number of seconds to lockout an account due to exceeded attempts
 $config['forgot_password_expiration'] = 0;                   // The number of milliseconds after which a forgot password request will expire. If set to 0, forgot password requests will not expire.
 
 /*
@@ -167,18 +167,18 @@ $config['email_forgot_password_complete'] = 'new_password.tpl.php';
  | fbaa5e216d163a02ae630ab1a43372635dd374c0 with default salt.
  */
 $config['salt_length'] = 22;
-$config['store_salt']  = FALSE;
+$config['store_salt'] = FALSE;
 
 /*
  | -------------------------------------------------------------------------
  | Message Delimiters.
  | -------------------------------------------------------------------------
  */
-$config['delimiters_source']       = 'config';     // "config" = use the settings defined here, "form_validation" = use the settings defined in CI's form validation library
+$config['delimiters_source'] = 'config';     // "config" = use the settings defined here, "form_validation" = use the settings defined in CI's form validation library
 $config['message_start_delimiter'] = '<p>';     // Message start delimiter
-$config['message_end_delimiter']   = '</p>';     // Message end delimiter
-$config['error_start_delimiter']   = '<p>';        // Error mesage start delimiter
-$config['error_end_delimiter']     = '</p>';    // Error mesage end delimiter
+$config['message_end_delimiter'] = '</p>';     // Message end delimiter
+$config['error_start_delimiter'] = '<p>';        // Error mesage start delimiter
+$config['error_end_delimiter'] = '</p>';    // Error mesage end delimiter
 
 /* End of file ion_auth.php */
 /* Location: ./application/config/ion_auth.php */

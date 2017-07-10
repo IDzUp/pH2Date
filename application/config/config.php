@@ -1,11 +1,13 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); $is_demo = (strpos($_SERVER['SERVER_NAME'], 'demo') !== false); define('PH2DATE_DEMOMODE', $is_demo);
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+$is_demo = (strpos($_SERVER['SERVER_NAME'], 'demo') !== false);
+define('PH2DATE_DEMOMODE', $is_demo);
 
 
-$config['base_url']    = 'http://YOUR-URL.COM/'; // URL where your site is installed. URL must end with a slash "/" (e.g., http://mydatingsite.com/)
+$config['base_url'] = 'http://YOUR-URL.COM/'; // URL where your site is installed. URL must end with a slash "/" (e.g., http://mydatingsite.com/)
 
 $config['index_page'] = '';
 
-$config['website_template']    = 'ph2date'; // Name of the template you want to use
+$config['website_template'] = 'ph2date'; // Name of the template you want to use
 
 
 /*
@@ -24,7 +26,7 @@ $config['website_template']    = 'ph2date'; // Name of the template you want to 
 | 'ORIG_PATH_INFO'    Uses the ORIG_PATH_INFO
 |
 */
-$config['uri_protocol']    = 'AUTO';
+$config['uri_protocol'] = 'AUTO';
 
 /*
 |--------------------------------------------------------------------------
@@ -49,7 +51,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']    = 'english';
+$config['language'] = 'english';
 
 /*
 |--------------------------------------------------------------------------
@@ -134,11 +136,11 @@ $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
 | use segment based URLs.
 |
 */
-$config['allow_get_array']        = TRUE;
+$config['allow_get_array'] = TRUE;
 $config['enable_query_strings'] = FALSE;
-$config['controller_trigger']    = 'c';
-$config['function_trigger']        = 'm';
-$config['directory_trigger']    = 'd'; // experimental not currently in use
+$config['controller_trigger'] = 'c';
+$config['function_trigger'] = 'm';
+$config['directory_trigger'] = 'd'; // experimental not currently in use
 
 /*
 |--------------------------------------------------------------------------
@@ -224,15 +226,15 @@ $config['encryption_key'] = 'sadgsg8785ds4g5df4gsadsfsaeghg';
 | 'sess_time_to_update'        = how many seconds between CI refreshing Session Information
 |
 */
-$config['sess_cookie_name']        = 'ci_session';
-$config['sess_expiration']        = 7200;
-$config['sess_expire_on_close']    = FALSE;
-$config['sess_encrypt_cookie']    = FALSE;
-$config['sess_use_database']    = FALSE;
-$config['sess_table_name']        = 'ci_sessions';
-$config['sess_match_ip']        = FALSE;
-$config['sess_match_useragent']    = TRUE;
-$config['sess_time_to_update']    = 300;
+$config['sess_cookie_name'] = 'ci_session';
+$config['sess_expiration'] = 7200;
+$config['sess_expire_on_close'] = FALSE;
+$config['sess_encrypt_cookie'] = FALSE;
+$config['sess_use_database'] = FALSE;
+$config['sess_table_name'] = 'ci_sessions';
+$config['sess_match_ip'] = FALSE;
+$config['sess_match_useragent'] = TRUE;
+$config['sess_time_to_update'] = 300;
 
 /*
 |--------------------------------------------------------------------------
@@ -245,10 +247,10 @@ $config['sess_time_to_update']    = 300;
 | 'cookie_secure' =  Cookies will only be set if a secure HTTPS connection exists.
 |
 */
-$config['cookie_prefix']    = "";
-$config['cookie_domain']    = "";
-$config['cookie_path']        = "/";
-$config['cookie_secure']    = FALSE;
+$config['cookie_prefix'] = "";
+$config['cookie_domain'] = "";
+$config['cookie_path'] = "/";
+$config['cookie_secure'] = FALSE;
 
 /*
 |--------------------------------------------------------------------------

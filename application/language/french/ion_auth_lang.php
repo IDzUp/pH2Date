@@ -1,17 +1,17 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
-* Name: Ion Auth Lang - French
-*
-* Author: Stan
-* tfspir@gmail.com
-*
-* Location: http://github.com/benedmunds/ion_auth/
-*
-* Created: 03.23.2010
-*
-* Description: French language file for Ion Auth messages and errors
-*
-*/
+ * Name: Ion Auth Lang - French
+ *
+ * Author: Stan
+ * tfspir@gmail.com
+ *
+ * Location: http://github.com/benedmunds/ion_auth/
+ *
+ * Created: 03.23.2010
+ *
+ * Description: French language file for Ion Auth messages and errors
+ *
+ */
 
 // Account Creation
 $lang['account_creation_successful'] = 'Compte créé avec succès';
@@ -47,6 +47,6 @@ $lang['delete_successful'] = 'Utilisateur supprimé';
 $lang['delete_unsuccessful'] = 'Impossible de supprimer l\'utilisateur';
 
 // Email Subjects
-$lang['email_forgotten_password_subject']    = 'Mot de Passe Oublié - Vérification';
-$lang['email_new_password_subject']          = 'Nouveau Mot de Passe';
-$lang['email_activation_subject']            = 'Activation du Compte';
+$lang['email_forgotten_password_subject'] = 'Mot de Passe Oublié - Vérification';
+$lang['email_new_password_subject'] = 'Nouveau Mot de Passe';
+$lang['email_activation_subject'] = 'Activation du Compte';

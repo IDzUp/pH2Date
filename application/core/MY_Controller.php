@@ -1,13 +1,15 @@
 <?php
 
-class MY_Controller extends CI_Controller {
+class MY_Controller extends CI_Controller
+{
 
     /**
      * @var array $data
      */
     protected $data;
 
-    public function __construct() {
+    public function __construct()
+    {
 
         parent::__construct();
         $this->load->library('ion_auth');
@@ -24,9 +26,11 @@ class MY_Controller extends CI_Controller {
 
 }
 
-class Admin_Controller extends MY_Controller {
+class Admin_Controller extends MY_Controller
+{
 
-    public function __construct() {
+    public function __construct()
+    {
 
         parent::__construct();
         $this->load->library('grocery_CRUD');
@@ -39,19 +43,20 @@ class Admin_Controller extends MY_Controller {
 
 }
 
-class Website_Controller extends MY_Controller {
+class Website_Controller extends MY_Controller
+{
 
 
-
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $site_lang = $this->session->userdata('site_lang');
         if ($site_lang) {
-            $this->lang->load('website',$this->session->userdata('site_lang'));
-            $this->lang->load('auth',$this->session->userdata('site_lang'));
+            $this->lang->load('website', $this->session->userdata('site_lang'));
+            $this->lang->load('auth', $this->session->userdata('site_lang'));
         } else {
-            $this->lang->load('website','english');
-            $this->lang->load('auth','english');
+            $this->lang->load('website', 'english');
+            $this->lang->load('auth', 'english');
         }
         $this->load->helper('language');
 
@@ -60,16 +65,16 @@ class Website_Controller extends MY_Controller {
             $this->session->set_userdata($newdata);
             redirect(current_url());
         }
-       $current_template= ($this->session->userdata('template_site')) ? $this->session->userdata('template_site') : $this->config->item('website_template');
+        $current_template = ($this->session->userdata('template_site')) ? $this->session->userdata('template_site') : $this->config->item('website_template');
 
 
         $this->load->site_theme($current_template);
-        $this->current_template_url = base_url("templates/website/".$current_template).'/';
+        $this->current_template_url = base_url("templates/website/" . $current_template) . '/';
 
         $this->data['pages'] = $this->db->get('page')->result();
         $this->msg_error_left = $this->session->flashdata('msg_error_left');
         $this->msg_error_right = $this->session->flashdata('msg_error_right');
         $this->msg_success_left = $this->session->flashdata('msg_success_left');
         $this->msg_success_right = $this->session->flashdata('msg_success_right');
-        }
+    }
 }

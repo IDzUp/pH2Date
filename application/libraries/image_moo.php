@@ -1,4 +1,5 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+
 /*
  * Image_Moo library
  *
@@ -60,7 +61,7 @@
  * TO DO
  *
  * THANKS
- * Matjaž for poiting out the save_pa bug (should of tested it!)
+ * Matjaï¿½ for poiting out the save_pa bug (should of tested it!)
  * Cahva for posting yet another bug in the save_pa (Man I can be silly sometimes!)
  * Cole spotting the resize flaw and providing a fix
  *
@@ -69,121 +70,88 @@
 class Image_moo
 {
     // image vars
-    private $main_image="";
-     private $watermark_image;
+    public $errors = FALSE;
+    public $width = 0;
+    public $height = 0;
+    private $main_image = "";
+    private $watermark_image;
     private $temp_image;
-    private $jpeg_quality=75;
-    private $background_colour="#ffffff";
-    private $watermark_method;
 
     // other
-    private $filename="";
+    private $jpeg_quality = 75;
 
     // watermark stuff, opacity
-    private $watermark_transparency=50;
+    private $background_colour = "#ffffff";
 
     // reported errors
-    public $errors=FALSE;
-    private $error_msg = array();
+    private $watermark_method;
+    private $filename = "";
 
     // image info
-    public $width=0;
-    public $height=0;
+    private $watermark_transparency = 50;
+    private $error_msg = array();
 
     function Image_moo()
-    //----------------------------------------------------------------------------------------------------------
-    // create stuff here as needed
-    //----------------------------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------------------------
+        // create stuff here as needed
+        //----------------------------------------------------------------------------------------------------------
     {
         log_message('debug', "Image Moo Class Initialized");
     }
 
-    private function _clear_errors()
-    //----------------------------------------------------------------------------------------------------------
-    // load a resource
-    //----------------------------------------------------------------------------------------------------------
-    {
-        $this->error_msg = array();
-    }
-
-    private function set_error($msg)
-    //----------------------------------------------------------------------------------------------------------
-    // Set an error message
-    //----------------------------------------------------------------------------------------------------------
-    {
-        $this->errors = TRUE;
-        $this->error_msg[] = $msg;
-    }
-
     public function display_errors($open = '<p>', $close = '</p>')
-    //----------------------------------------------------------------------------------------------------------
-    // returns the errors formatted as needed, same as CI doed
-    //----------------------------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------------------------
+        // returns the errors formatted as needed, same as CI doed
+        //----------------------------------------------------------------------------------------------------------
     {
         $str = '';
-        foreach ($this->error_msg as $val)
-        {
-            $str .= $open.$val.$close;
+        foreach ($this->error_msg as $val) {
+            $str .= $open . $val . $close;
         }
         return $str;
     }
 
     public function check_gd()
-    //----------------------------------------------------------------------------------------------------------
-    // verification util to see if you can use image_moo
-    //----------------------------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------------------------
+        // verification util to see if you can use image_moo
+        //----------------------------------------------------------------------------------------------------------
     {
-        if ( ! extension_loaded('gd'))
-        {
-            if ( ! dl('gd.so'))
-            {
+        if (!extension_loaded('gd')) {
+            if (!dl('gd.so')) {
                 $this->set_error('GD library does not appear to be loaded');
                 return FALSE;
             }
         }
-        if (function_exists('gd_info'))
-        {
+        if (function_exists('gd_info')) {
             $gdarray = @gd_info();
             $versiontxt = ereg_replace('[[:alpha:][:space:]()]+', '', $gdarray['GD Version']);
-            $versionparts=explode('.',$versiontxt);
-            if ($versionparts[0]=="2")
-            {
+            $versionparts = explode('.', $versiontxt);
+            if ($versionparts[0] == "2") {
                 return TRUE;
-            }
-            else
-            {
-                $this->set_error('Requires GD2, this reported as '.$versiontxt);
+            } else {
+                $this->set_error('Requires GD2, this reported as ' . $versiontxt);
                 return FALSE;
             }
-        }
-        else
-        {
+        } else {
             $this->set_error('Could not verify GD version');
             return FALSE;
         }
     }
 
-    private function _check_image()
-    //----------------------------------------------------------------------------------------------------------
-    // checks that we have an image loaded
-    //----------------------------------------------------------------------------------------------------------
+    private function set_error($msg)
+        //----------------------------------------------------------------------------------------------------------
+        // Set an error message
+        //----------------------------------------------------------------------------------------------------------
     {
-        if (!is_resource($this->main_image))
-        {
-            $this->set_error("No main image loaded!");
-            return FALSE;
-        }
-        else
-        {
-            return TRUE;
-        }
+        $this->errors = TRUE;
+        $this->error_msg[] = $msg;
     }
 
-    function save_dynamic($filename="")
-    //----------------------------------------------------------------------------------------------------------
-    // Saves the temp image as a dynamic image
-    // e.g. direct output to the browser
-    //----------------------------------------------------------------------------------------------------------
+    function save_dynamic($filename = "")
+        //----------------------------------------------------------------------------------------------------------
+        // Saves the temp image as a dynamic image
+        // e.g. direct output to the browser
+        //----------------------------------------------------------------------------------------------------------
     {
         // validate we loaded a main image
         if (!$this->_check_image()) return $this;
@@ -192,13 +160,12 @@ class Image_moo
         $this->_copy_to_temp_if_needed();
 
         // ok, lets go!
-        if ($filename=="") $filename=rand(1000,999999).".jpg";                    // send as jpeg
+        if ($filename == "") $filename = rand(1000, 999999) . ".jpg";                    // send as jpeg
         $ext = strtoupper(pathinfo($filename, PATHINFO_EXTENSION));
         header("Content-disposition: filename=$filename;");
         header('Content-transfer-Encoding: binary');
-        header('Last-modified: '.gmdate('D, d M Y H:i:s'));
-        switch ($ext)
-        {
+        header('Last-modified: ' . gmdate('D, d M Y H:i:s'));
+        switch ($ext) {
             case "GIF"  :
                 header("Content-type: image/gif");
                 imagegif($this->temp_image);
@@ -220,29 +187,62 @@ class Image_moo
         return $this;
     }
 
-    function save_pa($prepend="", $append="", $overwrite=FALSE)
-    //----------------------------------------------------------------------------------------------------------
-    // Saves the temp image as the filename specified,
-    // overwrite = true of false
-    //----------------------------------------------------------------------------------------------------------
+    private function _check_image()
+        //----------------------------------------------------------------------------------------------------------
+        // checks that we have an image loaded
+        //----------------------------------------------------------------------------------------------------------
+    {
+        if (!is_resource($this->main_image)) {
+            $this->set_error("No main image loaded!");
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
+
+    private function _copy_to_temp_if_needed()
+        //----------------------------------------------------------------------------------------------------------
+        // If temp image is empty, e.g. not resized or done anything then just copy main image
+        //----------------------------------------------------------------------------------------------------------
+    {
+        if (!is_resource($this->temp_image)) {
+            // create a temp based on new dimensions
+            $this->temp_image = imagecreatetruecolor($this->width, $this->height);
+
+            // check it
+            if (!is_resource($this->temp_image)) {
+                $this->set_error('Unable to create temp image sized ' . $this->width . ' x ' . $this->height);
+                return FALSE;
+            }
+
+            // copy image to temp workspace
+            imagecopy($this->temp_image, $this->main_image, 0, 0, 0, 0, $this->width, $this->height);
+        }
+    }
+
+    function save_pa($prepend = "", $append = "", $overwrite = FALSE)
+        //----------------------------------------------------------------------------------------------------------
+        // Saves the temp image as the filename specified,
+        // overwrite = true of false
+        //----------------------------------------------------------------------------------------------------------
     {
         // validate we loaded a main image
         if (!$this->_check_image()) return $this;
 
         // get current file parts
-        $parts=pathinfo($this->filename);
+        $parts = pathinfo($this->filename);
 
         // save
-        $this->save($parts["dirname"].'/'.$prepend.$parts['filename'].$append.'.'.$parts["extension"], $overwrite);
+        $this->save($parts["dirname"] . '/' . $prepend . $parts['filename'] . $append . '.' . $parts["extension"], $overwrite);
 
         return $this;
     }
 
-    function save($filename,$overwrite=FALSE)
-    //----------------------------------------------------------------------------------------------------------
-    // Saves the temp image as the filename specified,
-    // overwrite = true of false
-    //----------------------------------------------------------------------------------------------------------
+    function save($filename, $overwrite = FALSE)
+        //----------------------------------------------------------------------------------------------------------
+        // Saves the temp image as the filename specified,
+        // overwrite = true of false
+        //----------------------------------------------------------------------------------------------------------
     {
         // validate we loaded a main image
         if (!$this->_check_image()) return $this;
@@ -251,20 +251,17 @@ class Image_moo
         $this->_copy_to_temp_if_needed();
 
         // check if it already exists
-        if (!$overwrite)
-        {
+        if (!$overwrite) {
             // don't overwrite, so check for file
-            if (file_exists($filename))
-            {
-                $this->set_error('File exists, overwrite is FALSE, could not save over file '.$filename);
+            if (file_exists($filename)) {
+                $this->set_error('File exists, overwrite is FALSE, could not save over file ' . $filename);
                 return $this;
             }
         }
 
         // find out the type of file to save
         $ext = strtoupper(pathinfo($filename, PATHINFO_EXTENSION));
-        switch ($ext)
-        {
+        switch ($ext) {
             case "GIF"  :
                 imagegif($this->temp_image, $filename);
                 return $this;
@@ -281,48 +278,14 @@ class Image_moo
         }
 
         // invalid filetype?!
-        $this->set_error('Do no know what '.$ext.' filetype is in filename '.$filename);
+        $this->set_error('Do no know what ' . $ext . ' filetype is in filename ' . $filename);
         return $this;
     }
 
-    private function _load_image($filename)
-    //----------------------------------------------------------------------------------------------------------
-    // private function to load a resource
-    //----------------------------------------------------------------------------------------------------------
-    {
-        // check the request file can be located
-        if (!file_exists($filename))
-        {
-            $this->set_error('Could not locate file '.$filename);
-            return FALSE;
-        }
-
-        // get image info about this file
-        $image_info=getimagesize($filename);
-
-        // load file depending on mimetype
-        switch ($image_info["mime"])
-        {
-            case "image/gif"  :
-                return imagecreatefromgif($filename);
-                break;
-            case "image/jpeg" :
-                return imagecreatefromjpeg($filename);
-                break;
-            case "image/png" :
-                 return imagecreatefrompng($filename);
-                break;
-        }
-
-        // invalid filetype?!
-        $this->set_error('Unable to load '.$filename.' filetype '.$image_info["mime"].'not recognised');
-        return FALSE;
-    }
-
     public function load($filename)
-    //----------------------------------------------------------------------------------------------------------
-    // Load an image, public function
-    //----------------------------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------------------------
+        // Load an image, public function
+        //----------------------------------------------------------------------------------------------------------
     {
         // new image, reset error messages
         $this->_clear_errors();
@@ -331,7 +294,7 @@ class Image_moo
         $this->clear_temp();
 
         // save filename
-        $this->filename=$filename;
+        $this->filename = $filename;
 
         // reset width and height
         $this->width = 0;
@@ -341,8 +304,7 @@ class Image_moo
         $this->main_image = $this->_load_image($filename);
 
         // no error, then get the dminesions set
-        if ($this->main_image <> FALSE)
-        {
+        if ($this->main_image <> FALSE) {
             $this->width = imageSX($this->main_image);
             $this->height = imageSY($this->main_image);
         }
@@ -351,19 +313,66 @@ class Image_moo
         return $this;
     }
 
-    public function load_watermark($filename, $transparent_x=NULL, $transparent_y=NULL)
-    //----------------------------------------------------------------------------------------------------------
-    // Load an image, public function
-    //----------------------------------------------------------------------------------------------------------
+    private function _clear_errors()
+        //----------------------------------------------------------------------------------------------------------
+        // load a resource
+        //----------------------------------------------------------------------------------------------------------
     {
-        if(is_resource($this->watermark_image)) imagedestroy($this->watermark_image);
+        $this->error_msg = array();
+    }
+
+    public function clear_temp()
+        //----------------------------------------------------------------------------------------------------------
+        // you may want to revert back to teh original image to work on, e.g. watermark, this clears temp
+        //----------------------------------------------------------------------------------------------------------
+    {
+        if (is_resource($this->temp_image)) imagedestroy($this->temp_image);
+        return $this;
+    }
+
+    private function _load_image($filename)
+        //----------------------------------------------------------------------------------------------------------
+        // private function to load a resource
+        //----------------------------------------------------------------------------------------------------------
+    {
+        // check the request file can be located
+        if (!file_exists($filename)) {
+            $this->set_error('Could not locate file ' . $filename);
+            return FALSE;
+        }
+
+        // get image info about this file
+        $image_info = getimagesize($filename);
+
+        // load file depending on mimetype
+        switch ($image_info["mime"]) {
+            case "image/gif"  :
+                return imagecreatefromgif($filename);
+                break;
+            case "image/jpeg" :
+                return imagecreatefromjpeg($filename);
+                break;
+            case "image/png" :
+                return imagecreatefrompng($filename);
+                break;
+        }
+
+        // invalid filetype?!
+        $this->set_error('Unable to load ' . $filename . ' filetype ' . $image_info["mime"] . 'not recognised');
+        return FALSE;
+    }
+
+    public function load_watermark($filename, $transparent_x = NULL, $transparent_y = NULL)
+        //----------------------------------------------------------------------------------------------------------
+        // Load an image, public function
+        //----------------------------------------------------------------------------------------------------------
+    {
+        if (is_resource($this->watermark_image)) imagedestroy($this->watermark_image);
         $this->watermark_image = $this->_load_image($filename);
 
-        if(is_resource($this->watermark_image))
-        {
+        if (is_resource($this->watermark_image)) {
             $this->watermark_method = 1;
-            if(($transparent_x <> NULL) AND ($transparent_y <> NULL))
-            {
+            if (($transparent_x <> NULL) AND ($transparent_y <> NULL)) {
                 // get the top left corner colour allocation
                 $tpcolour = imagecolorat($this->watermark_image, $transparent_x, $transparent_y);
 
@@ -379,80 +388,80 @@ class Image_moo
         return $this;
     }
 
-    public function set_watermark_transparency($transparency=50)
-    //----------------------------------------------------------------------------------------------------------
-    // Sets the quality that jpeg will be saved at
-    //----------------------------------------------------------------------------------------------------------
+    public function set_watermark_transparency($transparency = 50)
+        //----------------------------------------------------------------------------------------------------------
+        // Sets the quality that jpeg will be saved at
+        //----------------------------------------------------------------------------------------------------------
     {
         $this->watermark_transparency = $transparency;
         return $this;
     }
 
-    public function set_background_colour($colour="#ffffff")
-    //----------------------------------------------------------------------------------------------------------
-    // Sets teh background colour to use on rotation and padding for resize
-    //----------------------------------------------------------------------------------------------------------
+    public function set_background_colour($colour = "#ffffff")
+        //----------------------------------------------------------------------------------------------------------
+        // Sets teh background colour to use on rotation and padding for resize
+        //----------------------------------------------------------------------------------------------------------
     {
         $this->background_colour = $this->_html2rgb($colour);
         return $this;
     }
 
-    public function set_jpeg_quality($quality=75)
-    //----------------------------------------------------------------------------------------------------------
-    // Sets the quality that jpeg will be saved at
-    //----------------------------------------------------------------------------------------------------------
+    private function _html2rgb($colour)
+        //----------------------------------------------------------------------------------------------------------
+        // convert #aa0011 to a php colour array
+        //----------------------------------------------------------------------------------------------------------
+    {
+        if (is_array($colour)) {
+            if (count($colour) == 3) return $colour;                                // rgb sent as an array so use it
+            $this->set_error('Colour error, array sent not 3 elements, expected array(r,g,b)');
+            return false;
+        }
+        if ($colour[0] == '#')
+            $colour = substr($colour, 1);
+
+        if (strlen($colour) == 6) {
+            list($r, $g, $b) = array($colour[0] . $colour[1],
+                $colour[2] . $colour[3],
+                $colour[4] . $colour[5]);
+        } elseif (strlen($colour) == 3) {
+            list($r, $g, $b) = array($colour[0] . $colour[0], $colour[1] . $colour[1], $colour[2] . $colour[2]);
+        } else {
+            $this->set_error('Colour error, value sent not #RRGGBB or RRGGBB, and not array(r,g,b)');
+            return false;
+        }
+
+        $r = hexdec($r);
+        $g = hexdec($g);
+        $b = hexdec($b);
+
+        return array($r, $g, $b);
+    }
+
+    public function set_jpeg_quality($quality = 75)
+        //----------------------------------------------------------------------------------------------------------
+        // Sets the quality that jpeg will be saved at
+        //----------------------------------------------------------------------------------------------------------
     {
         $this->jpeg_quality = $quality;
         return $this;
     }
 
-    private function _copy_to_temp_if_needed()
-    //----------------------------------------------------------------------------------------------------------
-    // If temp image is empty, e.g. not resized or done anything then just copy main image
-    //----------------------------------------------------------------------------------------------------------
-    {
-        if (!is_resource($this->temp_image))
-        {
-            // create a temp based on new dimensions
-            $this->temp_image = imagecreatetruecolor($this->width, $this->height);
-
-            // check it
-            if(!is_resource($this->temp_image))
-            {
-                $this->set_error('Unable to create temp image sized '.$this->width.' x '.$this->height);
-                return FALSE;
-            }
-
-            // copy image to temp workspace
-            imagecopy($this->temp_image, $this->main_image, 0, 0, 0, 0, $this->width, $this->height);
-        }
-    }
-
     public function clear()
-    //----------------------------------------------------------------------------------------------------------
-    // clear everything!
-    //----------------------------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------------------------
+        // clear everything!
+        //----------------------------------------------------------------------------------------------------------
     {
-        if(is_resource($this->main_image)) imagedestroy($this->main_image);
-        if(is_resource($this->watermark_image)) imagedestroy($this->watermark_image);
-        if(is_resource($this->temp_image)) imagedestroy($this->temp_image);
+        if (is_resource($this->main_image)) imagedestroy($this->main_image);
+        if (is_resource($this->watermark_image)) imagedestroy($this->watermark_image);
+        if (is_resource($this->temp_image)) imagedestroy($this->temp_image);
         return $this;
     }
 
-    public function clear_temp()
-    //----------------------------------------------------------------------------------------------------------
-    // you may want to revert back to teh original image to work on, e.g. watermark, this clears temp
-    //----------------------------------------------------------------------------------------------------------
-    {
-        if(is_resource($this->temp_image)) imagedestroy($this->temp_image);
-        return $this;
-    }
-
-    public function resize_crop($mw,$mh)
-    //----------------------------------------------------------------------------------------------------------
-    // take main image and resize to tempimage using EXACT boundaries mw,mh (max width and max height)
-    // this is proportional and crops the image centrally to fit
-    //----------------------------------------------------------------------------------------------------------
+    public function resize_crop($mw, $mh)
+        //----------------------------------------------------------------------------------------------------------
+        // take main image and resize to tempimage using EXACT boundaries mw,mh (max width and max height)
+        // this is proportional and crops the image centrally to fit
+        //----------------------------------------------------------------------------------------------------------
     {
         if (!$this->_check_image()) return $this;
 
@@ -460,20 +469,18 @@ class Image_moo
         $this->clear_temp();
 
         // create a temp based on new dimensions
-        $this->temp_image = imagecreatetruecolor($mw,$mh);
+        $this->temp_image = imagecreatetruecolor($mw, $mh);
 
         // check it
-        if(!is_resource($this->temp_image))
-        {
-            $this->set_error('Unable to create temp image sized '.$mw.' x '.$mh);
+        if (!is_resource($this->temp_image)) {
+            $this->set_error('Unable to create temp image sized ' . $mw . ' x ' . $mh);
             return $this;
         }
 
         // work out best positions for copy
-        $wx=$this->width / $mw;
-        $wy=$this->height / $mh;
-        if ($wx >= $wy)
-        {
+        $wx = $this->width / $mw;
+        $wy = $this->height / $mh;
+        if ($wx >= $wy) {
             // use full height
             $sy = 0;
             $sy2 = $this->height;
@@ -482,9 +489,7 @@ class Image_moo
             $calc_width = $mw * $wy;
             $sx = ($this->width - $calc_width) / 2;
             $sx2 = $calc_width;
-        }
-        else
-        {
+        } else {
             // use full width
             $sx = 0;
             $sx2 = $this->width;
@@ -500,18 +505,18 @@ class Image_moo
         return $this;
     }
 
-    public function resize($mw, $mh, $pad=FALSE)
-    //----------------------------------------------------------------------------------------------------------
-    // take main image and resize to tempimage using boundaries mw,mh (max width or max height)
-    // this is proportional, pad to true will set it in the middle of area size
-    //----------------------------------------------------------------------------------------------------------
+    public function resize($mw, $mh, $pad = FALSE)
+        //----------------------------------------------------------------------------------------------------------
+        // take main image and resize to tempimage using boundaries mw,mh (max width or max height)
+        // this is proportional, pad to true will set it in the middle of area size
+        //----------------------------------------------------------------------------------------------------------
     {
         if (!$this->_check_image()) return $this;
 
         // calc new dimensions
-        if( $this->width > $mw || $this->height > $mh ) {
+        if ($this->width > $mw || $this->height > $mh) {
 //            if( $this->width > $this->height ) { could calc wronf - Cole Thorsen swapped to his suggestion
-            if( ($this->width / $this->height) > ($mw / $mh) ) {
+            if (($this->width / $this->height) > ($mw / $mh)) {
                 $tnw = $mw;
                 $tnh = $tnw * $this->height / $this->width;
             } else {
@@ -526,32 +531,27 @@ class Image_moo
         $this->clear_temp();
 
         // create a temp based on new dimensions
-        if ($pad)
-        {
+        if ($pad) {
             $tx = $mw;
             $ty = $mh;
             $px = ($mw - $tnw) / 2;
             $py = ($mh - $tnh) / 2;
-        }
-        else
-        {
+        } else {
             $tx = $tnw;
             $ty = $tnh;
             $px = 0;
             $py = 0;
         }
-        $this->temp_image = imagecreatetruecolor($tx,$ty);
+        $this->temp_image = imagecreatetruecolor($tx, $ty);
 
         // check it
-        if(!is_resource($this->temp_image))
-        {
-            $this->set_error('Unable to create temp image sized '.$tx.' x '.$ty);
+        if (!is_resource($this->temp_image)) {
+            $this->set_error('Unable to create temp image sized ' . $tx . ' x ' . $ty);
             return $this;
         }
 
         // if padding, fill background
-        if ($pad)
-        {
+        if ($pad) {
             $col = $this->_html2rgb($this->background_colour);
             $bg = imagecolorallocate($this->temp_image, $col[0], $col[1], $col[2]);
             imagefilledrectangle($this->temp_image, 0, 0, $tx, $ty, $bg);
@@ -562,11 +562,11 @@ class Image_moo
         return $this;
     }
 
-    public function stretch($mw,$mh)
-    //----------------------------------------------------------------------------------------------------------
-    // take main image and resize to tempimage using boundaries mw,mh (max width or max height)
-    // does not retain proportions
-    //----------------------------------------------------------------------------------------------------------
+    public function stretch($mw, $mh)
+        //----------------------------------------------------------------------------------------------------------
+        // take main image and resize to tempimage using boundaries mw,mh (max width or max height)
+        // does not retain proportions
+        //----------------------------------------------------------------------------------------------------------
     {
         if (!$this->_check_image()) return $this;
 
@@ -577,9 +577,8 @@ class Image_moo
         $this->temp_image = imagecreatetruecolor($mw, $mh);
 
         // check it
-        if(!is_resource($this->temp_image))
-        {
-            $this->set_error('Unable to create temp image sized '.$mh.' x '.$mw);
+        if (!is_resource($this->temp_image)) {
+            $this->set_error('Unable to create temp image sized ' . $mh . ' x ' . $mw);
             return $this;
         }
 
@@ -589,9 +588,9 @@ class Image_moo
     }
 
     public function crop($x1, $y1, $x2, $y2)
-    //----------------------------------------------------------------------------------------------------------
-    // crop the main image to temp image using coords
-    //----------------------------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------------------------
+        // crop the main image to temp image using coords
+        //----------------------------------------------------------------------------------------------------------
     {
         if (!$this->_check_image()) return $this;
 
@@ -599,19 +598,17 @@ class Image_moo
         $this->clear_temp();
 
         // check dimensions
-        if ($x1 < 0 || $y1 < 0 || $x2 - $x1 > $this->width || $y2 - $y1 > $this->height)
-        {
-            $this->set_error('Invalid crop dimensions, either - passed or width/heigh too large '.$x1.'/'.$y1.' x '.$x2.'/'.$y2);
+        if ($x1 < 0 || $y1 < 0 || $x2 - $x1 > $this->width || $y2 - $y1 > $this->height) {
+            $this->set_error('Invalid crop dimensions, either - passed or width/heigh too large ' . $x1 . '/' . $y1 . ' x ' . $x2 . '/' . $y2);
             return $this;
         }
 
         // create a temp based on new dimensions
-        $this->temp_image = imagecreatetruecolor($x2-$x1, $y2-$y1);
+        $this->temp_image = imagecreatetruecolor($x2 - $x1, $y2 - $y1);
 
         // check it
-        if(!is_resource($this->temp_image))
-        {
-            $this->set_error('Unable to create temp image sized '.$x2-$x1.' x '.$y2-$y1);
+        if (!is_resource($this->temp_image)) {
+            $this->set_error('Unable to create temp image sized ' . $x2 - $x1 . ' x ' . $y2 - $y1);
             return $this;
         }
 
@@ -620,45 +617,10 @@ class Image_moo
         return $this;
     }
 
-    private function _html2rgb($colour)
-    //----------------------------------------------------------------------------------------------------------
-    // convert #aa0011 to a php colour array
-    //----------------------------------------------------------------------------------------------------------
-    {
-        if (is_array($colour))
-        {
-            if (count($colour)==3) return $colour;                                // rgb sent as an array so use it
-            $this->set_error('Colour error, array sent not 3 elements, expected array(r,g,b)');
-            return false;
-        }
-        if ($colour[0] == '#')
-            $colour = substr($colour, 1);
-
-        if (strlen($colour) == 6)
-        {
-            list($r, $g, $b) = array($colour[0].$colour[1],
-                                     $colour[2].$colour[3],
-                                     $colour[4].$colour[5]);
-        }
-        elseif (strlen($colour) == 3)
-        {
-            list($r, $g, $b) = array($colour[0].$colour[0], $colour[1].$colour[1], $colour[2].$colour[2]);
-        }
-        else
-        {
-            $this->set_error('Colour error, value sent not #RRGGBB or RRGGBB, and not array(r,g,b)');
-            return false;
-        }
-
-        $r = hexdec($r); $g = hexdec($g); $b = hexdec($b);
-
-        return array($r, $g, $b);
-    }
-
     public function rotate($angle)
-    //----------------------------------------------------------------------------------------------------------
-    // rotate an image bu 0 / 90 / 180 / 270 degrees
-    //----------------------------------------------------------------------------------------------------------
+        //----------------------------------------------------------------------------------------------------------
+        // rotate an image bu 0 / 90 / 180 / 270 degrees
+        //----------------------------------------------------------------------------------------------------------
     {
         // validate we loaded a main image
         if (!$this->_check_image()) return $this;
@@ -675,28 +637,24 @@ class Image_moo
         return $this;
     }
 
-    public function make_watermark_text($text, $fontfile, $size=16, $colour="#ffffff", $angle=0)
-    //----------------------------------------------------------------------------------------------------------
-    // create an image from text that can be applied as a watermark
-    // text is the text to write, $fontile is a ttf file that will be used $size=font size, $colour is the colour of text
-    //----------------------------------------------------------------------------------------------------------
+    public function make_watermark_text($text, $fontfile, $size = 16, $colour = "#ffffff", $angle = 0)
+        //----------------------------------------------------------------------------------------------------------
+        // create an image from text that can be applied as a watermark
+        // text is the text to write, $fontile is a ttf file that will be used $size=font size, $colour is the colour of text
+        //----------------------------------------------------------------------------------------------------------
     {
         // check font file can be found
-        if (!file_exists($fontfile))
-        {
-            $this->set_error('Could not locate font file "'.$fontfile.'"');
+        if (!file_exists($fontfile)) {
+            $this->set_error('Could not locate font file "' . $fontfile . '"');
             return $this;
         }
 
         // validate we loaded a main image
-        if (!$this->_check_image())
-        {
+        if (!$this->_check_image()) {
             $remove = TRUE;
             // no image loaded so make temp image to use
-            $this->main_image = imagecreatetruecolor(1000,1000);
-        }
-        else
-        {
+            $this->main_image = imagecreatetruecolor(1000, 1000);
+        } else {
             $remove = FALSE;
         }
 
@@ -707,7 +665,7 @@ class Image_moo
         $bl = $bbox[1];
 
         // use this to create watermark image
-        if(is_resource($this->watermark_image)) imagedestroy($this->watermark_image);
+        if (is_resource($this->watermark_image)) imagedestroy($this->watermark_image);
         $this->watermark_image = imagecreatetruecolor($bw, $bh);
 
         // set colours
@@ -720,32 +678,31 @@ class Image_moo
 
         // create bg
         imagecolortransparent($this->watermark_image, $bg_col);
-        imagefilledrectangle($this->watermark_image, 0,0, $bw, $bh, $bg_col);
+        imagefilledrectangle($this->watermark_image, 0, 0, $bw, $bh, $bg_col);
 
         // write text to watermark
-        imagefttext($this->watermark_image, $size, $angle, 0, $bh-$bl, $font_col, $fontfile, $text);
+        imagefttext($this->watermark_image, $size, $angle, 0, $bh - $bl, $font_col, $fontfile, $text);
 
         if ($remove) imagedestroy($this->main_image);
         return $this;
     }
 
-    public function watermark($position, $offset=8, $abs=FALSE)
-    //----------------------------------------------------------------------------------------------------------
-    // add a watermark to the image
-    // position works like a keypad e.g.
-    // 7 8 9
-    // 4 5 6
-    // 1 2 3
-    // offset moves image inwards by x pixels
-    // if abs is set then $position, $offset = direct placement coords
-    //----------------------------------------------------------------------------------------------------------
+    public function watermark($position, $offset = 8, $abs = FALSE)
+        //----------------------------------------------------------------------------------------------------------
+        // add a watermark to the image
+        // position works like a keypad e.g.
+        // 7 8 9
+        // 4 5 6
+        // 1 2 3
+        // offset moves image inwards by x pixels
+        // if abs is set then $position, $offset = direct placement coords
+        //----------------------------------------------------------------------------------------------------------
     {
         // validate we loaded a main image
         if (!$this->_check_image()) return $this;
 
         // validate we have a watermark
-        if(!is_resource($this->watermark_image))
-        {
+        if (!is_resource($this->watermark_image)) {
             $this->set_error("Can't watermark image, no watermark loaded/created");
             return $this;
         }
@@ -762,23 +719,18 @@ class Image_moo
         $temp_h = imageSY($this->temp_image);
 
         // check watermark will fit!
-        if ($wm_w > $temp_w || $wm_h > $temp_h)
-        {
+        if ($wm_w > $temp_w || $wm_h > $temp_h) {
             $this->set_error("Watermark is larger than image. WM: $wm_w x $wm_h Temp image: $temp_w x $temp_h");
             return $this;
         }
 
-        if ($abs)
-        {
+        if ($abs) {
             // direct placement
             $dest_x = $position;
             $dest_y = $offset;
-        }
-        else
-        {
+        } else {
             // do X position
-            switch ($position)
-            {
+            switch ($position) {
                 // x left
                 case "7":
                 case "4":
@@ -789,7 +741,7 @@ class Image_moo
                 case "8":
                 case "5":
                 case "2":
-                    $dest_x = ($temp_w - $wm_w) /2 ;
+                    $dest_x = ($temp_w - $wm_w) / 2;
                     break;
                 // x right
                 case "9":
@@ -802,8 +754,7 @@ class Image_moo
                     $this->set_error("Watermark position $position not in vlaid range 7,8,9 - 4,5,6 - 1,2,3");
             }
             // do y position
-            switch ($position)
-            {
+            switch ($position) {
                 // y top
                 case "7":
                 case "8":
@@ -814,7 +765,7 @@ class Image_moo
                 case "4":
                 case "5":
                 case "6":
-                    $dest_y = ($temp_h - $wm_h) /2 ;
+                    $dest_y = ($temp_h - $wm_h) / 2;
                     break;
                 // y bottom
                 case "1":
@@ -830,12 +781,11 @@ class Image_moo
         }
 
         // copy over temp image to desired location
-        if ($this->watermark_method == 1)
-        {
+        if ($this->watermark_method == 1) {
             // use back methods to do this, taken from php help files
             //$this->imagecopymerge_alpha($this->temp_image, $this->watermark_image, $dest_x, $dest_y, 0, 0, $wm_w, $wm_h, $this->watermark_transparency);
 
-            $opacity=$this->watermark_transparency;
+            $opacity = $this->watermark_transparency;
 
             // creating a cut resource
             $cut = imagecreatetruecolor($wm_w, $wm_h);
@@ -850,9 +800,7 @@ class Image_moo
             imagecopy($cut, $this->watermark_image, 0, 0, 0, 0, $wm_w, $wm_h);
             imagecopymerge($this->temp_image, $cut, $dest_x, $dest_y, 0, 0, $wm_w, $wm_h, $opacity);
 
-        }
-        else
-        {
+        } else {
             // use normal with selected transparency colour
             imagecopymerge($this->temp_image, $this->watermark_image, $dest_x, $dest_y, 0, 0, $wm_w, $wm_h, $this->watermark_transparency);
         }
@@ -860,10 +808,10 @@ class Image_moo
         return $this;
     }
 
-    public function border($width=5,$colour="#000")
-    //----------------------------------------------------------------------------------------------------------
-    // add a solidborder  frame, coloured $colour to the image
-    //----------------------------------------------------------------------------------------------------------
+    public function border($width = 5, $colour = "#000")
+        //----------------------------------------------------------------------------------------------------------
+        // add a solidborder  frame, coloured $colour to the image
+        //----------------------------------------------------------------------------------------------------------
     {
         // validate we loaded a main image
         if (!$this->_check_image()) return $this;
@@ -880,19 +828,18 @@ class Image_moo
         $temp_h = imageSY($this->temp_image);
 
         // do border
-        for($x=0;$x<$width;$x++)
-        {
-            imagerectangle($this->temp_image, $x, $x, $temp_w-$x-1, $temp_h-$x-1, $border_col);
+        for ($x = 0; $x < $width; $x++) {
+            imagerectangle($this->temp_image, $x, $x, $temp_w - $x - 1, $temp_h - $x - 1, $border_col);
         }
 
         // return object
         return $this;
     }
 
-    public function border_3d($width=5,$rot=0,$opacity=30)
-    //----------------------------------------------------------------------------------------------------------
-    // overlay a black white border to make it look 3d
-    //----------------------------------------------------------------------------------------------------------
+    public function border_3d($width = 5, $rot = 0, $opacity = 30)
+        //----------------------------------------------------------------------------------------------------------
+        // overlay a black white border to make it look 3d
+        //----------------------------------------------------------------------------------------------------------
     {
         // validate we loaded a main image
         if (!$this->_check_image()) return $this;
@@ -910,37 +857,35 @@ class Image_moo
         // create colours
         $black = imagecolorallocate($border_image, 0, 0, 0);
         $white = imagecolorallocate($border_image, 255, 255, 255);
-        switch ($rot)
-        {
+        switch ($rot) {
             case 1 :
-                $cols=array($white,$black,$white,$black);
+                $cols = array($white, $black, $white, $black);
                 break;
             case 2 :
-                $cols=array($black,$black,$white,$white);
+                $cols = array($black, $black, $white, $white);
                 break;
             case 3 :
-                $cols=array($black,$white,$black,$white);
+                $cols = array($black, $white, $black, $white);
                 break;
             default :
-                $cols=array($white,$white,$black,$black);
+                $cols = array($white, $white, $black, $black);
         }
         $bg_col = imagecolorallocate($border_image, 127, 128, 126);
 
         // create bg
         imagecolortransparent($border_image, $bg_col);
-        imagefilledrectangle($border_image, 0,0, $temp_w, $temp_h, $bg_col);
+        imagefilledrectangle($border_image, 0, 0, $temp_w, $temp_h, $bg_col);
 
         // do border
-        for($x=0;$x<$width;$x++)
-        {
+        for ($x = 0; $x < $width; $x++) {
             // top
-            imageline($border_image, $x, $x, $temp_w-$x-1, $x, $cols[0]);
+            imageline($border_image, $x, $x, $temp_w - $x - 1, $x, $cols[0]);
             // left
-            imageline($border_image, $x, $x, $x, $temp_w-$x-1, $cols[1]);
+            imageline($border_image, $x, $x, $x, $temp_w - $x - 1, $cols[1]);
             // bottom
-            imageline($border_image, $x, $temp_h-$x-1, $temp_w-1-$x, $temp_h-$x-1, $cols[3]);
+            imageline($border_image, $x, $temp_h - $x - 1, $temp_w - 1 - $x, $temp_h - $x - 1, $cols[3]);
             // right
-            imageline($border_image, $temp_w-$x-1, $x, $temp_w-$x-1, $temp_h-$x-1, $cols[2]);
+            imageline($border_image, $temp_w - $x - 1, $x, $temp_w - $x - 1, $temp_h - $x - 1, $cols[2]);
         }
 
         // merg with temp image
@@ -953,10 +898,10 @@ class Image_moo
         return $this;
     }
 
-    public function shadow($size=4, $direction=3, $colour="#444")
-    //----------------------------------------------------------------------------------------------------------
-    // add a shadow to an image, this will INCREASE the size of the image
-    //----------------------------------------------------------------------------------------------------------
+    public function shadow($size = 4, $direction = 3, $colour = "#444")
+        //----------------------------------------------------------------------------------------------------------
+        // add a shadow to an image, this will INCREASE the size of the image
+        //----------------------------------------------------------------------------------------------------------
     {
         // validate we loaded a main image
         if (!$this->_check_image()) return $this;
@@ -972,9 +917,8 @@ class Image_moo
         $bu_image = imagecreatetruecolor($sx, $sy);
 
         // check it
-        if(!is_resource($bu_image))
-        {
-            $this->set_error('Unable to create shadow temp image sized '.$this->width.' x '.$this->height);
+        if (!is_resource($bu_image)) {
+            $this->set_error('Unable to create shadow temp image sized ' . $this->width . ' x ' . $this->height);
             return FALSE;
         }
 
@@ -982,17 +926,16 @@ class Image_moo
         imagecopy($bu_image, $this->temp_image, 0, 0, 0, 0, $sx, $sy);
 
         imagedestroy($this->temp_image);
-        $this->temp_image = imagecreatetruecolor($sx+$size, $sy+$size);
+        $this->temp_image = imagecreatetruecolor($sx + $size, $sy + $size);
 
         // fill background colour
         $col = $this->_html2rgb($this->background_colour);
         $bg = imagecolorallocate($this->temp_image, $col[0], $col[1], $col[2]);
-        imagefilledrectangle($this->temp_image, 0, 0, $sx+$size, $sy+$size, $bg);
+        imagefilledrectangle($this->temp_image, 0, 0, $sx + $size, $sy + $size, $bg);
 
         // work out position
         // do X position
-        switch ($direction)
-        {
+        switch ($direction) {
             // x left
             case "7":
             case "4":
@@ -1020,8 +963,7 @@ class Image_moo
                 $this->set_error("Shadow position $position not in vlaid range 7,8,9 - 4,5,6 - 1,2,3");
         }
         // do y position
-        switch ($direction)
-        {
+        switch ($direction) {
             // y top
             case "7":
             case "8":
@@ -1052,7 +994,7 @@ class Image_moo
         // create the shadow
         $shadowcolour = $this->_html2rgb($colour);
         $shadow = imagecolorallocate($this->temp_image, $shadowcolour[0], $shadowcolour[1], $shadowcolour[2]);
-        imagefilledrectangle($this->temp_image, $sh_x, $sh_y, $sh_x+$sx-1, $sh_y+$sy-1, $shadow);
+        imagefilledrectangle($this->temp_image, $sh_x, $sh_y, $sh_x + $sx - 1, $sh_y + $sy - 1, $shadow);
 
         // copy current image to correct location
         imagecopy($this->temp_image, $bu_image, $pic_x, $pic_y, 0, 0, $sx, $sy);
@@ -1064,10 +1006,10 @@ class Image_moo
         return $this;
     }
 
-    public function filter($function, $arg1=NULL, $arg2=NULL, $arg3=NULL, $arg4=NULL)
-    //----------------------------------------------------------------------------------------------------------
-    // allows you to use the inbulit gd2 image filters
-    //----------------------------------------------------------------------------------------------------------
+    public function filter($function, $arg1 = NULL, $arg2 = NULL, $arg3 = NULL, $arg4 = NULL)
+        //----------------------------------------------------------------------------------------------------------
+        // allows you to use the inbulit gd2 image filters
+        //----------------------------------------------------------------------------------------------------------
     {
         // validate we loaded a main image
         if (!$this->_check_image()) return $this;
@@ -1075,8 +1017,7 @@ class Image_moo
         // if no operations, copy it for temp save
         $this->_copy_to_temp_if_needed();
 
-        if (!imagefilter($this->temp_image, $function, $arg1, $arg2, $arg3, $arg4))
-        {
+        if (!imagefilter($this->temp_image, $function, $arg1, $arg2, $arg3, $arg4)) {
             $this->set_error("Filter $function failed");
         }
 
@@ -1084,11 +1025,11 @@ class Image_moo
         return $this;
     }
 
-    public function round($radius=5,$invert=False,$corners="")
-    //----------------------------------------------------------------------------------------------------------
-    // adds rounded corners to the output
-    // using a quarter and rotating as you can end up with odd roudning if you draw a whole and use parts
-    //----------------------------------------------------------------------------------------------------------
+    public function round($radius = 5, $invert = False, $corners = "")
+        //----------------------------------------------------------------------------------------------------------
+        // adds rounded corners to the output
+        // using a quarter and rotating as you can end up with odd roudning if you draw a whole and use parts
+        //----------------------------------------------------------------------------------------------------------
     {
         // validate we loaded a main image
         if (!$this->_check_image()) return $this;
@@ -1097,9 +1038,8 @@ class Image_moo
         $this->_copy_to_temp_if_needed();
 
         // check input
-        if ($corners=="") $corners=array(True,True,True,True);
-        if (!is_array($corners) || count($corners)<>4)
-        {
+        if ($corners == "") $corners = array(True, True, True, True);
+        if (!is_array($corners) || count($corners) <> 4) {
             $this->set_error("Round failed, expected an array of 4 items round(radius,tl,tr,br,bl)");
             return $this;
         }
@@ -1117,17 +1057,14 @@ class Image_moo
         // create our transparent colour
         $xparent = imagecolorallocate($corner, 127, 128, 126);
         imagecolortransparent($corner, $xparent);
-        if ($invert)
-        {
+        if ($invert) {
             // fill and clear bits
             imagefilledrectangle($corner, 0, 0, $radius, $radius, $xparent);
-            imagefilledellipse($corner, 0, 0, ($radius * 2)-1, ($radius * 2)-1, $bg);
-        }
-        else
-        {
+            imagefilledellipse($corner, 0, 0, ($radius * 2) - 1, ($radius * 2) - 1, $bg);
+        } else {
             // fill and clear bits
             imagefilledrectangle($corner, 0, 0, $radius, $radius, $bg);
-            imagefilledellipse($corner, $radius, $radius, ($radius * 2) , ($radius * 2) , $xparent);
+            imagefilledellipse($corner, $radius, $radius, ($radius * 2), ($radius * 2), $xparent);
         }
 
         // get temp widths
@@ -1137,11 +1074,11 @@ class Image_moo
         // do corners
         if ($corners[0]) imagecopymerge($this->temp_image, $corner, 0, 0, 0, 0, $radius, $radius, 100);
         $corner = imagerotate($corner, 270, 0);
-        if ($corners[1]) imagecopymerge($this->temp_image, $corner, $temp_w-$radius, 0, 0, 0, $radius, $radius, 100);
+        if ($corners[1]) imagecopymerge($this->temp_image, $corner, $temp_w - $radius, 0, 0, 0, $radius, $radius, 100);
         $corner = imagerotate($corner, 270, 0);
-        if ($corners[2]) imagecopymerge($this->temp_image, $corner, $temp_w-$radius, $temp_h-$radius, 0, 0, $radius, $radius, 100);
+        if ($corners[2]) imagecopymerge($this->temp_image, $corner, $temp_w - $radius, $temp_h - $radius, 0, 0, $radius, $radius, 100);
         $corner = imagerotate($corner, 270, 0);
-        if ($corners[3]) imagecopymerge($this->temp_image, $corner, 0, $temp_h-$radius, 0, 0, $radius, $radius, 100);
+        if ($corners[3]) imagecopymerge($this->temp_image, $corner, 0, $temp_h - $radius, 0, 0, $radius, $radius, 100);
 
         // return object
         return $this;

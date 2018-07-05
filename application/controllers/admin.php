@@ -199,12 +199,10 @@ class admin extends Admin_Controller
         }
     }
 
-    function logout()
+    public function logout()
     {
-        $logout = $this->ion_auth->logout();
+        $this->ion_auth->logout();
         $this->session->set_flashdata('message', $this->ion_auth->messages());
         redirect('admin/login', 'refresh');
     }
 }
-
-?>

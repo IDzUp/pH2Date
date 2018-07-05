@@ -2,19 +2,18 @@
 
 class admin extends Admin_Controller
 {
-
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
 
     }
 
-    function index()
+    public function index()
     {
         $this->users();
     }
 
-    function users()
+    public function users()
     {
         $crud = new grocery_CRUD();
         $crud->set_table('users');
@@ -38,7 +37,7 @@ class admin extends Admin_Controller
         $this->load->view('view.php', $output);
     }
 
-    function setting()
+    public function setting()
     {
         $crud = new grocery_CRUD();
         $crud->set_table('setting');
@@ -50,10 +49,8 @@ class admin extends Admin_Controller
         $this->_admin_output($output);
     }
 
-    function update_user_after_insert($post_array, $primary_key)
+    public function update_user_after_insert($post_array, $primary_key)
     {
-
-
         $city_data = $this->_city();
 
         $additional_data['country'] = $city_data['country'];
@@ -63,19 +60,21 @@ class admin extends Admin_Controller
         $additional_data['active'] = 1;
 
         $this->ion_auth->update($primary_key, $additional_data);
+
         return true;
     }
 
-    function _city()
+    private function _city()
     {
         $data = json_decode(file_get_contents("http://freegeoip.net/json/"), true);
         $data['country'] = $data['country_name'];
         $data['state'] = $data['region_name'];
         $data['city'] = $data['city'];
+
         return $data;
     }
 
-    function register_user($post_array)
+    public function register_user($post_array)
     {
         $city_data = $this->_city();
 
@@ -90,10 +89,11 @@ class admin extends Admin_Controller
         $additional_data['city'] = $city_data['city'];
 
         $this->ion_auth->register($post_array['username'], $post_array['password'], $post_array['email'], $additional_data, $post_array['group']);
+
         return true;
     }
 
-    function groups()
+    public function groups()
     {
         $crud = new grocery_CRUD();
         $crud->set_table('groups');
@@ -102,7 +102,7 @@ class admin extends Admin_Controller
         $this->_admin_output($output);
     }
 
-    function page()
+    public function page()
     {
         $crud = new grocery_CRUD();
         $crud->set_table('page');
@@ -112,7 +112,7 @@ class admin extends Admin_Controller
         $this->_admin_output($output);
     }
 
-    function video()
+    public function video()
     {
         $crud = new grocery_CRUD();
         $crud->set_table('video');
@@ -126,7 +126,7 @@ class admin extends Admin_Controller
         $this->_admin_output($output);
     }
 
-    function photo()
+    public function photo()
     {
         $crud = new grocery_CRUD();
         $crud->set_table('photo');
@@ -139,7 +139,7 @@ class admin extends Admin_Controller
         $this->_admin_output($output);
     }
 
-    function likes()
+    public function likes()
     {
         $crud = new grocery_CRUD();
         $crud->set_table('user_likes');
@@ -152,7 +152,7 @@ class admin extends Admin_Controller
         $this->_admin_output($output);
     }
 
-    function matches()
+    public function matches()
     {
         $crud = new grocery_CRUD();
         $crud->set_table('match');
@@ -165,15 +165,16 @@ class admin extends Admin_Controller
         $this->_admin_output($output);
     }
 
-    function login()
+    public function login()
     {
-        if ($this->ion_auth->logged_in() AND $this->ion_auth->is_admin()) {
+        if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin()) {
             redirect('admin/', 'refresh');
         }
+
         $this->form_validation->set_rules('identity', 'Identity', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
 
-        if ($this->form_validation->run() == true) {
+        if ($this->form_validation->run()) {
             $remember = (bool)$this->input->post('remember');
             if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember)) {
                 $this->session->set_flashdata('message', $this->ion_auth->messages());
@@ -183,7 +184,6 @@ class admin extends Admin_Controller
                 redirect('admin/login', 'refresh');
             }
         } else {
-
             $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
             $this->data['identity'] = array('name' => 'identity',
                 'id' => 'identity',

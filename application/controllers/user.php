@@ -483,7 +483,7 @@ class User extends Website_Controller
         if ($this->ion_auth->logged_in()) {
             redirect('user', 'refresh');
         }
-        if ($this->form_validation->run() == true) {
+        if ($this->form_validation->run()) {
             $remember = (bool)$this->input->post('remember');
 
             if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember)) {
@@ -765,7 +765,7 @@ class User extends Website_Controller
         $this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
         $this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
 
-        if ($this->form_validation->run() == true) {
+        if ($this->form_validation->run()) {
             $username = strtolower($this->input->post('first_name', true)) . ' ' . strtolower($this->input->post('last_name', true));
             $email = strtolower($this->input->post('email', true));
             $password = $this->input->post('password');
@@ -782,7 +782,7 @@ class User extends Website_Controller
 
 
         }
-        if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data)) {
+        if ($this->form_validation->run() && $this->ion_auth->register($username, $password, $email, $additional_data)) {
             //check to see if we are creating the user
             //redirect them back to the admin page
             $this->session->set_flashdata('msg_success_right', $this->ion_auth->messages());

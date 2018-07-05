@@ -39,37 +39,37 @@
 .chatboxinput {
     padding: 5px;
     background-color: #ffffff;
-    border-left:1px solid #cccccc;
-    border-right:1px solid #cccccc;
-    border-bottom:1px solid #cccccc;
+    border-left: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
 }
 
 .chatboxtextarea {
     width: 206px;
-    height:44px;
-    padding:3px 0pt 3px 3px;
+    height: 44px;
+    padding: 3px 0pt 3px 3px;
     border: 1px solid #0066FF;
     margin: 1px;
-    overflow:hidden;
+    overflow: hidden;
 }
 
 .chatboxtextareaselected {
     border: 2px solid #ACC9FD;
-    margin:0;
+    margin: 0;
 }
 
 .chatboxmessage {
-    margin-left:1em;
+    margin-left: 1em;
 }
 
 .chatboxinfo {
-    margin-left:-1em;
-    color:#666666;
+    margin-left: -1em;
+    color: #666666;
 
 }
 
 .chatboxmessagefrom {
-    margin-left:-1em;
+    margin-left: -1em;
     font-weight: bold;
 }
 
@@ -83,16 +83,16 @@
 .chatboxoptions a {
     text-decoration: none;
     color: white;
-    font-weight:bold;
-    font-family:Verdana,Arial,"Bitstream Vera Sans",sans-serif;
+    font-weight: bold;
+    font-family: Verdana, Arial, "Bitstream Vera Sans", sans-serif;
 }
 
 .chatboxtitle {
     float: left;
-    font-size:13px;
+    font-size: 13px;
 }
 
 .chatboxhead {
-        /*cursor:move !important;*/
+    /*cursor:move !important;*/
 }
 

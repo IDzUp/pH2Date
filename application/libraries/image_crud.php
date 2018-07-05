@@ -57,7 +57,7 @@ class image_CRUD
         $this->ci = &get_instance();
     }
 
-    function where($key, $value = NULL, $escape = TRUE)
+    function where($key, $value = null, $escape = true)
     {
         $this->ci->db->where($key, $value, $escape);
     }
@@ -167,6 +167,7 @@ class image_CRUD
     /**
      *
      * Just an alias to get_lang_string method
+     *
      * @param string $handle
      */
     public function l($handle)
@@ -177,6 +178,7 @@ class image_CRUD
     /**
      *
      * Get the language string of the inserted string handle
+     *
      * @param string $handle
      */
     public function get_lang_string($handle)
@@ -187,7 +189,9 @@ class image_CRUD
     /**
      *
      * Simply set the language
+     *
      * @example english
+     *
      * @param string $language
      */
     public function set_language($language)
@@ -418,11 +422,11 @@ class image_CRUD
         return site_url($rsegments_array[1] . '/' . $rsegments_array[2] . '/delete_file/' . $value);
     }
 
-    protected function _library_view($view, $vars = array(), $return = FALSE)
+    protected function _library_view($view, $vars = array(), $return = false)
     {
         $vars = (is_object($vars)) ? get_object_vars($vars) : $vars;
 
-        $file_exists = FALSE;
+        $file_exists = false;
 
         $ext = pathinfo($view, PATHINFO_EXTENSION);
         $file = ($ext == '') ? $view . '.php' : $view;
@@ -431,7 +435,7 @@ class image_CRUD
 
         if (file_exists($view_file . $file)) {
             $path = $view_file . $file;
-            $file_exists = TRUE;
+            $file_exists = true;
         }
 
         if (!$file_exists) {
@@ -449,7 +453,7 @@ class image_CRUD
         @ob_end_clean();
         #endregion
 
-        if ($return === TRUE) {
+        if ($return === true) {
             return $buffer;
         }
 
@@ -787,7 +791,7 @@ class ImageUploadHandler
                             . rawurlencode($file->name);
                     }
                 }
-            } else if ($this->options['discard_aborted_uploads']) {
+            } elseif ($this->options['discard_aborted_uploads']) {
                 unlink($file_path);
                 $file->error = 'abort';
             }

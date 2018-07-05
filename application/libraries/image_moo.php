@@ -70,7 +70,7 @@
 class Image_moo
 {
     // image vars
-    public $errors = FALSE;
+    public $errors = false;
     public $width = 0;
     public $height = 0;
     private $main_image = "";
@@ -119,7 +119,7 @@ class Image_moo
         if (!extension_loaded('gd')) {
             if (!dl('gd.so')) {
                 $this->set_error('GD library does not appear to be loaded');
-                return FALSE;
+                return false;
             }
         }
         if (function_exists('gd_info')) {
@@ -127,14 +127,14 @@ class Image_moo
             $versiontxt = ereg_replace('[[:alpha:][:space:]()]+', '', $gdarray['GD Version']);
             $versionparts = explode('.', $versiontxt);
             if ($versionparts[0] == "2") {
-                return TRUE;
+                return true;
             } else {
                 $this->set_error('Requires GD2, this reported as ' . $versiontxt);
-                return FALSE;
+                return false;
             }
         } else {
             $this->set_error('Could not verify GD version');
-            return FALSE;
+            return false;
         }
     }
 
@@ -143,7 +143,7 @@ class Image_moo
         // Set an error message
         //----------------------------------------------------------------------------------------------------------
     {
-        $this->errors = TRUE;
+        $this->errors = true;
         $this->error_msg[] = $msg;
     }
 
@@ -174,7 +174,7 @@ class Image_moo
             case "JPG" :
             case "JPEG" :
                 header("Content-type: image/jpeg");
-                imagejpeg($this->temp_image, NULL, $this->jpeg_quality);
+                imagejpeg($this->temp_image, null, $this->jpeg_quality);
                 return $this;
                 break;
             case "PNG" :
@@ -194,9 +194,9 @@ class Image_moo
     {
         if (!is_resource($this->main_image)) {
             $this->set_error("No main image loaded!");
-            return FALSE;
+            return false;
         } else {
-            return TRUE;
+            return true;
         }
     }
 
@@ -212,7 +212,7 @@ class Image_moo
             // check it
             if (!is_resource($this->temp_image)) {
                 $this->set_error('Unable to create temp image sized ' . $this->width . ' x ' . $this->height);
-                return FALSE;
+                return false;
             }
 
             // copy image to temp workspace
@@ -220,7 +220,7 @@ class Image_moo
         }
     }
 
-    function save_pa($prepend = "", $append = "", $overwrite = FALSE)
+    function save_pa($prepend = "", $append = "", $overwrite = false)
         //----------------------------------------------------------------------------------------------------------
         // Saves the temp image as the filename specified,
         // overwrite = true of false
@@ -238,7 +238,7 @@ class Image_moo
         return $this;
     }
 
-    function save($filename, $overwrite = FALSE)
+    function save($filename, $overwrite = false)
         //----------------------------------------------------------------------------------------------------------
         // Saves the temp image as the filename specified,
         // overwrite = true of false
@@ -304,7 +304,7 @@ class Image_moo
         $this->main_image = $this->_load_image($filename);
 
         // no error, then get the dminesions set
-        if ($this->main_image <> FALSE) {
+        if ($this->main_image <> false) {
             $this->width = imageSX($this->main_image);
             $this->height = imageSY($this->main_image);
         }
@@ -338,7 +338,7 @@ class Image_moo
         // check the request file can be located
         if (!file_exists($filename)) {
             $this->set_error('Could not locate file ' . $filename);
-            return FALSE;
+            return false;
         }
 
         // get image info about this file
@@ -359,10 +359,10 @@ class Image_moo
 
         // invalid filetype?!
         $this->set_error('Unable to load ' . $filename . ' filetype ' . $image_info["mime"] . 'not recognised');
-        return FALSE;
+        return false;
     }
 
-    public function load_watermark($filename, $transparent_x = NULL, $transparent_y = NULL)
+    public function load_watermark($filename, $transparent_x = null, $transparent_y = null)
         //----------------------------------------------------------------------------------------------------------
         // Load an image, public function
         //----------------------------------------------------------------------------------------------------------
@@ -372,7 +372,7 @@ class Image_moo
 
         if (is_resource($this->watermark_image)) {
             $this->watermark_method = 1;
-            if (($transparent_x <> NULL) AND ($transparent_y <> NULL)) {
+            if (($transparent_x <> null) AND ($transparent_y <> null)) {
                 // get the top left corner colour allocation
                 $tpcolour = imagecolorat($this->watermark_image, $transparent_x, $transparent_y);
 
@@ -505,7 +505,7 @@ class Image_moo
         return $this;
     }
 
-    public function resize($mw, $mh, $pad = FALSE)
+    public function resize($mw, $mh, $pad = false)
         //----------------------------------------------------------------------------------------------------------
         // take main image and resize to tempimage using boundaries mw,mh (max width or max height)
         // this is proportional, pad to true will set it in the middle of area size
@@ -651,11 +651,11 @@ class Image_moo
 
         // validate we loaded a main image
         if (!$this->_check_image()) {
-            $remove = TRUE;
+            $remove = true;
             // no image loaded so make temp image to use
             $this->main_image = imagecreatetruecolor(1000, 1000);
         } else {
-            $remove = FALSE;
+            $remove = false;
         }
 
         // work out text dimensions
@@ -687,7 +687,7 @@ class Image_moo
         return $this;
     }
 
-    public function watermark($position, $offset = 8, $abs = FALSE)
+    public function watermark($position, $offset = 8, $abs = false)
         //----------------------------------------------------------------------------------------------------------
         // add a watermark to the image
         // position works like a keypad e.g.
@@ -919,7 +919,7 @@ class Image_moo
         // check it
         if (!is_resource($bu_image)) {
             $this->set_error('Unable to create shadow temp image sized ' . $this->width . ' x ' . $this->height);
-            return FALSE;
+            return false;
         }
 
         // copy the current image to memory
@@ -1006,7 +1006,7 @@ class Image_moo
         return $this;
     }
 
-    public function filter($function, $arg1 = NULL, $arg2 = NULL, $arg3 = NULL, $arg4 = NULL)
+    public function filter($function, $arg1 = null, $arg2 = null, $arg3 = null, $arg4 = null)
         //----------------------------------------------------------------------------------------------------------
         // allows you to use the inbulit gd2 image filters
         //----------------------------------------------------------------------------------------------------------
@@ -1025,7 +1025,7 @@ class Image_moo
         return $this;
     }
 
-    public function round($radius = 5, $invert = False, $corners = "")
+    public function round($radius = 5, $invert = false, $corners = "")
         //----------------------------------------------------------------------------------------------------------
         // adds rounded corners to the output
         // using a quarter and rotating as you can end up with odd roudning if you draw a whole and use parts
@@ -1038,7 +1038,7 @@ class Image_moo
         $this->_copy_to_temp_if_needed();
 
         // check input
-        if ($corners == "") $corners = array(True, True, True, True);
+        if ($corners == "") $corners = array(true, true, true, true);
         if (!is_array($corners) || count($corners) <> 4) {
             $this->set_error("Round failed, expected an array of 4 items round(radius,tl,tr,br,bl)");
             return $this;

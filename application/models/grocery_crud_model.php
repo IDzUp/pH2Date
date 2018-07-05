@@ -226,22 +226,22 @@ class grocery_CRUD_Model extends CI_Model
         $this->db->order_by($order_by, $direction);
     }
 
-    function where($key, $value = NULL, $escape = TRUE)
+    function where($key, $value = null, $escape = true)
     {
         $this->db->where($key, $value, $escape);
     }
 
-    function or_where($key, $value = NULL, $escape = TRUE)
+    function or_where($key, $value = null, $escape = true)
     {
         $this->db->or_where($key, $value, $escape);
     }
 
-    function having($key, $value = NULL, $escape = TRUE)
+    function having($key, $value = null, $escape = true)
     {
         $this->db->having($key, $value, $escape);
     }
 
-    function or_having($key, $value = NULL, $escape = TRUE)
+    function or_having($key, $value = null, $escape = true)
     {
         $this->db->or_having($key, $value, $escape);
     }

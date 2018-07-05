@@ -13,8 +13,8 @@ class Migration_Install_ion_auth extends CI_Migration
             'id' => array(
                 'type' => 'MEDIUMINT',
                 'constraint' => '8',
-                'unsigned' => TRUE,
-                'auto_increment' => TRUE
+                'unsigned' => true,
+                'auto_increment' => true
             ),
             'name' => array(
                 'type' => 'VARCHAR',
@@ -25,7 +25,7 @@ class Migration_Install_ion_auth extends CI_Migration
                 'constraint' => '100',
             )
         ));
-        $this->dbforge->add_key('id', TRUE);
+        $this->dbforge->add_key('id', true);
         $this->dbforge->create_table('groups');
 
         // Dumping data for table 'groups'
@@ -52,8 +52,8 @@ class Migration_Install_ion_auth extends CI_Migration
             'id' => array(
                 'type' => 'MEDIUMINT',
                 'constraint' => '8',
-                'unsigned' => TRUE,
-                'auto_increment' => TRUE
+                'unsigned' => true,
+                'auto_increment' => true
             ),
             'ip_address' => array(
                 'type' => 'VARBINARY',
@@ -78,64 +78,64 @@ class Migration_Install_ion_auth extends CI_Migration
             'activation_code' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '40',
-                'null' => TRUE
+                'null' => true
             ),
             'forgotten_password_code' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '40',
-                'null' => TRUE
+                'null' => true
             ),
             'forgotten_password_time' => array(
                 'type' => 'INT',
                 'constraint' => '11',
-                'unsigned' => TRUE,
-                'null' => TRUE
+                'unsigned' => true,
+                'null' => true
             ),
             'remember_code' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '40',
-                'null' => TRUE
+                'null' => true
             ),
             'created_on' => array(
                 'type' => 'INT',
                 'constraint' => '11',
-                'unsigned' => TRUE,
+                'unsigned' => true,
             ),
             'last_login' => array(
                 'type' => 'INT',
                 'constraint' => '11',
-                'unsigned' => TRUE,
-                'null' => TRUE
+                'unsigned' => true,
+                'null' => true
             ),
             'active' => array(
                 'type' => 'TINYINT',
                 'constraint' => '1',
-                'unsigned' => TRUE,
-                'null' => TRUE
+                'unsigned' => true,
+                'null' => true
             ),
             'first_name' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '50',
-                'null' => TRUE
+                'null' => true
             ),
             'last_name' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '50',
-                'null' => TRUE
+                'null' => true
             ),
             'company' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '100',
-                'null' => TRUE
+                'null' => true
             ),
             'phone' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '20',
-                'null' => TRUE
+                'null' => true
             )
 
         ));
-        $this->dbforge->add_key('id', TRUE);
+        $this->dbforge->add_key('id', true);
         $this->dbforge->create_table('users');
 
         // Dumping data for table 'users'
@@ -147,7 +147,7 @@ class Migration_Install_ion_auth extends CI_Migration
             'salt' => '9462e8eee0',
             'email' => 'admin@admin.com',
             'activation_code' => '',
-            'forgotten_password_code' => NULL,
+            'forgotten_password_code' => null,
             'created_on' => '1268889823',
             'last_login' => '1268889823',
             'active' => '1',
@@ -167,21 +167,21 @@ class Migration_Install_ion_auth extends CI_Migration
             'id' => array(
                 'type' => 'MEDIUMINT',
                 'constraint' => '8',
-                'unsigned' => TRUE,
-                'auto_increment' => TRUE
+                'unsigned' => true,
+                'auto_increment' => true
             ),
             'user_id' => array(
                 'type' => 'MEDIUMINT',
                 'constraint' => '8',
-                'unsigned' => TRUE
+                'unsigned' => true
             ),
             'group_id' => array(
                 'type' => 'MEDIUMINT',
                 'constraint' => '8',
-                'unsigned' => TRUE
+                'unsigned' => true
             )
         ));
-        $this->dbforge->add_key('id', TRUE);
+        $this->dbforge->add_key('id', true);
         $this->dbforge->create_table('users_groups');
 
         // Dumping data for table 'users_groups'
@@ -208,8 +208,8 @@ class Migration_Install_ion_auth extends CI_Migration
             'id' => array(
                 'type' => 'MEDIUMINT',
                 'constraint' => '8',
-                'unsigned' => TRUE,
-                'auto_increment' => TRUE
+                'unsigned' => true,
+                'auto_increment' => true
             ),
             'ip_address' => array(
                 'type' => 'VARBINARY',
@@ -218,16 +218,16 @@ class Migration_Install_ion_auth extends CI_Migration
             'login' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '100',
-                'null', TRUE
+                'null', true
             ),
             'time' => array(
                 'type' => 'INT',
                 'constraint' => '11',
-                'unsigned' => TRUE,
-                'null' => TRUE
+                'unsigned' => true,
+                'null' => true
             )
         ));
-        $this->dbforge->add_key('id', TRUE);
+        $this->dbforge->add_key('id', true);
         $this->dbforge->create_table('login_attempts');
 
     }

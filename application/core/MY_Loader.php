@@ -12,30 +12,30 @@ class MY_Loader extends CI_Loader
     public function __construct()
     {
         parent::__construct();
-        $this->_ci_view_paths = array(FCPATH . 'templates/' => TRUE);
+        $this->_ci_view_paths = array(FCPATH . 'templates/' => true);
     }
 
     function site_theme($template = '')
     {
         if ($template == '') {
-            return FALSE;
+            return false;
         } else {
             $this->template = 'website/' . $template;
-            return TRUE;
+            return true;
         }
     }
 
     function admin_theme($template = '')
     {
         if ($template == '') {
-            return FALSE;
+            return false;
         } else {
             $this->template = 'adminpanel/' . $template;
-            return TRUE;
+            return true;
         }
     }
 
-    public function view($view, $vars = array(), $return = FALSE)
+    public function view($view, $vars = array(), $return = false)
     {
         if ($this->template != '') {
             return $this->_ci_load(array('_ci_view' => $this->template . '/' . $view, '_ci_vars' => $this->_ci_object_to_array($vars), '_ci_return' => $return));

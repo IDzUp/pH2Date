@@ -7,6 +7,7 @@
  *
  * Author: Ben Edmunds
  *          ben.edmunds@gmail.com
+ *
  * @benedmunds
  *
  * Added Awesomeness: Phil Sturgeon
@@ -56,7 +57,7 @@ class Ion_auth
      **/
     public function __construct()
     {
-        $this->load->config('ion_auth', TRUE);
+        $this->load->config('ion_auth', true);
         $this->load->library('email');
         $this->lang->load('ion_auth');
         $this->load->helper('cookie');
@@ -124,7 +125,9 @@ class Ion_auth
      * I can't remember where I first saw this, so thank you if you are the original author. -Militis
      *
      * @access    public
+     *
      * @param    $var
+     *
      * @return    mixed
      */
     public function __get($var)
@@ -164,19 +167,19 @@ class Ion_auth
 
                     if ($this->email->send()) {
                         $this->set_message('forgot_password_successful');
-                        return TRUE;
+                        return true;
                     } else {
                         $this->set_error('forgot_password_unsuccessful');
-                        return FALSE;
+                        return false;
                     }
                 }
             } else {
                 $this->set_error('forgot_password_unsuccessful');
-                return FALSE;
+                return false;
             }
         } else {
             $this->set_error('forgot_password_unsuccessful');
-            return FALSE;
+            return false;
         }
     }
 
@@ -196,7 +199,7 @@ class Ion_auth
         if (!$profile) {
             $this->ion_auth_model->trigger_events(array('post_password_change', 'password_change_unsuccessful'));
             $this->set_error('password_change_unsuccessful');
-            return FALSE;
+            return false;
         }
 
         $new_password = $this->ion_auth_model->forgotten_password_complete($code, $profile->salt);
@@ -222,18 +225,18 @@ class Ion_auth
                 if ($this->email->send()) {
                     $this->set_message('password_change_successful');
                     $this->ion_auth_model->trigger_events(array('post_password_change', 'password_change_successful'));
-                    return TRUE;
+                    return true;
                 } else {
                     $this->set_error('password_change_unsuccessful');
                     $this->ion_auth_model->trigger_events(array('post_password_change', 'password_change_unsuccessful'));
-                    return FALSE;
+                    return false;
                 }
 
             }
         }
 
         $this->ion_auth_model->trigger_events(array('post_password_change', 'password_change_unsuccessful'));
-        return FALSE;
+        return false;
     }
 
     /**
@@ -248,7 +251,7 @@ class Ion_auth
 
         if (!is_object($profile)) {
             $this->set_error('password_change_unsuccessful');
-            return FALSE;
+            return false;
         } else {
             if ($this->config->item('forgot_password_expiration', 'ion_auth') > 0) {
                 //Make sure it isn't expired
@@ -257,7 +260,7 @@ class Ion_auth
                     //it has expired
                     $this->clear_forgotten_password_code($code);
                     $this->set_error('password_change_unsuccessful');
-                    return FALSE;
+                    return false;
                 }
             }
             return $profile;
@@ -278,21 +281,21 @@ class Ion_auth
 
         if (!$email_activation) {
             $id = $this->ion_auth_model->register($username, $password, $email, $additional_data, $group_ids);
-            if ($id !== FALSE) {
+            if ($id !== false) {
                 $this->set_message('account_creation_successful');
                 $this->ion_auth_model->trigger_events(array('post_account_creation', 'post_account_creation_successful'));
                 return $id;
             } else {
                 $this->set_error('account_creation_unsuccessful');
                 $this->ion_auth_model->trigger_events(array('post_account_creation', 'post_account_creation_unsuccessful'));
-                return FALSE;
+                return false;
             }
         } else {
             $id = $this->ion_auth_model->register($username, $password, $email, $additional_data, $group_ids);
 
             if (!$id) {
                 $this->set_error('account_creation_unsuccessful');
-                return FALSE;
+                return false;
             }
 
             $deactivate = $this->ion_auth_model->deactivate($id);
@@ -300,7 +303,7 @@ class Ion_auth
             if (!$deactivate) {
                 $this->set_error('deactivate_unsuccessful');
                 $this->ion_auth_model->trigger_events(array('post_account_creation', 'post_account_creation_unsuccessful'));
-                return FALSE;
+                return false;
             }
 
             $activation_code = $this->ion_auth_model->activation_code;
@@ -326,7 +329,7 @@ class Ion_auth
                 $this->email->subject($this->config->item('site_title', 'ion_auth') . ' - ' . $this->lang->line('email_activation_subject'));
                 $this->email->message($message);
 
-                if ($this->email->send() == TRUE) {
+                if ($this->email->send() == true) {
                     $this->ion_auth_model->trigger_events(array('post_account_creation', 'post_account_creation_successful', 'activation_email_successful'));
                     $this->set_message('activation_email_successful');
                     return $id;
@@ -335,7 +338,7 @@ class Ion_auth
 
             $this->ion_auth_model->trigger_events(array('post_account_creation', 'post_account_creation_unsuccessful', 'activation_email_unsuccessful'));
             $this->set_error('activation_email_unsuccessful');
-            return FALSE;
+            return false;
         }
     }
 
@@ -367,11 +370,11 @@ class Ion_auth
         if (substr(CI_VERSION, 0, 1) == '2') {
             $this->session->sess_create();
         } else {
-            $this->session->sess_regenerate(TRUE);
+            $this->session->sess_regenerate(true);
         }
 
         $this->set_message('logout_successful');
-        return TRUE;
+        return true;
     }
 
     /**

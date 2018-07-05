@@ -36,6 +36,7 @@ class grocery_CRUD_Field_Types
 {
     /**
      * Gets the field types of the main table.
+     *
      * @return array
      */
     public function get_field_types()
@@ -247,6 +248,7 @@ class grocery_CRUD_Field_Types
      *
      * @param object $field_info
      * @param string $value
+     *
      * @return object
      */
     protected function get_field_input($field_info, $value = null)
@@ -300,7 +302,7 @@ class grocery_CRUD_Field_Types
             case 'true_false':
                 if (is_array($field_info->extras) && array_key_exists($value, $field_info->extras)) {
                     $value = $field_info->extras[$value];
-                } else if (isset($this->default_true_false_text[$value])) {
+                } elseif (isset($this->default_true_false_text[$value])) {
                     $value = $this->default_true_false_text[$value];
                 }
                 break;
@@ -394,9 +396,11 @@ class grocery_CRUD_Field_Types
      * so the character count may not be exactly as specified.
      *
      * @access    public
+     *
      * @param    string
      * @param    integer
      * @param    string    the end character. Usually an ellipsis
+     *
      * @return    string
      */
     function character_limiter($str, $n = 500, $end_char = '&#8230;')
@@ -1449,11 +1453,11 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
         $this->views_as_string .= $javascript_as_string;
     }
 
-    protected function _theme_view($view, $vars = array(), $return = FALSE)
+    protected function _theme_view($view, $vars = array(), $return = false)
     {
         $vars = (is_object($vars)) ? get_object_vars($vars) : $vars;
 
-        $file_exists = FALSE;
+        $file_exists = false;
 
         $ext = pathinfo($view, PATHINFO_EXTENSION);
         $file = ($ext == '') ? $view . '.php' : $view;
@@ -1462,7 +1466,7 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
 
         if (file_exists($view_file . $file)) {
             $path = $view_file . $file;
-            $file_exists = TRUE;
+            $file_exists = true;
         }
 
         if (!$file_exists) {
@@ -1480,7 +1484,7 @@ class grocery_CRUD_Layout extends grocery_CRUD_Model_Driver
         @ob_end_clean();
         #endregion
 
-        if ($return === TRUE) {
+        if ($return === true) {
             return $buffer;
         }
 
@@ -3102,8 +3106,10 @@ class Grocery_CRUD extends grocery_CRUD_States
      * The displayed columns that user see
      *
      * @access    public
+     *
      * @param    string
      * @param    array
+     *
      * @return    void
      */
     public function columns()
@@ -3126,8 +3132,10 @@ class Grocery_CRUD extends grocery_CRUD_States
      * Important note: If the $field is an array then no automated crud fields will take apart
      *
      * @access    public
+     *
      * @param    mixed
      * @param    string
+     *
      * @return    void
      */
     function set_rules($field, $label = '', $rules = '')
@@ -3145,6 +3153,7 @@ class Grocery_CRUD extends grocery_CRUD_States
     /**
      *
      * Just an alias to the change_field_type method
+     *
      * @param string $field
      * @param string $type
      * @param array|string $extras
@@ -3157,6 +3166,7 @@ class Grocery_CRUD extends grocery_CRUD_States
     /**
      *
      * Changes the default field type
+     *
      * @param string $field
      * @param string $type
      * @param array|string $extras
@@ -3190,8 +3200,10 @@ class Grocery_CRUD extends grocery_CRUD_States
      * Unsets the texteditor of the selected fields
      *
      * @access    public
+     *
      * @param    string
      * @param    array
+     *
      * @return    void
      */
     public function unset_texteditor()
@@ -3406,6 +3418,7 @@ class Grocery_CRUD extends grocery_CRUD_States
 
     /**
      * Unsets everything that has to do with buttons or links with go back to list message
+     *
      * @access    public
      * @return    void
      */
@@ -3421,8 +3434,10 @@ class Grocery_CRUD extends grocery_CRUD_States
      * The fields that user will see on add/edit
      *
      * @access    public
+     *
      * @param    string
      * @param    array
+     *
      * @return    void
      */
     public function fields()
@@ -3476,8 +3491,10 @@ class Grocery_CRUD extends grocery_CRUD_States
     /**
      *
      * Changes the displaying label of the field
+     *
      * @param $field_name
      * @param $display_as
+     *
      * @return void
      */
     public function display_as($field_name, $display_as = null)
@@ -3495,6 +3512,7 @@ class Grocery_CRUD extends grocery_CRUD_States
     /**
      *
      * Set a language string directly
+     *
      * @param string $handle
      * @param string $string
      */
@@ -3508,7 +3526,9 @@ class Grocery_CRUD extends grocery_CRUD_States
     /**
      *
      * Simply set the language
+     *
      * @example english
+     *
      * @param string $language
      */
     public function set_language($language)
@@ -3525,14 +3545,14 @@ class Grocery_CRUD extends grocery_CRUD_States
         return $this;
     }
 
-    public function where($key, $value = NULL, $escape = TRUE)
+    public function where($key, $value = null, $escape = true)
     {
         $this->where[] = array($key, $value, $escape);
 
         return $this;
     }
 
-    public function or_where($key, $value = NULL, $escape = TRUE)
+    public function or_where($key, $value = null, $escape = true)
     {
         $this->or_where[] = array($key, $value, $escape);
 
@@ -3896,6 +3916,7 @@ class Grocery_CRUD extends grocery_CRUD_States
     /**
      *
      * Just an alias to get_lang_string method
+     *
      * @param string $handle
      */
     public function l($handle)
@@ -3906,6 +3927,7 @@ class Grocery_CRUD extends grocery_CRUD_States
     /**
      *
      * Get the language string of the inserted string handle
+     *
      * @param string $handle
      */
     public function get_lang_string($handle)
@@ -3916,6 +3938,7 @@ class Grocery_CRUD extends grocery_CRUD_States
     /**
      *
      * Gets the basic database table of our crud.
+     *
      * @return string
      */
     public function get_table()
@@ -3946,7 +3969,9 @@ class Grocery_CRUD extends grocery_CRUD_States
     /**
      *
      * Sets the basic database table that we will get our data.
+     *
      * @param string $table_name
+     *
      * @return grocery_CRUD
      */
     public function set_table($table_name)
@@ -4060,6 +4085,7 @@ class Grocery_CRUD extends grocery_CRUD_States
     /**
      *
      * Enter description here ...
+     *
      * @param mixed $callback
      */
     public function callback_update($callback = null)
@@ -4105,6 +4131,7 @@ class Grocery_CRUD extends grocery_CRUD_States
     /**
      *
      * Enter description here ...
+     *
      * @param string $column
      * @param mixed $callback
      */
@@ -4118,6 +4145,7 @@ class Grocery_CRUD extends grocery_CRUD_States
     /**
      *
      * Enter description here ...
+     *
      * @param string $field
      * @param mixed $callback
      */
@@ -4132,6 +4160,7 @@ class Grocery_CRUD extends grocery_CRUD_States
     /**
      *
      * Enter description here ...
+     *
      * @param string $field
      * @param mixed $callback
      */
@@ -4145,6 +4174,7 @@ class Grocery_CRUD extends grocery_CRUD_States
     /**
      *
      * Enter description here ...
+     *
      * @param string $field
      * @param mixed $callback
      */
@@ -4160,6 +4190,7 @@ class Grocery_CRUD extends grocery_CRUD_States
      * Callback that replace the default auto uploader
      *
      * @param mixed $callback
+     *
      * @return grocery_CRUD
      */
     public function callback_upload($callback = null)
@@ -4172,7 +4203,9 @@ class Grocery_CRUD extends grocery_CRUD_States
     /**
      *
      * A callback that triggered before the upload functionality. This callback is suggested for validation checks
+     *
      * @param mixed $callback
+     *
      * @return grocery_CRUD
      */
     public function callback_before_upload($callback = null)
@@ -4185,7 +4218,9 @@ class Grocery_CRUD extends grocery_CRUD_States
     /**
      *
      * A callback that triggered after the upload functionality
+     *
      * @param mixed $callback
+     *
      * @return grocery_CRUD
      */
     public function callback_after_upload($callback = null)
@@ -4247,6 +4282,7 @@ class Grocery_CRUD extends grocery_CRUD_States
      *
      * @param string $crud_url_path
      * @param string $list_url_path
+     *
      * @return grocery_CRUD
      */
     public function set_crud_url_path($crud_url_path, $list_url_path = null)
@@ -4263,9 +4299,12 @@ class Grocery_CRUD extends grocery_CRUD_States
     /**
      *
      * Set a subject to understand what type of CRUD you use.
+     *
      * @example In this CRUD we work with the table db_categories. The $subject will be the 'Category'
+     *
      * @param string $subject
      * @param bool $has_plural
+     *
      * @return grocery_CRUD
      */
     public function set_subject($subject)
@@ -4279,6 +4318,7 @@ class Grocery_CRUD extends grocery_CRUD_States
     /**
      *
      * Enter description here ...
+     *
      * @param $title
      * @param $image_url
      * @param $url
@@ -4304,6 +4344,7 @@ class Grocery_CRUD extends grocery_CRUD_States
     /**
      *
      * Set a simple 1-n foreign key relation
+     *
      * @param string $field_name
      * @param string $related_table
      * @param string $related_title_field
@@ -4319,6 +4360,7 @@ class Grocery_CRUD extends grocery_CRUD_States
     /**
      *
      * Sets a relation with n-n relationship.
+     *
      * @param string $field_name
      * @param string $relation_table
      * @param string $selection_table
@@ -4521,14 +4563,14 @@ class Grocery_CRUD extends grocery_CRUD_States
         return $this->edit_fields;
     }
 
-    protected function having($key, $value = '', $escape = TRUE)
+    protected function having($key, $value = '', $escape = true)
     {
         $this->having[] = array($key, $value, $escape);
 
         return $this;
     }
 
-    protected function or_having($key, $value = '', $escape = TRUE)
+    protected function or_having($key, $value = '', $escape = true)
     {
         $this->or_having[] = array($key, $value, $escape);
 
@@ -4561,7 +4603,7 @@ if (defined('CI_VERSION')) {
         public $_error_prefix = '<p>';
         public $_error_suffix = '</p>';
         public $error_string = '';
-        public $_safe_form_data = FALSE;
+        public $_safe_form_data = false;
     }
 }
 
@@ -4797,7 +4839,7 @@ function handle_file_upload($uploaded_file, $name, $size, $type, $error)
                         . rawurlencode($file->name);
                 }
             }
-        } else if ($this->options['discard_aborted_uploads']) {
+        } elseif ($this->options['discard_aborted_uploads']) {
             unlink($file_path);
             $file->error = "It seems that this user doesn't have permissions to upload to this folder";
         }

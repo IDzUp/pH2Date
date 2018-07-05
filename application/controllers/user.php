@@ -26,7 +26,7 @@ class User extends Website_Controller
                 redirect('user/profile');
 
             $this->data['user'] = $this->ion_auth->user($user->id)->row();
-            $this->data['profile_owner'] = FALSE;
+            $this->data['profile_owner'] = false;
         } else {
             $this->data['user'] = $this->ion_auth->user()->row();
             $this->data['profile_owner'] = true;
@@ -77,7 +77,7 @@ class User extends Website_Controller
             $username = $other_user->username;
             $my_user = $this->data['my_user'] = $user = $this->ion_auth->user()->row();
 
-            if ($this->form_validation->run() === TRUE) {
+            if ($this->form_validation->run() === true) {
                 $insert_chat['from'] = $my_user->username;
                 $insert_chat['to'] = $username;
                 $insert_chat['message'] = str_replace("\n", "<br />", $this->input->post('message', true));
@@ -302,7 +302,7 @@ class User extends Website_Controller
         $this->form_validation->set_rules('email', 'email', 'required');
 
         $config['upload_path'] = './assets/uploads/member/';
-        $config['encrypt_name'] = TRUE; // Encrypt filenames uploaded
+        $config['encrypt_name'] = true; // Encrypt filenames uploaded
         $config['allowed_types'] = 'gif|jpg|png';
         $config['max_size'] = '100';
         $config['max_width'] = '1024';
@@ -312,7 +312,7 @@ class User extends Website_Controller
 
         $user = $this->data['user'] = $this->ion_auth->user()->row();
 
-        if ($this->form_validation->run() === TRUE) {
+        if ($this->form_validation->run() === true) {
             $data = array(
                 'first_name' => $this->input->post('first_name', true),
                 'last_name' => $this->input->post('last_name', true),
@@ -380,14 +380,14 @@ class User extends Website_Controller
         $this->form_validation->set_rules('video_name', 'video name', 'required');
 
         $config['upload_path'] = './assets/uploads/video/';
-        $config['encrypt_name'] = TRUE; // Encrypt filenames uploaded
+        $config['encrypt_name'] = true; // Encrypt filenames uploaded
         $config['allowed_types'] = 'flv|mp4|mpeg|3gp|wmv|gif|jpg|png';
         $config['max_size'] = '999999';
 
         $this->load->library('upload', $config);
 
         $user = $this->data['user'] = $this->ion_auth->user()->row();
-        if ($this->form_validation->run() === TRUE) {
+        if ($this->form_validation->run() === true) {
             $data = array(
                 'video_name' => $this->input->post('video_name', true),
                 'video_desc' => $this->input->post('video_desc', true),
@@ -436,7 +436,7 @@ class User extends Website_Controller
         $this->_logged_in();
         $this->form_validation->set_rules('video_name', 'video name', 'required');
         $user = $this->data['user'] = $this->ion_auth->user()->row();
-        if ($this->form_validation->run() === TRUE) {
+        if ($this->form_validation->run() === true) {
             $data = array(
                 'video_name' => $this->input->post('video_name', true),
                 'video_desc' => $this->input->post('video_desc', true),
@@ -612,7 +612,7 @@ class User extends Website_Controller
         }
     }
 
-    public function reset_password($code = NULL)
+    public function reset_password($code = null)
     {
         if (!$code) {
             show_404();
@@ -658,7 +658,7 @@ class User extends Website_Controller
                 $this->_render_page('auth/reset_password', $this->data);
             } else {
                 // do we have a valid request?
-                if ($this->_valid_csrf_nonce() === FALSE || $user->id != $this->input->post('user_id')) {
+                if ($this->_valid_csrf_nonce() === false || $user->id != $this->input->post('user_id')) {
 
                     //something fishy might be up
                     $this->ion_auth->clear_forgotten_password_code($code);
@@ -699,7 +699,7 @@ class User extends Website_Controller
     {
         if ($code !== false) {
             $activation = $this->ion_auth->activate($id, $code);
-        } else if ($this->ion_auth->is_admin()) {
+        } elseif ($this->ion_auth->is_admin()) {
             $activation = $this->ion_auth->activate($id);
         }
 
@@ -714,7 +714,7 @@ class User extends Website_Controller
         }
     }
 
-    public function deactivate($id = NULL)
+    public function deactivate($id = null)
     {
         $id = (int)$id;
 
@@ -722,7 +722,7 @@ class User extends Website_Controller
         $this->form_validation->set_rules('confirm', $this->lang->line('deactivate_validation_confirm_label'), 'required');
         $this->form_validation->set_rules('id', $this->lang->line('deactivate_validation_user_id_label'), 'required|alpha_numeric');
 
-        if ($this->form_validation->run() == FALSE) {
+        if ($this->form_validation->run() == false) {
             // insert csrf check
             $this->data['csrf'] = $this->_get_csrf_nonce();
             $this->data['user'] = $this->ion_auth->user($id)->row();
@@ -732,7 +732,7 @@ class User extends Website_Controller
             // do we really want to deactivate?
             if ($this->input->post('confirm') == 'yes') {
                 // do we have a valid request?
-                if ($this->_valid_csrf_nonce() === FALSE || $id != $this->input->post('id')) {
+                if ($this->_valid_csrf_nonce() === false || $id != $this->input->post('id')) {
                     show_error($this->lang->line('error_csrf'));
                 }
 
@@ -870,7 +870,7 @@ class User extends Website_Controller
 
         if (isset($_POST) && !empty($_POST)) {
             // do we have a valid request?
-            if ($this->_valid_csrf_nonce() === FALSE || $id != $this->input->post('id')) {
+            if ($this->_valid_csrf_nonce() === false || $id != $this->input->post('id')) {
                 show_error($this->lang->line('error_csrf'));
             }
 
@@ -904,7 +904,7 @@ class User extends Website_Controller
                 $data['password'] = $this->input->post('password');
             }
 
-            if ($this->form_validation->run() === TRUE) {
+            if ($this->form_validation->run() === true) {
                 $this->ion_auth->update($user->id, $data);
 
                 //check to see if we are creating the user
@@ -1142,7 +1142,7 @@ class User extends Website_Controller
 
     private function _valid_csrf_nonce()
     {
-        if ($this->input->post($this->session->flashdata('csrfkey')) !== FALSE &&
+        if ($this->input->post($this->session->flashdata('csrfkey')) !== false &&
             $this->input->post($this->session->flashdata('csrfkey')) == $this->session->flashdata('csrfvalue')
         ) {
             return true;

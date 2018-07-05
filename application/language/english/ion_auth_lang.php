@@ -4,6 +4,7 @@
  *
  * Author: Ben Edmunds
  *           ben.edmunds@gmail.com
+ *
  * @benedmunds
  *
  * Location: http://github.com/benedmunds/ion_auth/

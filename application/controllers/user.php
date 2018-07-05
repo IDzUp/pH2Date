@@ -2,38 +2,19 @@
 
 class User extends Website_Controller
 {
-
-    /**
-     * @var array $viewdata
-     */
+    /** @var array */
     private $viewdata;
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         session_start();
     }
 
-    function index()
+    public function index()
     {
-
         $this->_logged_in();
         $this->profile();
-
-    }
-
-    private function _logged_in()
-    {
-        if (!$this->ion_auth->logged_in()) {
-            redirect('user/login', 'refresh');
-            return false;
-        } else {
-            $user = $this->ion_auth->user()->row();
-
-            $_SESSION['username'] = $user->username;
-        }
-
-        return true;
     }
 
     public function profile($user_id = null)
@@ -69,13 +50,14 @@ class User extends Website_Controller
         $this->data['output'] = $image_crud->render();
         $image = $this->db->get_where('photo', array('user_id' => $this->data['user']->user_id))->result();
 
-        if (empty($image))
+        if (empty($image)) {
             $this->data['output'] = null;
+        }
 
         $this->load->view('my_account', $this->data);
     }
 
-    function change_passwords()
+    public function change_passwords()
     {
         //$this->_logged_in();
         $data['password'] = 'password';
@@ -86,7 +68,7 @@ class User extends Website_Controller
         //}
     }
 
-    function message_box($username = null)
+    public function message_box($username = null)
     {
         $this->_logged_in();
         $this->form_validation->set_rules('message', 'message', 'required');
@@ -129,7 +111,7 @@ class User extends Website_Controller
         }
     }
 
-    function insert_fake_users()
+    public function insert_fake_users()
     {
         $this->_logged_in();
         $data = json_decode(file_get_contents('http://api.randomuser.me/?results=15'), true);
@@ -162,29 +144,6 @@ class User extends Website_Controller
         }
     }
 
-    function _city()
-    {
-        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-            $ip = $_SERVER['HTTP_CLIENT_IP'];
-        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        } else {
-            $ip = $_SERVER['REMOTE_ADDR'];
-        }
-        $data = json_decode(file_get_contents("http://freegeoip.net/json/$ip"), true);
-
-        $data['country'] = $data['country_name'];
-        $data['state'] = $data['region_name'];
-        $data['city'] = $data['city'];
-        if (!empty($data)) {
-            $data = array();
-            $data['country'] = 'other';
-            $data['state'] = 'other';
-            $data['city'] = 'other';
-        }
-        return $data;
-    }
-
     public function recommend()
     {
         $this->_logged_in();
@@ -201,48 +160,6 @@ class User extends Website_Controller
             $this->profile($recomend->username);
         else
             $this->load->view('no_recommend', $this->data);
-    }
-
-    private function _get_recommendition($same_country = false, $same_state = false, $same_city = false)
-    {
-        $user = $this->ion_auth->user()->row();
-        $user_likes = $this->db->get_where('user_likes', array('user_id' => $user->id))->result_array();
-        $pass = array($user->id);
-
-
-        if (!empty($user_likes)) {
-            foreach ($user_likes AS $likes) {
-                $pass[] = $likes['liked_user_id'];
-            }
-        }
-
-        $this->db->where('user_id', $user->id);
-        $this->db->or_where('matched_user_id', $user->id);
-        $matched_users = $this->db->get('match')->result_array();
-
-
-        $user_list = array();
-        if (!empty($matched_users)) {
-            foreach ($matched_users AS $users) {
-                $pass[] = $users['user_id'];
-                $pass[] = $users['matched_user_id'];
-            }
-            $pass = array_unique($pass);
-        }
-
-        $this->db->where_not_in('id', $pass);
-        if ($user->prefer_opposite_sex) {
-            $this->db->where_not_in('sex', array($user->sex));
-        }
-        if ($same_city)
-            $this->db->where('city', $user->city);
-        if ($same_state)
-            $this->db->where('state', $user->state);
-        if ($same_country)
-            $this->db->where('country', $user->country);
-
-        $recomend = $this->db->get('users')->row();
-        return $recomend;
     }
 
     public function search()
@@ -547,7 +464,7 @@ class User extends Website_Controller
         $this->load->view('upload_video', $this->data);
     }
 
-    function video_edit($id = false)
+    public function video_edit($id = false)
     {
         $this->_logged_in();
         $this->form_validation->set_rules('video_name', 'video name', 'required');
@@ -562,34 +479,35 @@ class User extends Website_Controller
             redirect('user/myvideo');
         }
         $this->data['video'] = $this->db->get_where('video', array('id' => $id, 'user_id' => $user->id))->row();
-        if (empty($this->data['video']))
+        if (empty($this->data['video'])) {
             redirect('user/myvideo');
+        }
         $this->load->view('video_edit', $this->data);
     }
 
-    function video_delete($id = false)
+    public function video_delete($id = false)
     {
         $this->_logged_in();
         $user = $this->data['user'] = $this->ion_auth->user()->row();
         $this->db->delete('video', array('id' => $id, 'user_id' => $user->id));
         $this->session->set_flashdata('msg_success_right', "your video Deleted");
         redirect('user/myvideo');
-
     }
 
-    function video_watch($id = false)
+    public function video_watch($id = false)
     {
         $this->_logged_in();
         $user = $this->data['user'] = $this->ion_auth->user()->row();
         $video = $this->data['video'] = $this->db->get_where('video', array('id' => $id, 'user_id' => $user->id))->row();
-        if (empty($video))
+        if (empty($video)) {
             redirect('user/myvideo');
+        }
         $this->data['videos'] = $this->db->get_where('video', array('user_id' => $video->user_id))->result();
 
         $this->load->view('video_watch', $this->data);
     }
 
-    function login()
+    public function login()
     {
         //$this->data['success'] = message_success
         $this->data['title'] = "Login";
@@ -679,22 +597,7 @@ class User extends Website_Controller
         }
     }
 
-    //log the user out
-
-    function _render_page($view, $data = null, $render = false)
-    {
-
-        $this->viewdata = (empty($data)) ? $this->data : $data;
-
-        $view_html = $this->load->view($view, $this->viewdata, $render);
-
-        if (!$render) return $view_html;
-    }
-
-
-    //forgot password
-
-    function forgot_password()
+    public function forgot_password()
     {
         $this->form_validation->set_rules('email', $this->lang->line('forgot_password_validation_email_label'), 'required|valid_email');
         if ($this->form_validation->run() == false) {
@@ -742,7 +645,6 @@ class User extends Website_Controller
         }
     }
 
-    //reset password - final step for forgotten password
     public function reset_password($code = NULL)
     {
         if (!$code) {
@@ -795,7 +697,6 @@ class User extends Website_Controller
                     $this->ion_auth->clear_forgotten_password_code($code);
 
                     show_error($this->lang->line('error_csrf'));
-
                 } else {
                     // finally change the password
                     $identity = $user->{$this->config->item('identity', 'ion_auth')};
@@ -819,37 +720,7 @@ class User extends Website_Controller
         }
     }
 
-
-    //activate the user
-
-    function _get_csrf_nonce()
-    {
-        $this->load->helper('string');
-        $key = random_string('alnum', 8);
-        $value = random_string('alnum', 20);
-        $this->session->set_flashdata('csrfkey', $key);
-        $this->session->set_flashdata('csrfvalue', $value);
-
-        return array($key => $value);
-    }
-
-    //deactivate the user
-
-    function _valid_csrf_nonce()
-    {
-        if ($this->input->post($this->session->flashdata('csrfkey')) !== FALSE &&
-            $this->input->post($this->session->flashdata('csrfkey')) == $this->session->flashdata('csrfvalue')
-        ) {
-            return TRUE;
-        } else {
-            return FALSE;
-        }
-    }
-
-
-    //create a new user
-
-    function logout()
+    public function logout()
     {
         $this->_logged_in();
         $this->ion_auth->logout();
@@ -857,9 +728,7 @@ class User extends Website_Controller
         redirect('user/login', 'refresh');
     }
 
-    //edit a user
-
-    function activate($id, $code = false)
+    public function activate($id, $code = false)
     {
         if ($code !== false) {
             $activation = $this->ion_auth->activate($id, $code);
@@ -878,7 +747,7 @@ class User extends Website_Controller
         }
     }
 
-    function deactivate($id = NULL)
+    public function deactivate($id = NULL)
     {
         $id = (int)$id;
 
@@ -911,7 +780,7 @@ class User extends Website_Controller
         }
     }
 
-    function register()
+    public function register()
     {
         $this->data['title'] = "Create User";
 
@@ -1016,7 +885,7 @@ class User extends Website_Controller
         }
     }
 
-    function myinfo()
+    public function myinfo()
     {
         $this->_logged_in();
 
@@ -1183,4 +1052,116 @@ class User extends Website_Controller
         }
     }
 
+    private function _city()
+    {
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        $data = json_decode(file_get_contents("http://freegeoip.net/json/$ip"), true);
+
+        $data['country'] = $data['country_name'];
+        $data['state'] = $data['region_name'];
+        $data['city'] = $data['city'];
+        if (!empty($data)) {
+            $data = array();
+            $data['country'] = 'other';
+            $data['state'] = 'other';
+            $data['city'] = 'other';
+        }
+        return $data;
+    }
+
+    private function _get_recommendition($same_country = false, $same_state = false, $same_city = false)
+    {
+        $user = $this->ion_auth->user()->row();
+        $user_likes = $this->db->get_where('user_likes', array('user_id' => $user->id))->result_array();
+        $pass = array($user->id);
+
+
+        if (!empty($user_likes)) {
+            foreach ($user_likes AS $likes) {
+                $pass[] = $likes['liked_user_id'];
+            }
+        }
+
+        $this->db->where('user_id', $user->id);
+        $this->db->or_where('matched_user_id', $user->id);
+        $matched_users = $this->db->get('match')->result_array();
+
+
+        $user_list = array();
+        if (!empty($matched_users)) {
+            foreach ($matched_users AS $users) {
+                $pass[] = $users['user_id'];
+                $pass[] = $users['matched_user_id'];
+            }
+            $pass = array_unique($pass);
+        }
+
+        $this->db->where_not_in('id', $pass);
+        if ($user->prefer_opposite_sex) {
+            $this->db->where_not_in('sex', array($user->sex));
+        }
+        if ($same_city)
+            $this->db->where('city', $user->city);
+        if ($same_state)
+            $this->db->where('state', $user->state);
+        if ($same_country)
+            $this->db->where('country', $user->country);
+
+        $recomend = $this->db->get('users')->row();
+        return $recomend;
+    }
+
+    private function _render_page($view, $data = null, $render = false)
+    {
+
+        $this->viewdata = (empty($data)) ? $this->data : $data;
+
+        $view_html = $this->load->view($view, $this->viewdata, $render);
+
+        if (!$render) {
+            return $view_html;
+        }
+    }
+
+    private function _get_csrf_nonce()
+    {
+        $this->load->helper('string');
+        $key = random_string('alnum', 8);
+        $value = random_string('alnum', 20);
+        $this->session->set_flashdata('csrfkey', $key);
+        $this->session->set_flashdata('csrfvalue', $value);
+
+        return array($key => $value);
+    }
+
+    private function _valid_csrf_nonce()
+    {
+        if ($this->input->post($this->session->flashdata('csrfkey')) !== FALSE &&
+            $this->input->post($this->session->flashdata('csrfkey')) == $this->session->flashdata('csrfvalue')
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private function _logged_in()
+    {
+        if (!$this->ion_auth->logged_in()) {
+            redirect('user/login', 'refresh');
+            return false;
+        } else {
+            $user = $this->ion_auth->user()->row();
+
+            $_SESSION['username'] = $user->username;
+        }
+
+        return true;
+    }
 }

@@ -3,7 +3,6 @@ set_time_limit(0);
 
 class cron extends Website_Controller
 {
-
     public function index()
     {
         $this->convertVideos();
@@ -11,7 +10,6 @@ class cron extends Website_Controller
 
     public function convertVideos()
     {
-
         define('ffmpeg', '/usr/bin/ffmpeg');
         define('FFMPEG_BINARY', '/usr/bin/ffmpeg');
         define('FFMPEG_movie', '/usr/bin/ffmpeg_movie');
@@ -38,9 +36,5 @@ class cron extends Website_Controller
             $data["converted_name"] = $randomString;
             $this->db->update('video', $data, "id = $video->id");
         }
-
     }
 }
-
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */

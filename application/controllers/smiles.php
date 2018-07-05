@@ -3,7 +3,6 @@ set_time_limit(0);
 
 class smiles extends Website_Controller
 {
-
     public function index()
     {
         $this->emotions();
@@ -11,9 +10,6 @@ class smiles extends Website_Controller
 
     public function emotions()
     {
-
-        /* space == separator */
-
         $emoticons = array();
 
         $emoticons[] = '0:-) angel.gif';
@@ -142,6 +138,3 @@ class smiles extends Website_Controller
 
     }
 }
-
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */

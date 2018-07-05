@@ -2,7 +2,6 @@
 
 class main extends Website_Controller
 {
-
     public function index()
     {
         redirect('user/login');

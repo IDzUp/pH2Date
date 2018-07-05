@@ -1,4 +1,4 @@
-$(function(){
+$(function () {
     $('.datetime-input').datetimepicker({
         timeFormat: 'hh:mm:ss',
         dateFormat: js_date_format,
@@ -9,7 +9,7 @@ $(function(){
 
     $('.datetime-input-clear').button();
 
-    $('.datetime-input-clear').click(function(){
+    $('.datetime-input-clear').click(function () {
         $(this).parent().find('.datetime-input').val("");
         return false;
     });

@@ -2,8 +2,7 @@
 
 class Images_examples extends Website_Controller
 {
-
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
 
@@ -16,17 +15,12 @@ class Images_examples extends Website_Controller
         $this->load->library('image_CRUD');
     }
 
-    function index()
+    public function index()
     {
         $this->_example_output((object)array('output' => '', 'js_files' => array(), 'css_files' => array()));
     }
 
-    function _example_output($output = null)
-    {
-        $this->load->view('example.php', $output);
-    }
-
-    function example1()
+    public function example1()
     {
         $image_crud = new image_CRUD();
 
@@ -40,7 +34,7 @@ class Images_examples extends Website_Controller
         $this->_example_output($output);
     }
 
-    function example2()
+    public function example2()
     {
         $image_crud = new image_CRUD();
 
@@ -55,7 +49,7 @@ class Images_examples extends Website_Controller
         $this->_example_output($output);
     }
 
-    function example3()
+    public function example3()
     {
         $image_crud = new image_CRUD();
 
@@ -71,7 +65,7 @@ class Images_examples extends Website_Controller
         $this->_example_output($output);
     }
 
-    function example4()
+    public function example4()
     {
         $image_crud = new image_CRUD();
 
@@ -87,7 +81,7 @@ class Images_examples extends Website_Controller
         $this->_example_output($output);
     }
 
-    function simple_photo_gallery()
+    public function simple_photo_gallery()
     {
         $image_crud = new image_CRUD();
 
@@ -103,5 +97,10 @@ class Images_examples extends Website_Controller
         $output = $image_crud->render();
 
         $this->_example_output($output);
+    }
+
+    private function _example_output($output = null)
+    {
+        $this->load->view('example.php', $output);
     }
 }

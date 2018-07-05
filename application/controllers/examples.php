@@ -157,7 +157,7 @@ class Examples extends CI_Controller
         }
     }
 
-    function multigrids()
+    public function multigrids()
     {
         $this->config->load('grocery_crud');
         $this->config->set_item('grocery_crud_dialog_forms', true);

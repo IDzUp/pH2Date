@@ -284,39 +284,6 @@ class User extends Website_Controller
         $this->_operation($id, 'like');
     }
 
-    function _operation($id, $operation)
-    {
-        $user = $this->ion_auth->user()->row();
-        $otheruser = $this->ion_auth->user($id)->row();
-        if ($operation == 'like') {
-            $data = array();
-            $data['user_id'] = $user->id;
-            $data['liked_user_id'] = $id;
-            $data['operation'] = 'like';
-            $this->db->insert('user_likes', $data);
-            $this->session->set_flashdata('msg_success_right', "you liked $otheruser->first_name");
-            $where['user_id'] = $id;
-            $where['liked_user_id'] = $user->id;
-            $liked_user_match = $this->db->get_where('user_likes', $where)->row();
-            if (!empty($liked_user_match)) {
-                $data = array();
-                $data['user_id'] = $user->id;
-                $data['matched_user_id'] = $id;
-                $this->db->insert('match', $data);
-
-            }
-        }
-        if ($operation == 'pass') {
-            $data = array();
-            $data['user_id'] = $user->id;
-            $data['liked_user_id'] = $id;
-            $data['operation'] = 'pass';
-            $this->db->insert('user_likes', $data);
-            $this->session->set_flashdata('msg_success_right', "you passed $otheruser->first_name");
-        }
-        redirect('user/recommend');
-    }
-
     public function pass($id = null)
     {
         $this->_logged_in();
@@ -375,7 +342,7 @@ class User extends Website_Controller
 
     }
 
-    function mypic()
+    public function mypic()
     {
         $this->_logged_in();
         $image_crud = new image_CRUD();
@@ -1115,6 +1082,39 @@ class User extends Website_Controller
 
         $recomend = $this->db->get('users')->row();
         return $recomend;
+    }
+
+    private function _operation($id, $operation)
+    {
+        $user = $this->ion_auth->user()->row();
+        $otheruser = $this->ion_auth->user($id)->row();
+        if ($operation == 'like') {
+            $data = array();
+            $data['user_id'] = $user->id;
+            $data['liked_user_id'] = $id;
+            $data['operation'] = 'like';
+            $this->db->insert('user_likes', $data);
+            $this->session->set_flashdata('msg_success_right', "you liked $otheruser->first_name");
+            $where['user_id'] = $id;
+            $where['liked_user_id'] = $user->id;
+            $liked_user_match = $this->db->get_where('user_likes', $where)->row();
+            if (!empty($liked_user_match)) {
+                $data = array();
+                $data['user_id'] = $user->id;
+                $data['matched_user_id'] = $id;
+                $this->db->insert('match', $data);
+
+            }
+        }
+        if ($operation == 'pass') {
+            $data = array();
+            $data['user_id'] = $user->id;
+            $data['liked_user_id'] = $id;
+            $data['operation'] = 'pass';
+            $this->db->insert('user_likes', $data);
+            $this->session->set_flashdata('msg_success_right', "you passed $otheruser->first_name");
+        }
+        redirect('user/recommend');
     }
 
     private function _render_page($view, $data = null, $render = false)

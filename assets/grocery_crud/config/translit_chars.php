@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /*
 | -------------------------------------------------------------------
 | Transliteration characters
@@ -161,7 +161,7 @@ $translit_characters = array(
     '/Ĳ/' => 'IJ',
     '/ĳ/' => 'ij',
 
-    '/ß/'=> 'ss',
+    '/ß/' => 'ss',
 
 );
 

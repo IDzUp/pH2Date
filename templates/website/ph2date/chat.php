@@ -35,12 +35,22 @@ $db = new PDO("mysql:host=$DBPATH;dbname=$DBNAME;charset=utf8", $DBUSER, $DBPASS
 // $stmt = $db->query("SELECT * FROM video");
 //  $s = $stmt->fetchAll(PDO::FETCH_ASSOC);
 //print_r($s);die;
-if ($_GET['action'] == "chatheartbeat") { chatHeartbeat(); }
-if ($_GET['action'] == "sendchat") { sendChat(); }
-if ($_GET['action'] == "sendchat2") { sendChat2(); }
+if ($_GET['action'] == "chatheartbeat") {
+    chatHeartbeat();
+}
+if ($_GET['action'] == "sendchat") {
+    sendChat();
+}
+if ($_GET['action'] == "sendchat2") {
+    sendChat2();
+}
 
-if ($_GET['action'] == "closechat") { closeChat(); }
-if ($_GET['action'] == "startchatsession") { startChatSession(); }
+if ($_GET['action'] == "closechat") {
+    closeChat();
+}
+if ($_GET['action'] == "startchatsession") {
+    startChatSession();
+}
 
 if (!isset($_SESSION['chatHistory'])) {
     $_SESSION['chatHistory'] = array();
@@ -50,7 +60,8 @@ if (!isset($_SESSION['openChatBoxes'])) {
     $_SESSION['openChatBoxes'] = array();
 }
 
-function chatHeartbeat() {
+function chatHeartbeat()
+{
     global $db;
     $sql = "select * from chat where (chat.to =? AND recd = 0) order by id ASC";
     $stmt = $db->prepare($sql);
@@ -60,7 +71,7 @@ function chatHeartbeat() {
     $items = '';
 
     $chatBoxes = array();
-$chats = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $chats = $stmt->fetchAll(PDO::FETCH_ASSOC);
     foreach ($chats AS $chat) {
 //print_r($chat);die;
         if (!isset($_SESSION['openChatBoxes'][$chat['from']]) && isset($_SESSION['chatHistory'][$chat['from']])) {
@@ -77,11 +88,11 @@ $chats = $stmt->fetchAll(PDO::FETCH_ASSOC);
        },
 EOD;
 
-    if (!isset($_SESSION['chatHistory'][$chat['from']])) {
-        $_SESSION['chatHistory'][$chat['from']] = '';
-    }
+        if (!isset($_SESSION['chatHistory'][$chat['from']])) {
+            $_SESSION['chatHistory'][$chat['from']] = '';
+        }
 
-    $_SESSION['chatHistory'][$chat['from']] .= <<<EOD
+        $_SESSION['chatHistory'][$chat['from']] .= <<<EOD
                            {
             "s": "0",
             "f": "{$chat['from']}",
@@ -94,14 +105,14 @@ EOD;
     }
 
     if (!empty($_SESSION['openChatBoxes'])) {
-    foreach ($_SESSION['openChatBoxes'] as $chatbox => $time) {
-        if (!isset($_SESSION['tsChatBoxes'][$chatbox])) {
-            $now = time()-strtotime($time);
-            $time = date('g:iA M dS', strtotime($time));
+        foreach ($_SESSION['openChatBoxes'] as $chatbox => $time) {
+            if (!isset($_SESSION['tsChatBoxes'][$chatbox])) {
+                $now = time() - strtotime($time);
+                $time = date('g:iA M dS', strtotime($time));
 
-            $message = "Sent at $time";
-            if ($now > 180) {
-                $items .= <<<EOD
+                $message = "Sent at $time";
+                if ($now > 180) {
+                    $items .= <<<EOD
 {
 "s": "2",
 "f": "$chatbox",
@@ -157,7 +168,8 @@ function chatBoxSession($chatbox) {
     return $items;
 }
 
-function startChatSession() {
+function startChatSession()
+{
     $items = '';
     if (!empty($_SESSION['openChatBoxes'])) {
         foreach ($_SESSION['openChatBoxes'] as $chatbox => $void) {
@@ -170,24 +182,24 @@ function startChatSession() {
         $items = substr($items, 0, -1);
     }
 
-header('Content-type: application/json');
-?>
-{
-        "username": "<?php echo $_SESSION['username'];?>",
-        "items": [
-            <?php echo $items;?>
-        ]
-}
+    header('Content-type: application/json');
+    ?>
+    {
+    "username": "<?php echo $_SESSION['username']; ?>",
+    "items": [
+    <?php echo $items; ?>
+    ]
+    }
 
-<?php
+    <?php
 
 
     exit(0);
 }
 
 
-
-function sendChat2() {
+function sendChat2()
+{
     global $db;
     $from = $_SESSION['username'];
     $to = 8;
@@ -218,14 +230,15 @@ EOD;
     $stmt = $db->prepare($sql);
 
 
-    $stmt->execute( array($from, $to,$message ) );
+    $stmt->execute(array($from, $to, $message));
 
     echo "1";
     exit(0);
 }
 
 
-function sendChat() {
+function sendChat()
+{
     global $db;
     $from = $_SESSION['username'];
     $to = $_POST['to'];
@@ -256,13 +269,14 @@ EOD;
     $stmt = $db->prepare($sql);
 
 
-    $stmt->execute( array($from, $to,$message ) );
+    $stmt->execute(array($from, $to, $message));
 
     echo "$messagesan";
     exit(0);
 }
 
-function closeChat() {
+function closeChat()
+{
 
     unset($_SESSION['openChatBoxes'][$_POST['chatbox']]);
 
@@ -270,27 +284,27 @@ function closeChat() {
     exit(0);
 }
 
-function sanitize($text) {
+function sanitize($text)
+{
     $text = htmlspecialchars($text, ENT_QUOTES);
-    $text = str_replace("\n\r","\n",$text);
-    $text = str_replace("\r\n","\n",$text);
-    $text = str_replace("\n","<br>",$text);
+    $text = str_replace("\n\r", "\n", $text);
+    $text = str_replace("\r\n", "\n", $text);
+    $text = str_replace("\n", "<br>", $text);
     return $text;
 }
 
-function smile($text) {
+function smile($text)
+{
     global $db;
 
     $text = sanitize($text);
     $sql = "select * from emotions";
     $stmt = $db->prepare($sql);
     $stmt->execute();
-    while ($emotions = $stmt->fetchAll(PDO::FETCH_ASSOC) )
-    {
-        foreach ($emotions as $emotion)
-        {
+    while ($emotions = $stmt->fetchAll(PDO::FETCH_ASSOC)) {
+        foreach ($emotions as $emotion) {
             $word = $emotion['word'];
-            $img =  $emotion['img'];
+            $img = $emotion['img'];
             $image = '<img src=' . PH2DATE_BASE_URL . 'assets/smilies/' . $img . ' />';
             $text = str_replace($word, $image, $text);
         }

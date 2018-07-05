@@ -4,8 +4,7 @@ class admin extends Admin_Controller
 {
     public function __construct()
     {
-        parent::__construct();
-
+	    parent::__construct();
     }
 
     public function index()
@@ -33,7 +32,6 @@ class admin extends Admin_Controller
 
     public function _admin_output($output = null)
     {
-
         $this->load->view('view.php', $output);
     }
 

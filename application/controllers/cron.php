@@ -22,7 +22,6 @@ class cron extends Website_Controller
         $videos = $this->db->get_where('video', array('converted' => 1))->result();
 
         foreach ($videos as $video) {
-            //$i++;
             $fileNameNoExtension = preg_replace("/\.[^.]+$/", "", $video->video_file);
             $video_path = FCPATH . "assets/uploads/video/$video->video_file";
 

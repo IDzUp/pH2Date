@@ -1,6 +1,6 @@
 <?php
-$this->load->view('header');
-$this->load->view('loged_in_side');
+    $this->load->view('header');
+    $this->load->view('loged_in_side');
 ?>
 
 <div class="col-md-8">
@@ -35,7 +35,6 @@ $this->load->view('loged_in_side');
                     </div>
 
                     <div class="col-md-8">
-
                         <table class="table table-striped">
                             <tr>
                                 <td class=""><?= lang('user_name') ?></td>
@@ -53,9 +52,7 @@ $this->load->view('loged_in_side');
                                 <td class=""><?= lang('user_city') ?></td>
                                 <td class=""><?php echo ucfirst(strip_tags($user->city)) ?></td>
                             </tr>
-
                         </table>
-
                     </div>
                 </div>
             <?php endforeach ?>
@@ -63,4 +60,4 @@ $this->load->view('loged_in_side');
 
     </div>
 </div>
-<?php $this->load->view('footer') ?>
+<?php $this->load->view('footer'); ?>

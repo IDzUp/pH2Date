@@ -1,6 +1,6 @@
 <?php
-$this->load->view('header');
-$this->load->view('loged_in_side');
+    $this->load->view('header');
+    $this->load->view('loged_in_side');
 ?>
 <div class="col-md-8">
 <div class="well">

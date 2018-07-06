@@ -85,7 +85,6 @@ class User extends Website_Controller
                 $this->db->insert('chat', $insert_chat);
             }
 
-
             $this->db->where(array('from' => $username, 'to' => $my_user->username));
             $message = $this->db->get('chat')->result();
             $this->db->where(array('to' => $username, 'from' => $my_user->username));
@@ -140,7 +139,6 @@ class User extends Website_Controller
             $local_image = file_put_contents($filenameOut, $url_image);
 
             $this->ion_auth->register($username, $password, $email, $additional_data);
-
         }
     }
 
@@ -338,8 +336,6 @@ class User extends Website_Controller
         $this->data['user'] = $this->ion_auth->user()->row();
 
         $this->load->view('edit_account', $this->data);
-
-
     }
 
     public function mypic()
@@ -368,8 +364,6 @@ class User extends Website_Controller
         $user = $this->data['user'] = $this->ion_auth->user()->row();
         $this->data['videos'] = $this->db->get_where('video', array('user_id' => $user->id))->result();
         $this->load->view('myvideo', $this->data);
-
-
     }
 
     function upload_video()
@@ -654,7 +648,6 @@ class User extends Website_Controller
                 $this->data['csrf'] = $this->_get_csrf_nonce();
                 $this->data['code'] = $code;
 
-                //render
                 $this->_render_page('auth/reset_password', $this->data);
             } else {
                 // do we have a valid request?
@@ -779,9 +772,8 @@ class User extends Website_Controller
                 'sex' => $this->input->post('sex', true),
                 'phone' => $this->input->post('phone', true),
             );
-
-
         }
+
         if ($this->form_validation->run() && $this->ion_auth->register($username, $password, $email, $additional_data)) {
             //check to see if we are creating the user
             //redirect them back to the admin page
@@ -995,7 +987,6 @@ class User extends Website_Controller
                 'value' => $user->id,
             );
 
-            //render
             $this->_render_page('change_password', $this->data);
         } else {
             $identity = $this->session->userdata('identity');
@@ -1059,7 +1050,6 @@ class User extends Website_Controller
         $this->db->or_where('matched_user_id', $user->id);
         $matched_users = $this->db->get('match')->result_array();
 
-
         $user_list = array();
         if (!empty($matched_users)) {
             foreach ($matched_users AS $users) {
@@ -1114,12 +1104,12 @@ class User extends Website_Controller
             $this->db->insert('user_likes', $data);
             $this->session->set_flashdata('msg_success_right', "you passed $otheruser->first_name");
         }
+
         redirect('user/recommend');
     }
 
     private function _render_page($view, $data = null, $render = false)
     {
-
         $this->viewdata = (empty($data)) ? $this->data : $data;
 
         $view_html = $this->load->view($view, $this->viewdata, $render);

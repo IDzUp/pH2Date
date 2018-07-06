@@ -17,6 +17,7 @@ class main extends Website_Controller
         } else {
             redirect('user/login');
         }
+
         $this->load->view('page', $this->data);
     }
 

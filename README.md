@@ -2,6 +2,10 @@
 
 Powerful & lightweight PHP Dating Script built with CodeIgniter 2.X and Bootstrap + jQuery
 
+pH2Date allows you to setup a simple dating webapp with Instant Messenger, Matchmaking system (similar to HotOrNot or Tinder's swiping feature).
+
+It also allows users to upload Photos and Videos to their profile page, and much more!
+
 
 ## Server Requirements
 

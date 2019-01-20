@@ -1,4 +1,4 @@
-# pH2Date
+# 💖 pH2Date - Lightweight Dating Webapp
 
 Powerful & lightweight PHP Dating Script built with CodeIgniter 2.X and Bootstrap + jQuery
 
@@ -17,7 +17,7 @@ It also allows users to upload Photos and Videos to their profile page, and much
 
 Need more features and more scalability..?
 
-No prob! Have a look to [pH7CMS Dating](https://ph7cms.com/get/), **THE PRO Web App Builder**
+No prob! Have a look to [pH7CMS Dating](https://ph7cms.com/get/), **THE PRO Dating Web App Builder**
 
 
 ## How pH2Date Looks Like?

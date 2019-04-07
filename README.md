@@ -10,7 +10,8 @@ It also allows users to upload Photos and Videos to their profile page, and much
 ## Server Requirements
 
 * PHP >= 5.1.6
-* A Database is required for most web application programming. Current supported databases are MySQL (4.1+), MySQLi, MS SQL, Postgres, Oracle, SQLite, and ODBC.
+* Apache 2.2 or 2.4+ with `mod_rewrite` installed and enabled.
+* MySQL database (4.1+); MySQLi, MS SQL, Postgres, Oracle, SQLite, and ODBC.
 
 
 ## Bigger Project..?

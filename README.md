@@ -7,6 +7,16 @@ pH2Date allows you to setup a simple dating webapp with Instant Messenger, Match
 It also allows users to upload Photos and Videos to their profile page, and much more!
 
 
+## Debuging; Environment Mode
+
+To change the environment mode, please update the [index.php, line 21](https://github.com/IDzUp/pH2Date/blob/5a8fa89e4c1b7d08e40357a62f1284672c2a20c6/index.php#L21)
+
+Available environment modes are:
+* `development`
+* `testing`
+* `production`
+
+
 ## Server Requirements
 
 * PHP >= 5.1.6

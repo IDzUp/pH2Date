@@ -146,13 +146,13 @@ class User extends Website_Controller
     {
         $this->_logged_in();
 
-        $recomend = $this->_get_recommendition(false, false, true);
+        $recomend = $this->_get_recommendation(false, false, true);
         if (empty($recomend))
-            $recomend = $this->_get_recommendition(false, true, false);
+            $recomend = $this->_get_recommendation(false, true, false);
         if (empty($recomend))
-            $recomend = $this->_get_recommendition(true, false, false);
+            $recomend = $this->_get_recommendation(true, false, false);
         if (empty($recomend))
-            $recomend = $this->_get_recommendition(false, false, false);
+            $recomend = $this->_get_recommendation(false, false, false);
 
         if (!empty($recomend))
             $this->profile($recomend->username);
@@ -1033,7 +1033,7 @@ class User extends Website_Controller
         return $data;
     }
 
-    private function _get_recommendition($same_country = false, $same_state = false, $same_city = false)
+    private function _get_recommendation($same_country = false, $same_state = false, $same_city = false)
     {
         $user = $this->ion_auth->user()->row();
         $user_likes = $this->db->get_where('user_likes', array('user_id' => $user->id))->result_array();

@@ -86,7 +86,13 @@ class admin extends Admin_Controller
         $additional_data['state'] = $city_data['state'];
         $additional_data['city'] = $city_data['city'];
 
-        $this->ion_auth->register($post_array['username'], $post_array['password'], $post_array['email'], $additional_data, $post_array['group']);
+        $this->ion_auth->register(
+            $post_array['username'],
+            $post_array['password'],
+            $post_array['email'],
+            $additional_data,
+            $post_array['group']
+        );
 
         return true;
     }

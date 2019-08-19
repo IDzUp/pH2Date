@@ -124,17 +124,16 @@ class smiles extends Website_Controller
         $aliases[] = '(F) give_rose.gif';
 
         foreach ($emoticons AS $emotion) {
-            $s = explode(" ", $emotion);
-            $data["word"] = $s[0];
-            $data["img"] = $s[1];
+            $s = explode(' ', $emotion);
+            $data['word'] = $s[0];
+            $data['img'] = $s[1];
             $this->db->insert('emoticons', $data);
         }
         foreach ($aliases AS $emotion) {
-            $s = explode(" ", $emotion);
-            $data["word"] = $s[0];
-            $data["img"] = $s[1];
+            $s = explode(' ', $emotion);
+            $data['word'] = $s[0];
+            $data['img'] = $s[1];
             $this->db->insert('emoticons', $data);
         }
-
     }
 }

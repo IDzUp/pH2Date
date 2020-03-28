@@ -135,6 +135,5 @@ class smiles extends Website_Controller
             $data["img"] = $s[1];
             $this->db->insert('emoticons', $data);
         }
-
     }
 }

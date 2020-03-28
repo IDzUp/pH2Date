@@ -22,7 +22,7 @@ $this->load->view('loged_in_side');
 
 
 <video width="100%" controls>
-  <source src="<?=base_url('assets/uploads/files/video/video/'.$video->converted_name.".webm")?>" type="video/webm">
+  <source src="<?=base_url('assets/uploads/files/video/video/'.$video->converted_name.'.webm')?>" type="video/webm">
   Your browser does not support the video tag.
 </video>
 

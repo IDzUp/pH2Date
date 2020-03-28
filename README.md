@@ -14,6 +14,11 @@ It also allows users to upload Photos and Videos to their profile page, and much
 * MySQL database (4.1+); MySQLi, MS SQL, Postgres, Oracle, SQLite, and ODBC.
 
 
+## Installation
+
+Have a look to `INSTALLATION - INSTRUCTION.txt` file to know step-by-step how to set it up.
+
+
 ## Bigger Project..?
 
 Need more features and more scalability..?

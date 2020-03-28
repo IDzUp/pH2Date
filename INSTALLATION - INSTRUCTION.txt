@@ -29,5 +29,3 @@ In index.php (located in the root folder), please change "define('ENVIRONMENT', 
 
 ---
 P.S. When your site is live, for security and copyright reasons, please remove this file and the "install.sql" file.
-
-Finally, if you have any questions, please create a ticket through your client area -> http://clients.hizup.com

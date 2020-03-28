@@ -19,7 +19,7 @@ class cron extends Website_Controller
         $videoThumpDir = FCPATH . 'assets/uploads/files/video/thum/';
 
         $this->db->select('id, video_file');
-        $videos = $this->db->get_where('video', ['converted' => 1])->result();
+        $videos = $this->db->get_where('video', array('converted' => 1))->result();
 
         foreach ($videos as $video) {
             $fileNameNoExtension = preg_replace("/\.[^.]+$/", "", $video->video_file);

@@ -27,14 +27,12 @@ $this->load->view('loged_in_side');
 <?php if(!empty($videos)): ?>
     <?php foreach ($videos as $video): ?>
     <div class="col-xs-4">
-     <h4><?=strip_tags($video->video_name)?></h4>
-
-             <img src="<?=base_url('assets/uploads/files/video/thum/'.$video->converted_name."jpg")?>" class="img-responsive imageClip">
+        <h4><?=strip_tags($video->video_name)?></h4>
+        <img src="<?=base_url('assets/uploads/files/video/thum/'.$video->converted_name.'.jpg')?>" alt="<?=strip_tags($video->video_name)?>" class="img-responsive imageClip">
 
         <a class="btn btn-default" href="<?=site_url('user/video_watch/'.$video->id)?>"><?=lang('watch')?></a>
         <a class="btn btn-default" href="<?=site_url('user/video_edit/'.$video->id)?>"><?=lang('edit')?></a>
         <a onclick="return confirm_delete();" class="btn btn-default" href="<?=site_url('user/video_delete/'.$video->id)?>"><?=lang('delete')?></a>
-
     </div>
         <?php endforeach ?>
     <?php endif ?>

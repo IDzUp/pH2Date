@@ -58,7 +58,7 @@ $this->load->view('loged_in_side');
 <?php foreach ($videos as $video): ?>
     <div class="col-xs-4">
         <h4><?=$video->video_name?></h4>
-        <img src="<?=base_url('assets/uploads/files/video/thum/' . $video->converted_name.".jpg") ?>" class="img-responsive imageClip">
+        <img src="<?=base_url('assets/uploads/files/video/thum/' . $video->converted_name.'.jpg') ?>" alt="<?=$video->video_name?>" class="img-responsive imageClip">
         <a class="btn btn-default" href="<?=site_url('user/video_watch/'.$video->id) ?>"><?=lang('watch')?></a>
     </div>
 <?php endforeach ?>

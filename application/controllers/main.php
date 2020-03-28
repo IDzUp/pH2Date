@@ -23,7 +23,7 @@ class main extends Website_Controller
 
     public function switchLanguage($language = "")
     {
-        $language = ($language != "") ? $language : "english";
+        $language = $language !== '' ? $language : 'english';
         $this->session->set_userdata('site_lang', $language);
         redirect(base_url());
     }

@@ -14,7 +14,7 @@
             <a href='<?php echo site_url('main/switchLanguage/english') ?>'>English</a>
         <?php endif ?>
       </p>
-    <p class="small right">Powered by <strong><abbr title="pH2Date.com is an exclusive Professional Web Dating Solution for e-Business">pH2Date</abbr></strong>, <em>Intelligent <a href="http://ph2date.com">Web Dating Solution</a> Designed for Smart Businesses</em></p>
+    <p class="small right">Powered by <strong><abbr title="pH2Date.com is an exclusive Professional Web Dating Solution for e-Businesses">pH2Date</abbr></strong>, <em>Intelligent <a href="https://github.com/IDzUp/pH2Date">Web Dating Solution</a> Designed for Smart Businesses</em></p>
     </div>
 </div>
 

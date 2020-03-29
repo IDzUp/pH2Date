@@ -15,7 +15,7 @@ class cron extends Website_Controller
         define('FFMPEG_movie', '/usr/bin/ffmpeg_movie');
         define('flvtool2Path', '/usr/bin/flvtool2');
 
-        $videoDirName = FCPATH . 'assets/uploads/files/video/video/';  //Folder name where video will save
+        $videoDirName = FCPATH . 'assets/uploads/files/video/video/';
         $videoThumpDir = FCPATH . 'assets/uploads/files/video/thum/';
 
         $this->db->select('id, video_file');

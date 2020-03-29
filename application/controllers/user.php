@@ -122,14 +122,13 @@ class User extends Website_Controller
             $additional_data = array(
                 'first_name' => $user['name']['first'],
                 'last_name' => $user['name']['last'],
-                'country' => 'United States',
+                'country' => $user['location']['country'],
                 'state' => $user['location']['state'],
                 'city' => $user['location']['city'],
                 'sex' => $user['gender'],
                 'phone' => $data['phone'],
                 'profile_photo' => basename($user['picture']['medium']),
             );
-
 
             $filenameOut = './assets/uploads/member/' . basename($user['picture']['medium']);
             $url_image = file_get_contents($user['picture']['medium']);

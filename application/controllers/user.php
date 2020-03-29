@@ -119,7 +119,6 @@ class User extends Website_Controller
             $username = $user['login']['username'];
             $email = $user['email'];
             $password = $user['login']['password'];
-            $city_data = $this->_city();
             $additional_data = array(
                 'first_name' => $user['name']['first'],
                 'last_name' => $user['name']['last'],

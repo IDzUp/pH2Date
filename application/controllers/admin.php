@@ -63,7 +63,7 @@ class admin extends Admin_Controller
 
     private function _city()
     {
-        $data = json_decode(file_get_contents("http://freegeoip.net/json/"), true);
+        $data = json_decode(file_get_contents('https://freegeoip.app/json/'), true);
         $data['country'] = $data['country_name'];
         $data['state'] = $data['region_name'];
         $data['city'] = $data['city'];

@@ -1019,7 +1019,7 @@ class User extends Website_Controller
         } else {
             $ip = $_SERVER['REMOTE_ADDR'];
         }
-        $data = json_decode(file_get_contents("http://freegeoip.net/json/$ip"), true);
+        $data = json_decode(file_get_contents("https://freegeoip.app/json/$ip"), true);
 
         $data['country'] = $data['country_name'];
         $data['state'] = $data['region_name'];

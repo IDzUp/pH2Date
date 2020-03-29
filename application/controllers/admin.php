@@ -16,7 +16,6 @@ class admin extends Admin_Controller
     {
         $crud = new grocery_CRUD();
         $crud->set_table('users');
-        //$crud->set_relation('group','groups','name',array('id !=' => '1'));
         $crud->columns('profile_photo', 'first_name', 'username', 'email');
         $crud->set_field_upload('profile_photo', 'assets/uploads/member');
         $crud->fields('first_name', 'last_name', 'username', 'email', 'phone', 'sex', 'prefer_opposite_sex', 'profile_photo');

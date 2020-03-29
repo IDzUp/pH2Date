@@ -15,7 +15,7 @@ $this->load->view('loged_in_side');
 <br/>
 <?php if($profile_owner): ?>
     <a href="<?php echo site_url('user/edit_account/'); ?>" class="btn btn-danger"><i class="fa fa-pencil-square-o"></i> <?=lang('edit_account')?></a>
-    <a href="<?php echo site_url('user/change_password/'); ?>" class="btn btn-default"><i class="fa fa-shield"></i> <?=lang('change_Password')?></a>
+    <a href="<?php echo site_url('user/change_password/'); ?>" class="btn btn-default"><i class="fa fa-shield"></i> <?=lang('change_password')?></a>
 <?php elseif(!$liked): ?>
     <a href="<?php echo site_url('user/like/'.$user->id); ?>" class="btn btn-danger" ><?=lang('like_user')?></a>
     <a href="<?php echo site_url('user/pass/'.$user->id); ?>" class="btn btn-danger" ><?=lang('pass_user')?></a>

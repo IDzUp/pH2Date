@@ -4,7 +4,8 @@ $lang['not_found'] = 'Page non trouv&eacute;e !';
 $lang['recommended_users'] = 'Recommended Users';
 $lang['no_recommended_users'] = 'Sorry , we can not find users near you right now , please visit us soon.';
 $lang['edit_account'] = 'Edit my account';
-$lang['change_Password'] = 'Change Password';
+$lang['info_saved'] = 'Info saved!';
+$lang['change_password'] = 'Change password';
 $lang['like_user'] = 'Like';
 $lang['pass_user'] = 'Pass';
 $lang['send_message'] = 'Send message';
@@ -36,10 +37,10 @@ $lang['menu_change_password'] = 'Changer Mot de Passe';
 $lang['menu_my_messages'] = 'Mes Messages';
 $lang['menu_manage_images'] = 'Mes Images';
 $lang['menu_manage_videos'] = 'Mes Vid&eacute;os';
-$lang['menu_delete_account'] = 'Supprimer mon Compte';
+$lang['menu_delete_account'] = 'Supprimer mon compte';
 $lang['menu_logout'] = 'D&eacute;connexion';
 
-$lang['delete_account'] = 'Delete your account';
+$lang['delete_account'] = 'Supprimer votre compte';
 $lang['delete_account_desc'] = 'This is a final step , if you confirm all your data will be removed';
 $lang['agree'] = 'I agree';
 

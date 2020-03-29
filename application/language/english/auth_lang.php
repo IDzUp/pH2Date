@@ -50,7 +50,7 @@ $lang['deactivate_subheading'] = 'Are you sure you want to deactivate the user \
 $lang['deactivate_confirm_y_label'] = 'Yes:';
 $lang['deactivate_confirm_n_label'] = 'No:';
 $lang['deactivate_submit_btn'] = 'Submit';
-$lang['deactivate_validation_confirm_label'] = 'confirmation';
+$lang['deactivate_validation_confirm_label'] = 'Confirmation';
 $lang['deactivate_validation_user_id_label'] = 'user ID';
 
 // Create User

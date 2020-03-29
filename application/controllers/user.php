@@ -195,7 +195,7 @@ class User extends Website_Controller
         if ($confirm == 'do') {
             if (PH2DATE_DEMOMODE) // Stop that feature if it is on Demo mode
             {
-                $this->session->set_flashdata('msg_error_right', "During the Demo More, You can't delete your Account!");
+                $this->session->set_flashdata('msg_error_right', "During the Demo Mode, you can't delete your account.");
                 redirect('user/delete', 'refresh');
             } else {
                 $u = $this->ion_auth->user()->row();
@@ -326,7 +326,7 @@ class User extends Website_Controller
             }
 
             $this->ion_auth->update($user->id, $data);
-            $this->session->set_flashdata('msg_success_right', "your data updated");
+            $this->session->set_flashdata('msg_success_right', 'Your data has been updated.');
             redirect('user/profile');
         }
         $this->data['user'] = $this->ion_auth->user()->row();
@@ -392,7 +392,7 @@ class User extends Website_Controller
                     redirect('user/upload_video');
                 }
             } else {
-                $this->session->set_flashdata('msg_error_right', "Video image required");
+                $this->session->set_flashdata('msg_error_right', 'Video image is required.');
                 redirect('user/upload_video');
             }
             if ($this->upload->do_upload('video_file')) {
@@ -400,17 +400,17 @@ class User extends Website_Controller
                 $data['video_file'] = $data_img['upload_data']['file_name'];
                 $info = new splfileinfo($data['video_file']);
                 if (!in_array($info->getextension(), array('flv', 'mp4', 'mpeg', '3gp', 'wmv'))) {
-                    $this->session->set_flashdata('msg_error_right', "Video extension not allowed");
+                    $this->session->set_flashdata('msg_error_right', 'Video extension not allowed');
                     redirect('user/upload_video');
                 }
             } else {
-                $this->session->set_flashdata('msg_error_right', "Video file required");
+                $this->session->set_flashdata('msg_error_right', 'Video file is required.');
                 redirect('user/upload_video');
             }
 
 
             $this->db->insert('video', $data);
-            $this->session->set_flashdata('msg_success_right', "your video uploaded");
+            $this->session->set_flashdata('msg_success_right', 'Your video has been uploaded.');
             redirect('user/myvideo');
         }
         $upload_err = $this->upload->display_errors();
@@ -432,7 +432,7 @@ class User extends Website_Controller
                 'video_desc' => $this->input->post('video_desc', true),
             );
             $this->db->update('video', $data, array('user_id' => $user->id, 'id' => $id));
-            $this->session->set_flashdata('msg_success_right', "your video updated");
+            $this->session->set_flashdata('msg_success_right', 'Your video has been updated');
             redirect('user/myvideo');
         }
         $this->data['video'] = $this->db->get_where('video', array('id' => $id, 'user_id' => $user->id))->row();
@@ -447,7 +447,7 @@ class User extends Website_Controller
         $this->_logged_in();
         $user = $this->data['user'] = $this->ion_auth->user()->row();
         $this->db->delete('video', array('id' => $id, 'user_id' => $user->id));
-        $this->session->set_flashdata('msg_success_right', "your video Deleted");
+        $this->session->set_flashdata('msg_success_right', 'Your video has been removed');
         redirect('user/myvideo');
     }
 
@@ -897,7 +897,7 @@ class User extends Website_Controller
 
                 //check to see if we are creating the user
                 //redirect them back to the admin page
-                $this->session->set_flashdata('msg_success_right', 'Info Saved');
+                $this->session->set_flashdata('msg_success_right', lang('info_saved'));
                 redirect('user', 'refresh');
             }
         }
@@ -989,7 +989,7 @@ class User extends Website_Controller
 
             if (PH2DATE_DEMOMODE) // Stop that feature if it is on Demo mode
             {
-                $this->session->set_flashdata('msg_error_right', "You can't change the password for the Demo!");
+                $this->session->set_flashdata('msg_error_right', "You can't change the password in the Demo Mode.");
                 redirect('user/change_password', 'refresh');
             } else {
                 $change = $this->ion_auth->change_password($identity, $this->input->post('old'), $this->input->post('new'));

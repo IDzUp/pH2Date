@@ -113,14 +113,12 @@ class User extends Website_Controller
     public function insert_fake_users()
     {
         $this->_logged_in();
-        $data = json_decode(file_get_contents('http://api.randomuser.me/?results=15'), true);
+        $data = json_decode(file_get_contents('https://randomuser.me/api/1.3/?nat=us&results=15&noinfo=1'), true);
 
         foreach ($data['results'] as $user) {
-            $user = $user['user'];
-
-            $username = $user['username'];
+            $username = $user['login']['username'];
             $email = $user['email'];
-            $password = $user['password'];
+            $password = $user['login']['password'];
             $city_data = $this->_city();
             $additional_data = array(
                 'first_name' => $user['name']['first'],

@@ -160,7 +160,7 @@ class User extends Website_Controller
     {
         $this->_logged_in();
 
-        if ($this->form_validation->run() == false) {
+        if ($this->form_validation->run() === false) {
             //setup the input
             $this->data['search'] = array('name' => 'searchkw',
                 'id' => 'search',
@@ -192,7 +192,7 @@ class User extends Website_Controller
     {
         $this->_logged_in();
 
-        if ($confirm == 'do') {
+        if ($confirm === 'do') {
             if (PH2DATE_DEMOMODE) // Stop that feature if it is on Demo mode
             {
                 $this->session->set_flashdata('msg_error_right', "During the Demo Mode, you can't delete your account.");
@@ -557,7 +557,7 @@ class User extends Website_Controller
     public function forgot_password()
     {
         $this->form_validation->set_rules('email', $this->lang->line('forgot_password_validation_email_label'), 'required|valid_email');
-        if ($this->form_validation->run() == false) {
+        if ($this->form_validation->run() === false) {
             //setup the input
             $this->data['email'] = array('name' => 'email',
                 'id' => 'email',
@@ -566,7 +566,7 @@ class User extends Website_Controller
                 'style' => "width:70%",
             );
 
-            if ($this->config->item('identity', 'ion_auth') == 'username') {
+            if ($this->config->item('identity', 'ion_auth') === 'username') {
                 $this->data['identity_label'] = $this->lang->line('forgot_password_username_identity_label');
             } else {
                 $this->data['identity_label'] = $this->lang->line('forgot_password_email_identity_label');
@@ -577,7 +577,7 @@ class User extends Website_Controller
             $this->_render_page('auth/forgot_password', $this->data);
         } else {
             // get identity from username or email
-            if ($this->config->item('identity', 'ion_auth') == 'username') {
+            if ($this->config->item('identity', 'ion_auth') === 'username') {
                 $identity = $this->ion_auth->where('username', strtolower($this->input->post('email')))->users()->row();
             } else {
                 $identity = $this->ion_auth->where('email', strtolower($this->input->post('email')))->users()->row();
@@ -616,7 +616,7 @@ class User extends Website_Controller
             $this->form_validation->set_rules('new', $this->lang->line('reset_password_validation_new_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[new_confirm]');
             $this->form_validation->set_rules('new_confirm', $this->lang->line('reset_password_validation_new_password_confirm_label'), 'required');
 
-            if ($this->form_validation->run() == false) {
+            if ($this->form_validation->run() === false) {
                 //display the form
 
                 //set the flash data error message if there is one
@@ -711,7 +711,7 @@ class User extends Website_Controller
         $this->form_validation->set_rules('confirm', $this->lang->line('deactivate_validation_confirm_label'), 'required');
         $this->form_validation->set_rules('id', $this->lang->line('deactivate_validation_user_id_label'), 'required|alpha_numeric');
 
-        if ($this->form_validation->run() == false) {
+        if ($this->form_validation->run() === false) {
             // insert csrf check
             $this->data['csrf'] = $this->_get_csrf_nonce();
             $this->data['user'] = $this->ion_auth->user($id)->row();
@@ -719,7 +719,7 @@ class User extends Website_Controller
             $this->_render_page('auth/deactivate_user', $this->data);
         } else {
             // do we really want to deactivate?
-            if ($this->input->post('confirm') == 'yes') {
+            if ($this->input->post('confirm') === 'yes') {
                 // do we have a valid request?
                 if ($this->_valid_csrf_nonce() === false || $id != $this->input->post('id')) {
                     show_error($this->lang->line('error_csrf'));
@@ -950,7 +950,7 @@ class User extends Website_Controller
 
         $user = $this->ion_auth->user()->row();
 
-        if ($this->form_validation->run() == false) {
+        if ($this->form_validation->run() === false) {
             //display the form
             //set the flash data error message if there is one
             $this->msg_error_right = (validation_errors()) ? validation_errors() : $this->session->flashdata('msg_error_right');
@@ -1074,7 +1074,7 @@ class User extends Website_Controller
     {
         $user = $this->ion_auth->user()->row();
         $otheruser = $this->ion_auth->user($id)->row();
-        if ($operation == 'like') {
+        if ($operation === 'like') {
             $data = array();
             $data['user_id'] = $user->id;
             $data['liked_user_id'] = $id;
@@ -1092,7 +1092,7 @@ class User extends Website_Controller
 
             }
         }
-        if ($operation == 'pass') {
+        if ($operation === 'pass') {
             $data = array();
             $data['user_id'] = $user->id;
             $data['liked_user_id'] = $id;

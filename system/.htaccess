@@ -1,9 +1,6 @@
-# Apache >= 2.4
-<IfModule mod_authz_core.c>
-    Require all denied
+<IfModule authz_core_module>
+	Require all denied
 </IfModule>
-
-# Apache <= 2.2
-<IfModule !mod_authz_core.c>
-    Deny from all
+<IfModule !authz_core_module>
+	Deny from all
 </IfModule>

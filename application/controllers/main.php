@@ -1,6 +1,7 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class main extends Website_Controller
+class Main extends Website_Controller
 {
     public function index()
     {

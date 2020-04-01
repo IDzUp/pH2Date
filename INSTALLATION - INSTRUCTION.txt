@@ -1,4 +1,4 @@
-First off, thank you so much for buying pH2Date. 
+First off, thank you so much for buying pH2Date.
 Hope you will enjoy your new dating site and we wish you all the best to succeed!
 Also, we you want to learn and have a professional marketing service specializing in online dating businesses, just have a look to -> http://edatingmarketing.com
 
@@ -6,7 +6,7 @@ Also, we you want to learn and have a professional marketing service specializin
 
 1 - Upload all files to your server (with a FTP client for example, (e.g., FileZilla or WinSCP).
 
-2- Open /application/config/config.php and in the beginning of the file ($config['base_url'] = ''), add the full URL where your site will be installed by ending by a slash "/", then save it.
+2- Open /application/config/config.php - In the beginning of the file, replace 'http://YOUR-URL.COM/' to your website URL where your site will be installed by ending with a slash "/", then save it.
 
 3- Open /application/config/database.php and add the details of your database, then save it.
 
@@ -18,7 +18,7 @@ Also, we you want to learn and have a professional marketing service specializin
 -- Admin Login --
 
 URL: http://your-site.com/admin/
-Email: demo@demo.com
+Email: admin@ph2date.com
 Password: password
 
 

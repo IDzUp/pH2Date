@@ -7,17 +7,17 @@
 * Inspired by PrintArea (http://plugins.jquery.com/project/PrintArea) and
 * http://stackoverflow.com/questions/472951/how-do-i-print-an-iframe-from-javascript-in-safari-chrome
 *
-*  Home Page : http://projects.erikzaadi/jQueryPlugins/jQuery.printElement
+*  Home Page : http://projects.erikzaadi/jQueryPlugins/jQuery.printElement 
 *  Issues (bug reporting) : http://github.com/erikzaadi/jQueryPlugins/issues/labels/printElement
-*  jQuery plugin page : http://plugins.jquery.com/project/printElement
-*
+*  jQuery plugin page : http://plugins.jquery.com/project/printElement 
+*  
 *  Thanks to David B (http://github.com/ungenio) and icgJohn (http://www.blogger.com/profile/11881116857076484100)
 *  For their great contributions!
-*
+* 
 * Dual licensed under the MIT and GPL licenses:
 *   http://www.opensource.org/licenses/mit-license.php
 *   http://www.gnu.org/licenses/gpl.html
-*
+*   
 *   Note, Iframe Printing is not supported in Opera and Chrome 3.0, a popup window will be shown instead
 */
 ; (function (window, undefined) {
@@ -25,12 +25,7 @@
     var $ = window["jQuery"];
     $.fn["printElement"] = function (options) {
         var mainOptions = $.extend({}, $.fn["printElement"]["defaults"], options);
-        //iframe mode is not supported for opera and chrome 3.0 (it prints the entire page).
-        //http://www.google.com/support/forum/p/Webmasters/thread?tid=2cb0f08dce8821c3&hl=en
-        if (mainOptions["printMode"] == 'iframe') {
-            if ($.browser.opera || (/chrome/.test(navigator.userAgent.toLowerCase())))
-                mainOptions["printMode"] = 'popup';
-        }
+
         //Remove previously printed iframe if exists
         $("[id^='printElement_']").remove();
 
@@ -173,7 +168,7 @@
         html.push('<base href="' + _getBaseHref() + '" />');
         html.push('</head><body style="' + opts["printBodyOptions"]["styleToAdd"] + '" class="' + opts["printBodyOptions"]["classNameToAdd"] + '">');
         html.push('<div class="' + $element.attr('class') + '">' + elementHtml + '</div>');
-        html.push('<script type="text/javascript">function printPage(){focus();print();' + ((!$.browser.opera && !opts["leaveOpen"] && opts["printMode"].toLowerCase() == 'popup') ? 'close();' : '') + '}</script>');
+        html.push('<script type="text/javascript">function printPage(){focus();print();' + ((!opts["leaveOpen"] && opts["printMode"].toLowerCase() == 'popup') ? 'close();' : '') + '}</script>');
         html.push('</body></html>');
 
         return html.join('');

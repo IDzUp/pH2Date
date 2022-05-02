@@ -113,7 +113,7 @@ class User extends Website_Controller
     public function insert_fake_users()
     {
         $this->_logged_in();
-        $data = json_decode(file_get_contents('https://randomuser.me/api/1.3/?nat=us&results=15&noinfo=1'), true);
+        $data = json_decode(file_get_contents($this->config->item('randomuser_api_url') . '?nat=us&results=15&noinfo=1'), true);
 
         foreach ($data['results'] as $user) {
             $username = $user['login']['username'];
@@ -1015,7 +1015,7 @@ class User extends Website_Controller
         } else {
             $ip = $_SERVER['REMOTE_ADDR'];
         }
-        $data = json_decode(file_get_contents("https://freegeoip.app/json/$ip"), true);
+        $data = json_decode(file_get_contents($this->config->item('geoip_api_url') . $ip), true);
 
         $data['country'] = $data['country_name'];
         $data['state'] = $data['region_name'];

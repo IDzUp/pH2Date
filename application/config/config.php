@@ -1,4 +1,6 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+if (!defined('BASEPATH')) exit('No direct script access allowed');
+
 $is_demo = (strpos($_SERVER['SERVER_NAME'], 'demo') !== false);
 define('PH2DATE_DEMOMODE', $is_demo);
 
@@ -9,6 +11,8 @@ $config['index_page'] = '';
 
 $config['website_template'] = 'ph2date'; // Name of the template you want to use
 
+$config['randomuser_api_url'] = 'https://randomuser.me/api/1.3/';
+$config['geoip_api_url'] = 'https://freegeoip.app/json/';
 
 /*
 |--------------------------------------------------------------------------

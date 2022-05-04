@@ -20,7 +20,7 @@
  * @version        0.5
  * @author         John Skoumbourdis <scoumbourdisj@gmail.com>
  */
-class image_CRUD
+class Image_CRUD
 {
 
     protected $table_name = null;

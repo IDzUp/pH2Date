@@ -7,6 +7,6 @@
 
 $.extend($.ui.multiselect.locale, {
   addAll:'اضافة الكل',
-    removeAll:'حذف الكل',
-    itemsCount:'الاختيارات المحددة'
+	removeAll:'حذف الكل',
+	itemsCount:'الاختيارات المحددة'
 });

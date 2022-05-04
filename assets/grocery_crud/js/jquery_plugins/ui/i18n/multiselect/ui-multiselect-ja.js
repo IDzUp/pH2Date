@@ -5,7 +5,7 @@
  */
 
 $.extend($.ui.multiselect.locale, {
-    addAll:'すべて選択',
-    removeAll:'すべて削除',
-    itemsCount:'個選択'
+	addAll:'すべて選択',
+	removeAll:'すべて削除',
+	itemsCount:'個選択'
 });

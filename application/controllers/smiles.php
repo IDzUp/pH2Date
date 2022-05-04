@@ -1,7 +1,9 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+if (!defined('BASEPATH')) exit('No direct script access allowed');
+
 set_time_limit(0);
 
-class smiles extends Website_Controller
+class Smiles extends Website_Controller
 {
     public function index()
     {

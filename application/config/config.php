@@ -5,7 +5,7 @@ $is_demo = (strpos($_SERVER['SERVER_NAME'], 'demo') !== false);
 define('PH2DATE_DEMOMODE', $is_demo);
 
 
-$config['base_url'] = 'http://YOUR-URL.COM/'; // URL where your site is installed. URL must end with a slash "/" (e.g., http://mydatingsite.com/)
+$config['base_url'] = 'http://localhost:8888/pH2Date/'; // URL where your site is installed. URL must end with a slash "/" (e.g., http://mydatingsite.com/)
 
 $config['index_page'] = '';
 
@@ -21,17 +21,16 @@ $config['geoip_api_url'] = 'https://freegeoip.app/json/';
 |--------------------------------------------------------------------------
 |
 | This item determines which server global should be used to retrieve the
-| URI string.  The default setting of 'AUTO' works for most servers.
+| URI string.  The default setting of 'REQUEST_URI' works for most servers.
 | If your links do not seem to work, try one of the other delicious flavors:
 |
-| 'AUTO'            Default - auto detects
-| 'PATH_INFO'        Uses the PATH_INFO
-| 'QUERY_STRING'    Uses the QUERY_STRING
-| 'REQUEST_URI'        Uses the REQUEST_URI
-| 'ORIG_PATH_INFO'    Uses the ORIG_PATH_INFO
+| 'REQUEST_URI'    Uses $_SERVER['REQUEST_URI']
+| 'QUERY_STRING'   Uses $_SERVER['QUERY_STRING']
+| 'PATH_INFO'      Uses $_SERVER['PATH_INFO']
 |
+| WARNING: If you set this to 'PATH_INFO', URIs will always be URL-decoded!
 */
-$config['uri_protocol'] = 'AUTO';
+$config['uri_protocol']	= 'REQUEST_URI';
 
 /*
 |--------------------------------------------------------------------------

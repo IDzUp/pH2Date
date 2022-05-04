@@ -19,9 +19,9 @@ Available environment modes are:
 
 ## Server Requirements
 
-* PHP >= 5.1.6
+* PHP >= 5.6
 * Apache 2.2 or 2.4+ with `mod_rewrite` installed and enabled.
-* MySQL database (4.1+); MySQLi, MS SQL, Postgres, Oracle, SQLite, and ODBC.
+* MySQL database (5.1+); MySQLi, MS SQL, Postgres, Oracle, SQLite, and ODBC.
 
 
 ## Installation

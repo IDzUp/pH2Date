@@ -1,3 +1,3 @@
-$(function () {
-    $(".radio-uniform").uniform();
+$(function(){
+	$(".radio-uniform").uniform();	
 });

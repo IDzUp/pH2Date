@@ -1,147 +1,217 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 5.1.6 or newer
+ * An open source application development framework for PHP
  *
- * @package        CodeIgniter
- * @author        EllisLab Dev Team
- * @copyright        Copyright (c) 2006 - 2014 EllisLab, Inc.
- * @copyright        Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
- * @license        http://codeigniter.com/user_guide/license.html
- * @link        http://codeigniter.com
- * @since        Version 2.0
+ * This content is released under the MIT License (MIT)
+ *
+ * Copyright (c) 2014 - 2019, British Columbia Institute of Technology
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * @package	CodeIgniter
+ * @author	EllisLab Dev Team
+ * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (https://ellislab.com/)
+ * @copyright	Copyright (c) 2014 - 2019, British Columbia Institute of Technology (https://bcit.ca/)
+ * @license	https://opensource.org/licenses/MIT	MIT License
+ * @link	https://codeigniter.com
+ * @since	Version 2.0.0
  * @filesource
  */
-
-// ------------------------------------------------------------------------
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * CodeIgniter APC Caching Class
  *
- * @package        CodeIgniter
- * @subpackage    Libraries
- * @category    Core
- * @author        EllisLab Dev Team
+ * @package		CodeIgniter
+ * @subpackage	Libraries
+ * @category	Core
+ * @author		EllisLab Dev Team
  * @link
  */
 class CI_Cache_apc extends CI_Driver {
 
-    /**
-     * Get
-     *
-     * Look for a value in the cache.  If it exists, return the data
-     * if not, return FALSE
-     *
-     * @param     string
-     * @return     mixed        value that is stored/FALSE on failure
-     */
-    public function get($id)
-    {
-        $data = apc_fetch($id);
+	/**
+	 * Class constructor
+	 *
+	 * Only present so that an error message is logged
+	 * if APC is not available.
+	 *
+	 * @return	void
+	 */
+	public function __construct()
+	{
+		if ( ! $this->is_supported())
+		{
+			log_message('error', 'Cache: Failed to initialize APC; extension not loaded/enabled?');
+		}
+	}
 
-        return (is_array($data)) ? $data[0] : FALSE;
-    }
+	// ------------------------------------------------------------------------
 
-    // ------------------------------------------------------------------------
+	/**
+	 * Get
+	 *
+	 * Look for a value in the cache. If it exists, return the data
+	 * if not, return FALSE
+	 *
+	 * @param	string
+	 * @return	mixed	value that is stored/FALSE on failure
+	 */
+	public function get($id)
+	{
+		$success = FALSE;
+		$data = apc_fetch($id, $success);
 
-    /**
-     * Cache Save
-     *
-     * @param     string        Unique Key
-     * @param     mixed        Data to store
-     * @param     int            Length of time (in seconds) to cache the data
-     *
-     * @return     boolean        true on success/false on failure
-     */
-    public function save($id, $data, $ttl = 60)
-    {
-        return apc_store($id, array($data, time(), $ttl), $ttl);
-    }
+		return ($success === TRUE) ? $data : FALSE;
+	}
 
-    // ------------------------------------------------------------------------
+	// ------------------------------------------------------------------------
 
-    /**
-     * Delete from Cache
-     *
-     * @param     mixed        unique identifier of the item in the cache
-     * @param     boolean        true on success/false on failure
-     */
-    public function delete($id)
-    {
-        return apc_delete($id);
-    }
+	/**
+	 * Cache Save
+	 *
+	 * @param	string	$id	Cache ID
+	 * @param	mixed	$data	Data to store
+	 * @param	int	$ttl	Length of time (in seconds) to cache the data
+	 * @param	bool	$raw	Whether to store the raw value (unused)
+	 * @return	bool	TRUE on success, FALSE on failure
+	 */
+	public function save($id, $data, $ttl = 60, $raw = FALSE)
+	{
+		return apc_store($id, $data, (int) $ttl);
+	}
 
-    // ------------------------------------------------------------------------
+	// ------------------------------------------------------------------------
 
-    /**
-     * Clean the cache
-     *
-     * @return     boolean        false on failure/true on success
-     */
-    public function clean()
-    {
-        return apc_clear_cache('user');
-    }
+	/**
+	 * Delete from Cache
+	 *
+	 * @param	mixed	unique identifier of the item in the cache
+	 * @return	bool	true on success/false on failure
+	 */
+	public function delete($id)
+	{
+		return apc_delete($id);
+	}
 
-    // ------------------------------------------------------------------------
+	// ------------------------------------------------------------------------
 
-    /**
-     * Cache Info
-     *
-     * @param     string        user/filehits
-     * @return     mixed        array on success, false on failure
-     */
-    public function cache_info($type = NULL)
-    {
-        return apc_cache_info($type);
-    }
+	/**
+	 * Increment a raw value
+	 *
+	 * @param	string	$id	Cache ID
+	 * @param	int	$offset	Step/value to add
+	 * @return	mixed	New value on success or FALSE on failure
+	 */
+	public function increment($id, $offset = 1)
+	{
+		return apc_inc($id, $offset);
+	}
 
-    // ------------------------------------------------------------------------
+	// ------------------------------------------------------------------------
 
-    /**
-     * Get Cache Metadata
-     *
-     * @param     mixed        key to get cache metadata on
-     * @return     mixed        array on success/false on failure
-     */
-    public function get_metadata($id)
-    {
-        $stored = apc_fetch($id);
+	/**
+	 * Decrement a raw value
+	 *
+	 * @param	string	$id	Cache ID
+	 * @param	int	$offset	Step/value to reduce by
+	 * @return	mixed	New value on success or FALSE on failure
+	 */
+	public function decrement($id, $offset = 1)
+	{
+		return apc_dec($id, $offset);
+	}
 
-        if (count($stored) !== 3)
-        {
-            return FALSE;
-        }
+	// ------------------------------------------------------------------------
 
-        list($data, $time, $ttl) = $stored;
+	/**
+	 * Clean the cache
+	 *
+	 * @return	bool	false on failure/true on success
+	 */
+	public function clean()
+	{
+		return apc_clear_cache('user');
+	}
 
-        return array(
-            'expire'    => $time + $ttl,
-            'mtime'        => $time,
-            'data'        => $data
-        );
-    }
+	// ------------------------------------------------------------------------
 
-    // ------------------------------------------------------------------------
+	/**
+	 * Cache Info
+	 *
+	 * @param	string	user/filehits
+	 * @return	mixed	array on success, false on failure
+	 */
+	 public function cache_info($type = NULL)
+	 {
+		 return apc_cache_info($type);
+	 }
 
-    /**
-     * is_supported()
-     *
-     * Check to see if APC is available on this system, bail if it isn't.
-     */
-    public function is_supported()
-    {
-        if ( ! extension_loaded('apc') OR ini_get('apc.enabled') != "1")
-        {
-            log_message('error', 'The APC PHP extension must be loaded to use APC Cache.');
-            return FALSE;
-        }
+	// ------------------------------------------------------------------------
 
-        return TRUE;
-    }
+	/**
+	 * Get Cache Metadata
+	 *
+	 * @param	mixed	key to get cache metadata on
+	 * @return	mixed	array on success/false on failure
+	 */
+	public function get_metadata($id)
+	{
+		$cache_info = apc_cache_info('user', FALSE);
+		if (empty($cache_info) OR empty($cache_info['cache_list']))
+		{
+			return FALSE;
+		}
 
+		foreach ($cache_info['cache_list'] as &$entry)
+		{
+			if ($entry['info'] !== $id)
+			{
+				continue;
+			}
+
+			$success  = FALSE;
+			$metadata = array(
+				'expire' => ($entry['ttl'] ? $entry['mtime'] + $entry['ttl'] : 0),
+				'mtime'  => $entry['ttl'],
+				'data'   => apc_fetch($id, $success)
+			);
+
+			return ($success === TRUE) ? $metadata : FALSE;
+		}
+
+		return FALSE;
+	}
+
+	// ------------------------------------------------------------------------
+
+	/**
+	 * is_supported()
+	 *
+	 * Check to see if APC is available on this system, bail if it isn't.
+	 *
+	 * @return	bool
+	 */
+	public function is_supported()
+	{
+		return (extension_loaded('apc') && ini_get('apc.enabled'));
+	}
 }
-
-/* End of file Cache_apc.php */
-/* Location: ./system/libraries/Cache/drivers/Cache_apc.php */
